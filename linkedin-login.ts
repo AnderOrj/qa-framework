@@ -1,4 +1,4 @@
-limport { chromium } from 'playwright';
+import { chromium } from 'playwright';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 
