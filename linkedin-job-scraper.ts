@@ -445,8 +445,9 @@ async function runJobSearch() {
 }
 
 async function runDailySummary() {
+  const timestamp = new Date().toLocaleString('es-CO');
   console.log(`\n${'='.repeat(60)}`);
-  console.log(`[${new Date().toLocaleTimeString()}] Daily summary — sending consolidated jobs...`);
+  console.log(`[${new Date().toLocaleTimeString()}] RESUMEN DIARIO — ${timestamp}`);
   console.log(`${'='.repeat(60)}`);
 
   const scraper = new LinkedInJobScraper();
@@ -460,8 +461,19 @@ async function runDailySummary() {
     .map(job => ({ ...job, score: job.score ?? scoreJob(job) }))
     .sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
 
-  console.log(`  📋 Jobs found today: ${todaysJobs.length}`);
-  await scraper.notifyNewJobs(todaysJobs, 'RESUMEN DIARIO · ÚLTIMO MENSAJE CONSOLIDADO');
+  console.log(`\n📋 Total ofertas encontradas hoy: ${todaysJobs.length}\n`);
+
+  todaysJobs.forEach((job, idx) => {
+    const stars = scoreStars(job.score ?? 0);
+    const date = job.datePosted ? ` | 📅 ${job.datePosted}` : '';
+    const desc = job.description ? `\n   📝 ${job.description.substring(0, 100)}...` : '';
+    console.log(`${idx + 1}. ${stars} ${job.title}`);
+    console.log(`   🏢 ${job.company} | 📍 ${job.location}${date}`);
+    console.log(`   🔗 ${job.link}${desc}`);
+    console.log('');
+  });
+
+  console.log('='.repeat(60));
 }
 
 let isSearchRunning = false;
