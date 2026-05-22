@@ -49,6 +49,7 @@ interface Job {
   savedAt?: string;
   score?: number;
   detectedCountry?: string;
+  notifiedAt?: string;
 }
 
 const SESSION_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), 'linkedin-session.json');
@@ -235,7 +236,15 @@ class LinkedInJobScraper {
     const now = new Date().toISOString();
     const jobsWithTimestamp = jobs.map(job => ({ ...job, savedAt: job.savedAt ?? now }));
     const existingJobs = this.loadExistingJobs();
-    const allJobs = this.pruneOldJobs([...existingJobs, ...jobsWithTimestamp]);
+    const merged = [...existingJobs, ...jobsWithTimestamp];
+    // Dedup by link — los existentes tienen prioridad (primer elemento gana)
+    const seen = new Set<string>();
+    const deduped = merged.filter(job => {
+      if (seen.has(job.link)) return false;
+      seen.add(job.link);
+      return true;
+    });
+    const allJobs = this.pruneOldJobs(deduped);
     fs.writeFileSync(this.jobsFile, JSON.stringify(allJobs, null, 2));
   }
 
@@ -304,6 +313,14 @@ class LinkedInJobScraper {
     } else {
       console.log('⚠️ Twilio not configured.');
     }
+  }
+
+  markNotified(links: string[]) {
+    const linkSet = new Set(links);
+    const jobs = this.loadExistingJobs().map(job =>
+      linkSet.has(job.link) ? { ...job, notifiedAt: new Date().toISOString() } : job
+    );
+    fs.writeFileSync(this.jobsFile, JSON.stringify(jobs, null, 2));
   }
 
   async close() {
@@ -543,10 +560,21 @@ async function runJobSearch() {
       .sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
 
     scraper.saveJobs(jobsToProcess);
+
+    // Filtrar jobs ya notificados por otro proceso (race condition entre instancias)
+    const alreadyNotified = new Set(
+      scraper.loadExistingJobs().filter(j => j.notifiedAt).map(j => j.link)
+    );
+    const jobsToNotify = isFirstRun
+      ? jobsToProcess
+      : jobsToProcess.filter(j => !alreadyNotified.has(j.link));
+
     if (isFirstRun) {
-      await scraper.notifyNewJobs(jobsToProcess, 'PRIMERA EJECUCIÓN - TODAS LAS OFERTAS');
-    } else if (jobsToProcess.length > 0) {
-      await scraper.notifyNewJobs(jobsToProcess, 'Nuevas ofertas QA');
+      await scraper.notifyNewJobs(jobsToNotify, 'PRIMERA EJECUCIÓN - TODAS LAS OFERTAS');
+      scraper.markNotified(jobsToNotify.map(j => j.link));
+    } else if (jobsToNotify.length > 0) {
+      await scraper.notifyNewJobs(jobsToNotify, 'Nuevas ofertas QA');
+      scraper.markNotified(jobsToNotify.map(j => j.link));
     }
 
     console.log(`\n✓ Job search completed. ${jobsToProcess.length} jobs ${isFirstRun ? 'found and saved (first run)' : 'new jobs found and saved'}.`);
