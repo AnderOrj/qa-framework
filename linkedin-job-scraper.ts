@@ -353,32 +353,64 @@ function rotateLogIfNeeded() {
 function scoreJob(job: Job): number {
   let score = 0;
   const title = job.title.toLowerCase();
+  const desc = (job.description || '').toLowerCase();
   const loc = (job.location + ' ' + (job.sourceLocation ?? '')).toLowerCase();
+  const all = title + ' ' + desc;
 
-  // Seniority
+  // Seniority (título)
   if (/\bsenior\b|\bsr\.?\b|\blead\b|\bstaff\b|\bprincipal\b/.test(title)) score += 30;
-  else if (/\bmid\b|\bssr\b|\bsemi/.test(title)) score += 15;
-  else if (/\bjunior\b|\bjr\.?\b|\bentry\b/.test(title)) score -= 10;
+  else if (/\bmid\b|\bssr\b|\bsemi\b/.test(title)) score += 15;
+  else if (/\bjunior\b|\bjr\.?\b|\bentry\b/.test(title)) score -= 15;
 
-  // Work mode
-  if (/remot[eo]/.test(title + ' ' + loc)) score += 20;
-  else if (/h[íi]brid/.test(title + ' ' + loc)) score += 10;
+  // Modalidad (título + descripción + ubicación)
+  if (/remot[eo]/.test(all + ' ' + loc)) score += 20;
+  else if (/h[íi]brid/.test(all + ' ' + loc)) score += 10;
 
-  // High-value tech keywords
-  if (/playwright/.test(title)) score += 15;
-  if (/\bcypress\b/.test(title)) score += 10;
-  if (/\bselenium\b/.test(title)) score += 10;
-  if (/\bsdet\b/.test(title)) score += 10;
-  if (/\bapi\b|\brest\b/.test(title)) score += 8;
-  if (/automat/.test(title)) score += 8;
-  if (/\bai\b|artificial intelligence|inteligencia artificial/.test(title)) score += 5;
+  // Herramientas de automatización (título + descripción)
+  if (/playwright/.test(all)) score += 15;
+  if (/\bcypress\b/.test(all)) score += 12;
+  if (/\bselenium\b/.test(all)) score += 10;
+  if (/\bappium\b/.test(all)) score += 10;
+  if (/\bsdet\b/.test(all)) score += 12;
+
+  // API / backend testing
+  if (/\bpostman\b/.test(all)) score += 8;
+  if (/\brest\s*api\b|\bapi\s+test/.test(all)) score += 8;
+  if (/\bk6\b|\bjmeter\b|\bgatling\b/.test(all)) score += 6;
+
+  // CI/CD y DevOps
+  if (/ci\/cd|github\s+actions|gitlab\s+ci|\bjenkins\b/.test(all)) score += 8;
+  if (/\bdocker\b|\bkubernetes\b/.test(all)) score += 5;
+
+  // Metodología ágil
+  if (/\bagile\b|\bscrum\b/.test(all)) score += 5;
+
+  // IA / ML testing
+  if (/\bai\b|artificial intelligence|inteligencia artificial|\bllm\b|machine learning/.test(all)) score += 8;
+
+  // Automatización general (si no cayó en herramientas específicas)
+  if (/automat/.test(all)) score += 5;
+
+  // Señales negativas (irrelevante para el perfil QA software)
+  if (/manufactur|industrial|hardware|mec[áa]nic/.test(all)) score -= 20;
+  if (/\bsap\b/.test(title)) score -= 10;
+
+  // Bonus por recencia
+  if (job.datePosted) {
+    const posted = new Date(job.datePosted);
+    if (!isNaN(posted.getTime())) {
+      const ageHours = (Date.now() - posted.getTime()) / (1000 * 60 * 60);
+      if (ageHours < 24) score += 10;
+      else if (ageHours < 72) score += 5;
+    }
+  }
 
   return score;
 }
 
 function scoreStars(score: number): string {
-  if (score >= 55) return '⭐⭐⭐';
-  if (score >= 30) return '⭐⭐';
+  if (score >= 50) return '⭐⭐⭐';
+  if (score >= 25) return '⭐⭐';
   return '⭐';
 }
 
