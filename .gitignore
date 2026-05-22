@@ -1,4 +1,5 @@
 .env
+cv-profile.json
 linkedin-session.json
 jobs.json
 scraper.log
