@@ -48,6 +48,7 @@ interface Job {
   sourceLocation?: string;
   savedAt?: string;
   score?: number;
+  detectedCountry?: string;
 }
 
 const SESSION_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), 'linkedin-session.json');
@@ -414,6 +415,74 @@ function scoreStars(score: number): string {
   return '⭐';
 }
 
+// ─── Detección de país y filtros de exclusión ─────────────────────────────
+
+const COUNTRY_PATTERNS: Record<string, RegExp> = {
+  'Brasil':    /\bbrasil\b|\bbrazil\b|são paulo|sao paulo|rio de janeiro|belo horizonte|curitiba|porto alegre|fortaleza\b|brasília|brasilia|recife\b|manaus\b|goiânia|goiania/i,
+  'México':    /\bm[eé]xico\b|\bcdmx\b|\bmonterrey\b|\bguadalajara\b|\bpuebla\b/i,
+  'Argentina': /\bargentina\b|\bbuenos aires\b|\bc[oó]rdoba\b|\brosario\b/i,
+  'Chile':     /\bchile\b|\bsantiago de chile\b/i,
+  'Perú':      /\bper[uú]\b|\blima\b/i,
+  'Colombia':  /\bcolombia\b|\bbogot[aá]\b|\bmedell[ií]n\b|\bcali\b|\bbarranquilla\b|\bcartagena\b/i,
+};
+
+function detectJobCountry(job: Job): string {
+  const text = [job.location, job.company, job.description || ''].join(' ');
+  for (const [country, pattern] of Object.entries(COUNTRY_PATTERNS)) {
+    if (pattern.test(text)) return country;
+  }
+  return '';
+}
+
+function isExcludedJob(job: Job): { excluded: boolean; reason: string } {
+  const country = detectJobCountry(job);
+
+  if (country === 'Brasil') {
+    return { excluded: true, reason: 'oferta de Brasil' };
+  }
+
+  // Detectar restricciones explícitas de país en la descripción
+  const desc = (job.description || '').toLowerCase();
+  const countryRestrictions = [
+    { pattern: /solo\s+(para\s+)?(residentes?\s+(en\s+)?)?m[eé]xico|exclusivo\s+m[eé]xico|only\s+(for\s+)?mexico/i, country: 'México' },
+    { pattern: /solo\s+(para\s+)?(residentes?\s+(en\s+)?)?argentina|exclusivo\s+argentina/i, country: 'Argentina' },
+    { pattern: /solo\s+(para\s+)?(residentes?\s+(en\s+)?)?chile|exclusivo\s+chile/i, country: 'Chile' },
+    { pattern: /solo\s+(para\s+)?(residentes?\s+(en\s+)?)?per[uú]|exclusivo\s+per[uú]/i, country: 'Perú' },
+  ];
+  for (const r of countryRestrictions) {
+    if (r.pattern.test(desc)) {
+      return { excluded: true, reason: `restricción a ${r.country}` };
+    }
+  }
+
+  return { excluded: false, reason: '' };
+}
+
+// ─── Filtro de CV (se activa cuando cv-profile.json existe) ───────────────
+
+interface CvProfile {
+  skills: string[];
+  excludeKeywords?: string[];
+}
+
+function loadCvProfile(): CvProfile | null {
+  const profilePath = path.join(path.dirname(fileURLToPath(import.meta.url)), 'cv-profile.json');
+  if (!fs.existsSync(profilePath)) return null;
+  try { return JSON.parse(fs.readFileSync(profilePath, 'utf-8')); } catch { return null; }
+}
+
+function scoreAgainstCv(job: Job, profile: CvProfile): number {
+  const all = (job.title + ' ' + (job.description || '')).toLowerCase();
+  let bonus = 0;
+  for (const skill of profile.skills) {
+    if (all.includes(skill.toLowerCase())) bonus += 5;
+  }
+  for (const kw of (profile.excludeKeywords ?? [])) {
+    if (all.includes(kw.toLowerCase())) bonus -= 15;
+  }
+  return bonus;
+}
+
 // Scheduler function
 async function runJobSearch() {
   rotateLogIfNeeded();
@@ -458,8 +527,19 @@ async function runJobSearch() {
       index === self.findIndex(j => j.link === job.link)
     );
 
+    const cvProfile = loadCvProfile();
+
     const jobsToProcess = (isFirstRun ? uniqueAllJobs : uniqueJobs)
-      .map(job => ({ ...job, score: scoreJob(job) }))
+      .map(job => {
+        const detectedCountry = detectJobCountry(job);
+        const cvBonus = cvProfile ? scoreAgainstCv(job, cvProfile) : 0;
+        return { ...job, detectedCountry, score: scoreJob(job) + cvBonus };
+      })
+      .filter(job => {
+        const { excluded, reason } = isExcludedJob(job);
+        if (excluded) console.log(`  ⛔ Excluido: "${job.title}" en ${job.company} — ${reason}`);
+        return !excluded;
+      })
       .sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
 
     scraper.saveJobs(jobsToProcess);
