@@ -3,6 +3,7 @@ import type { Browser, BrowserContext, Page } from 'playwright';
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import { spawn } from 'child_process';
 import * as dotenv from 'dotenv';
 import twilio from 'twilio';
 import cron from 'node-cron';
@@ -480,6 +481,8 @@ let isSearchRunning = false;
 
 function startScheduler() {
   const schedule = process.env.CRON_SCHEDULE || '0 7-19 * * *';
+  const scriptPath = fileURLToPath(import.meta.url);
+
   console.log('\n📅 Job scraper scheduler started.');
   console.log(`   Scraping:  ${schedule}`);
   console.log(`   Summary:   0 20 * * * (8:00 pm)\n`);
@@ -490,7 +493,19 @@ function startScheduler() {
       return;
     }
     isSearchRunning = true;
-    runJobSearch().catch(console.error).finally(() => { isSearchRunning = false; });
+
+    // Spawn child process so Playwright never blocks the cron event loop
+    const child = spawn('npx', ['tsx', scriptPath, '--once'], {
+      cwd: path.dirname(scriptPath),
+      stdio: 'inherit',
+      env: process.env,
+    });
+
+    child.on('close', () => { isSearchRunning = false; });
+    child.on('error', (err) => {
+      console.error(`[${new Date().toLocaleTimeString()}] Error al iniciar proceso hijo:`, err);
+      isSearchRunning = false;
+    });
   });
 
   cron.schedule('0 20 * * *', () => {
