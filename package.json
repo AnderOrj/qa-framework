@@ -22,7 +22,9 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
+    "@types/nodemailer": "^8.0.0",
     "node-cron": "^4.2.1",
+    "nodemailer": "^8.0.9",
     "twilio": "^6.0.2"
   }
 }
