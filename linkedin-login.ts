@@ -1,8 +1,5 @@
 import { chromium } from 'playwright';
-import * as path from 'path';
-import { fileURLToPath } from 'url';
-
-const SESSION_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), 'linkedin-session.json');
+import { SESSION_FILE } from './utils/scraper-config.js';
 
 async function saveLinkedInSession() {
   console.log('\n📋 LinkedIn Session Login');
@@ -18,7 +15,6 @@ async function saveLinkedInSession() {
 
   await page.goto('https://www.linkedin.com/login');
 
-  // Wait until the user reaches the feed (successful login)
   console.log('⏳ Esperando que inicies sesión en LinkedIn...');
   await page.waitForURL('**/feed**', { timeout: 120000 });
 

@@ -8,58 +8,19 @@ import * as dotenv from 'dotenv';
 import twilio from 'twilio';
 import nodemailer from 'nodemailer';
 import cron from 'node-cron';
-
-const LOG_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), 'scraper.log');
-
-function logError(context: string, error: unknown) {
-  const ts = new Date().toLocaleString('es-CO');
-  const err = error as Record<string, unknown>;
-  const code = err?.code ?? err?.status ?? 'N/A';
-  const msg = error instanceof Error ? error.message : String(error);
-  const line = `[${ts}] ✗ ${context} | code=${code} | ${msg}\n`;
-
-  console.error(line.trim());
-  fs.appendFileSync(LOG_FILE, line);
-
-  // Twilio sandbox session expired codes
-  if (code === 63016 || code === 21408 || String(msg).includes('opt in')) {
-    const hint = `[${ts}] ⚠️  ACCIÓN REQUERIDA: sesión sandbox expirada. Envía "join <palabra>" al +14155238886 desde WhatsApp para reactivar.\n`;
-    console.error(hint.trim());
-    fs.appendFileSync(LOG_FILE, hint);
-  }
-}
-
-function logInfo(msg: string) {
-  const ts = new Date().toLocaleString('es-CO');
-  const line = `[${ts}] ✓ ${msg}\n`;
-  console.log(line.trim());
-  fs.appendFileSync(LOG_FILE, line);
-}
+import { SESSION_FILE, JOBS_FILE, LOG_FILE, CV_PROFILE_FILE, TIMEOUTS, DELAYS, SELECTORS } from './utils/scraper-config.js';
+import { logError, logInfo } from './utils/logger.js';
+import { randomDelay } from './utils/browser.js';
+import type { Job, CvProfile } from './utils/types.js';
 
 // Load environment variables
 dotenv.config();
-
-interface Job {
-  title: string;
-  company: string;
-  location: string;
-  link: string;
-  datePosted?: string;
-  description?: string;
-  sourceLocation?: string;
-  savedAt?: string;
-  score?: number;
-  detectedCountry?: string;
-  notifiedAt?: string;
-}
-
-const SESSION_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), 'linkedin-session.json');
 
 class LinkedInJobScraper {
   private browser: Browser | null = null;
   private context: BrowserContext | null = null;
   private page: Page | null = null;
-  private jobsFile = path.join(path.dirname(fileURLToPath(import.meta.url)), 'jobs.json');
+  private jobsFile = JOBS_FILE;
   private hasDebugged = false;
 
   async init() {
@@ -69,7 +30,7 @@ class LinkedInJobScraper {
       ? await this.browser.newContext({ storageState: SESSION_FILE })
       : await this.browser.newContext();
     this.page = await this.context.newPage();
-    this.page.setDefaultTimeout(60000);
+    this.page.setDefaultTimeout(TIMEOUTS.page);
     if (hasSession) logInfo('Sesión LinkedIn cargada desde linkedin-session.json');
   }
 
@@ -117,7 +78,7 @@ class LinkedInJobScraper {
       if (currentUrl.includes('/login') || currentUrl.includes('/authwall')) {
         throw new Error('SESSION_EXPIRED: LinkedIn redirigió al login — sesión expirada');
       }
-      await randomDelay(2500, 4500);
+      await randomDelay(DELAYS.page.min, DELAYS.page.max);
 
       // Dismiss login modal if present before scrolling
       await this.dismissModal();
@@ -125,7 +86,7 @@ class LinkedInJobScraper {
       await this.page.evaluate(() => {
         window.scrollTo(0, document.body.scrollHeight);
       });
-      await randomDelay(1500, 3000);
+      await randomDelay(DELAYS.scroll.min, DELAYS.scroll.max);
 
       // Modal re-appears after scroll — dismiss again
       await this.dismissModal();
@@ -177,7 +138,7 @@ class LinkedInJobScraper {
       logInfo(`Página ${pageIdx + 1}/${maxPages}: ${validOnPage.length} cards para "${keyword}" en ${location || 'global'}`);
 
       // Pause between pages to avoid rate limiting
-      if (pageIdx < maxPages - 1) await randomDelay(2000, 4000);
+      if (pageIdx < maxPages - 1) await randomDelay(DELAYS.page.min, DELAYS.page.max);
     }
 
     const jobsWithSource = allExtracted
@@ -295,7 +256,7 @@ class LinkedInJobScraper {
           try {
             const result = await client.messages.create({ body: message, from: fromNumber, to: toNumber });
             logInfo(`WhatsApp enviado a ${toNumber}. SID: ${result.sid}`);
-            if (messages.length > 1) await new Promise(r => setTimeout(r, 1500));
+            if (messages.length > 1) await new Promise(r => setTimeout(r, DELAYS.whatsapp));
           } catch (error) {
             logError(`WhatsApp nuevas ofertas → ${toNumber}`, error);
           }
@@ -324,24 +285,17 @@ class LinkedInJobScraper {
   async dismissModal() {
     if (!this.page) return;
     try {
-      // LinkedIn login/upsell modal — try common dismiss selectors
-      const selectors = [
-        'button[aria-label="Dismiss"]',
-        'button[data-tracking-control-name="public_jobs_contextual-sign-in-modal_modal_dismiss"]',
-        'button.modal__dismiss',
-        'button[aria-label="Cerrar"]',
-      ];
-      for (const sel of selectors) {
+      for (const sel of SELECTORS.dismissModal) {
         const btn = await this.page.$(sel);
         if (btn) {
           await btn.click();
-          await randomDelay(400, 800);
+          await randomDelay(DELAYS.modal.min, DELAYS.modal.max);
           return;
         }
       }
       // Fallback: press Escape
       await this.page.keyboard.press('Escape');
-      await randomDelay(400, 800);
+      await randomDelay(DELAYS.modal.min, DELAYS.modal.max);
     } catch {
       // Modal not present — silently ignore
     }
@@ -354,16 +308,11 @@ class LinkedInJobScraper {
 
     for (const job of toFetch) {
       try {
-        await this.page.goto(job.link, { timeout: 30000 });
-        await randomDelay(1500, 2500);
+        await this.page.goto(job.link, { timeout: TIMEOUTS.modal });
+        await randomDelay(DELAYS.scroll.min, DELAYS.scroll.max);
 
         const description = await this.page.$$eval(
-          [
-            '.jobs-description-content__text',
-            '.jobs-description__content',
-            '.description__text--rich',
-            '.show-more-less-html__markup',
-          ].join(', '),
+          [...SELECTORS.description].join(', '),
           (els) => els.map(el => el.textContent?.trim() ?? '').join(' ')
         ).catch(() => '');
 
@@ -372,7 +321,7 @@ class LinkedInJobScraper {
       } catch {
         enriched.push(job);
       }
-      await randomDelay(800, 1500);
+      await randomDelay(DELAYS.description.min, DELAYS.description.max);
     }
 
     // Jobs beyond maxJobs keep their empty description
@@ -383,11 +332,6 @@ class LinkedInJobScraper {
     if (this.context) await this.context.close();
     if (this.browser) await this.browser.close();
   }
-}
-
-function randomDelay(minMs: number, maxMs: number): Promise<void> {
-  const ms = Math.floor(Math.random() * (maxMs - minMs + 1)) + minMs;
-  return new Promise(r => setTimeout(r, ms));
 }
 
 async function withRetry<T>(
@@ -590,15 +534,9 @@ function isExcludedJob(job: Job): { excluded: boolean; reason: string } {
 
 // ─── Filtro de CV (se activa cuando cv-profile.json existe) ───────────────
 
-interface CvProfile {
-  skills: string[];
-  excludeKeywords?: string[];
-}
-
 function loadCvProfile(): CvProfile | null {
-  const profilePath = path.join(path.dirname(fileURLToPath(import.meta.url)), 'cv-profile.json');
-  if (!fs.existsSync(profilePath)) return null;
-  try { return JSON.parse(fs.readFileSync(profilePath, 'utf-8')); } catch { return null; }
+  if (!fs.existsSync(CV_PROFILE_FILE)) return null;
+  try { return JSON.parse(fs.readFileSync(CV_PROFILE_FILE, 'utf-8')) as CvProfile; } catch { return null; }
 }
 
 function scoreAgainstCv(job: Job, profile: CvProfile): number {
@@ -901,7 +839,7 @@ async function runJobSearch() {
         allJobs = allJobs.concat(jobs);
         const newJobs = await scraper.getNewJobs(jobs);
         allNewJobs = allNewJobs.concat(newJobs);
-        await randomDelay(1000, 2500);
+        await randomDelay(DELAYS.between.min, DELAYS.between.max);
       }
     }
 
