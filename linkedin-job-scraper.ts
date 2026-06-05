@@ -72,13 +72,16 @@ class LinkedInJobScraper {
     for (let pageIdx = 0; pageIdx < maxPages; pageIdx++) {
       const start = pageIdx * 25;
       const searchUrl = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(keyword)}&location=${encodeURIComponent(location)}&f_TPR=r432000&f_WT=${workTypes}&start=${start}`;
-      await this.page.goto(searchUrl);
+      await this.page.goto(searchUrl, { waitUntil: 'domcontentloaded' });
 
       const currentUrl = this.page.url();
       if (currentUrl.includes('/login') || currentUrl.includes('/authwall')) {
         throw new Error('SESSION_EXPIRED: LinkedIn redirigió al login — sesión expirada');
       }
-      await randomDelay(DELAYS.page.min, DELAYS.page.max);
+
+      // Wait for job cards to render (LinkedIn needs JS execution after DOM is ready)
+      await this.page.waitForSelector('.job-search-card, .job-card-container', { timeout: TIMEOUTS.jobCard }).catch(() => {});
+      await randomDelay(DELAYS.page.min / 2, DELAYS.page.max / 2);
 
       // Dismiss login modal if present before scrolling
       await this.dismissModal();
@@ -86,7 +89,7 @@ class LinkedInJobScraper {
       await this.page.evaluate(() => {
         window.scrollTo(0, document.body.scrollHeight);
       });
-      await randomDelay(DELAYS.scroll.min, DELAYS.scroll.max);
+      await randomDelay(DELAYS.scroll.min / 2, DELAYS.scroll.max / 2);
 
       // Modal re-appears after scroll — dismiss again
       await this.dismissModal();
@@ -96,28 +99,32 @@ class LinkedInJobScraper {
         await this.debugPage(`${keyword} / ${location}`);
       }
 
-      // LinkedIn public view uses .job-search-card with base-search-card__* inner elements
-      const pageJobs = await this.page.$$eval('.job-search-card', (cards) => {
+      // Handle both public (.job-search-card) and authenticated (.job-card-container) LinkedIn views
+      const pageJobs = await this.page.$$eval('.job-search-card, .job-card-container', (cards) => {
         return cards.map((card) => {
-          // Link: base-card__full-link wraps the entire card in public view
+          // Link
           const linkEl = (card.querySelector('a.base-card__full-link') as HTMLAnchorElement)
+                      || (card.querySelector('a.job-card-list__title') as HTMLAnchorElement)
                       || (card.querySelector('a[href*="/jobs/view/"]') as HTMLAnchorElement);
           const rawLink = linkEl?.href || '';
           const link = rawLink.split('?')[0] ?? '';
 
           // Title
-          const titleEl = card.querySelector('h3.base-search-card__title')
-                       || card.querySelector('.base-search-card__title');
+          const titleEl = card.querySelector('.base-search-card__title')
+                       || card.querySelector('.job-card-list__title')
+                       || card.querySelector('a.job-card-list__title');
           const title = titleEl?.textContent?.trim() || '';
 
           // Company
-          const companyEl = card.querySelector('h4.base-search-card__subtitle')
-                         || card.querySelector('.base-search-card__subtitle');
+          const companyEl = card.querySelector('.base-search-card__subtitle')
+                         || card.querySelector('.job-card-container__primary-description')
+                         || card.querySelector('.artdeco-entity-lockup__subtitle');
           const company = companyEl?.textContent?.trim() || '';
 
           // Location
           const locationEl = card.querySelector('.job-search-card__location')
-                          || card.querySelector('.job-card-container__location');
+                          || card.querySelector('.job-card-container__metadata-item')
+                          || card.querySelector('.artdeco-entity-lockup__caption');
           const location = locationEl?.textContent?.trim() || '';
 
           // Date
@@ -308,8 +315,9 @@ class LinkedInJobScraper {
 
     for (const job of toFetch) {
       try {
-        await this.page.goto(job.link, { timeout: TIMEOUTS.modal });
-        await randomDelay(DELAYS.scroll.min, DELAYS.scroll.max);
+        await this.page.goto(job.link, { waitUntil: 'domcontentloaded', timeout: TIMEOUTS.modal });
+        await this.page.waitForSelector([...SELECTORS.description].join(', '), { timeout: TIMEOUTS.jobCard }).catch(() => {});
+        await randomDelay(DELAYS.scroll.min / 2, DELAYS.scroll.max / 2);
 
         const description = await this.page.$$eval(
           [...SELECTORS.description].join(', '),
@@ -764,6 +772,65 @@ async function notifyError(message: string) {
   );
 }
 
+async function searchOneLocation(
+  keywords: string[],
+  location: string,
+  remoteOnly: boolean,
+): Promise<{ jobs: Job[]; sessionExpired: boolean }> {
+  const scraper = new LinkedInJobScraper();
+  await scraper.init();
+  const tag = remoteOnly ? ' 🌐 (remote only)' : '';
+  console.log(`\n  📍 [START] Location: ${location}${tag}`);
+
+  const jobs: Job[] = [];
+  let consecutiveFailures = 0;
+  let errorAlertSent = false;
+  const FAILURE_THRESHOLD = 3;
+
+  try {
+    for (const keyword of keywords) {
+      console.log(`  🔍 [${location}] Searching: ${keyword}`);
+      let result: Job[] | null = null;
+      try {
+        result = await withRetry(
+          () => scraper.searchJobs(keyword, location, remoteOnly),
+          `searchJobs("${keyword}", "${location}"${remoteOnly ? ', remote' : ''})`
+        );
+      } catch (error) {
+        if (error instanceof Error && error.message.startsWith('SESSION_EXPIRED')) {
+          const ts = new Date().toLocaleString('es-CO');
+          await notifyError(
+            `🔐 *Sesión LinkedIn expirada*\n_${ts}_\n\nEl scraper se detuvo. Ejecuta:\n\`npx tsx linkedin-login.ts\`\npara renovar la sesión y reinicia el scraper.`
+          );
+          logInfo('Sesión expirada — deteniendo todas las búsquedas');
+          return { jobs, sessionExpired: true };
+        }
+        throw error;
+      }
+
+      if (result === null) {
+        consecutiveFailures++;
+        if (consecutiveFailures >= FAILURE_THRESHOLD && !errorAlertSent) {
+          errorAlertSent = true;
+          const ts = new Date().toLocaleString('es-CO');
+          await notifyError(`⚠️ *Scraper LinkedIn — Alerta*\n_${ts}_\n\n${consecutiveFailures} búsquedas fallidas consecutivas.\nÚltima: "${keyword}" en ${location}\n\nRevisa scraper.log para más detalles.`);
+        }
+      } else {
+        consecutiveFailures = 0;
+        errorAlertSent = false;
+        jobs.push(...result);
+      }
+
+      await randomDelay(DELAYS.between.min, DELAYS.between.max);
+    }
+  } finally {
+    await scraper.close();
+    console.log(`  ✓ [DONE] Location: ${location}${tag} — ${jobs.length} jobs found`);
+  }
+
+  return { jobs, sessionExpired: false };
+}
+
 // Scheduler function
 async function runJobSearch() {
   rotateLogIfNeeded();
@@ -771,14 +838,13 @@ async function runJobSearch() {
   console.log(`[${new Date().toLocaleTimeString()}] Starting LinkedIn job search...`);
   console.log(`${'='.repeat(60)}`);
 
+  // Use a single scraper instance only for file operations (no browser needed)
   const scraper = new LinkedInJobScraper();
-  await scraper.init();
 
   try {
     const keywords = (process.env.SEARCH_KEYWORDS || '')
       .split(',').map(k => k.trim()).filter(Boolean);
 
-    // Combine Colombia (all work types) + US remote-only into one unified target list
     const locationTargets = [
       ...(process.env.SEARCH_LOCATIONS || '').split(',').map(l => l.trim()).filter(Boolean)
         .map(location => ({ location, remoteOnly: false })),
@@ -789,59 +855,22 @@ async function runJobSearch() {
       locationTargets.filter(t => t.remoteOnly).map(t => t.location)
     );
 
-    let allJobs: Job[] = [];
-    let allNewJobs: Job[] = [];
-    const isFirstRun = !fs.existsSync(scraper['jobsFile']) || scraper.loadExistingJobs().length === 0;
+    const isFirstRun = !fs.existsSync(JOBS_FILE) || scraper.loadExistingJobs().length === 0;
 
-    let consecutiveFailures = 0;
-    let errorAlertSent = false;
-    let sessionExpired = false;
-    const FAILURE_THRESHOLD = 3;
+    console.log(`  ⚡ Running ${locationTargets.length} location(s) in parallel...`);
 
-    for (const { location, remoteOnly } of locationTargets) {
-      if (sessionExpired) break;
-      const tag = remoteOnly ? ' 🌐 (remote only)' : '';
-      console.log(`\n  📍 Location: ${location}${tag}`);
-      for (const keyword of keywords) {
-        console.log(`  🔍 Searching: ${keyword}`);
-        let result: Job[] | null = null;
-        try {
-          result = await withRetry(
-            () => scraper.searchJobs(keyword, location, remoteOnly),
-            `searchJobs("${keyword}", "${location}"${remoteOnly ? ', remote' : ''})`
-          );
-        } catch (error) {
-          if (error instanceof Error && error.message.startsWith('SESSION_EXPIRED')) {
-            const ts = new Date().toLocaleString('es-CO');
-            await notifyError(
-              `🔐 *Sesión LinkedIn expirada*\n_${ts}_\n\nEl scraper se detuvo. Ejecuta:\n\`npx tsx linkedin-login.ts\`\npara renovar la sesión y reinicia el scraper.`
-            );
-            logInfo('Sesión expirada — deteniendo todas las búsquedas');
-            sessionExpired = true;
-            break;
-          }
-          throw error;
-        }
+    // Run all locations simultaneously — each gets its own browser instance
+    const locationResults = await Promise.all(
+      locationTargets.map(({ location, remoteOnly }) =>
+        searchOneLocation(keywords, location, remoteOnly)
+      )
+    );
 
-        if (result === null) {
-          consecutiveFailures++;
-          if (consecutiveFailures >= FAILURE_THRESHOLD && !errorAlertSent) {
-            errorAlertSent = true;
-            const ts = new Date().toLocaleString('es-CO');
-            await notifyError(`⚠️ *Scraper LinkedIn — Alerta*\n_${ts}_\n\n${consecutiveFailures} búsquedas fallidas consecutivas.\nÚltima: "${keyword}" en ${location}\n\nRevisa scraper.log para más detalles.`);
-          }
-        } else {
-          consecutiveFailures = 0;
-          errorAlertSent = false;
-        }
+    const sessionExpired = locationResults.some(r => r.sessionExpired);
+    if (sessionExpired) return;
 
-        const jobs = result ?? [];
-        allJobs = allJobs.concat(jobs);
-        const newJobs = await scraper.getNewJobs(jobs);
-        allNewJobs = allNewJobs.concat(newJobs);
-        await randomDelay(DELAYS.between.min, DELAYS.between.max);
-      }
-    }
+    const allJobs = locationResults.flatMap(r => r.jobs);
+    const allNewJobs = await scraper.getNewJobs(allJobs);
 
     // Remove duplicates
     const uniqueJobs = allNewJobs.filter((job, index, self) =>
@@ -855,9 +884,16 @@ async function runJobSearch() {
     const cvProfile = loadCvProfile();
 
     const jobsToScore = isFirstRun ? uniqueAllJobs : uniqueJobs;
-    const jobsEnriched = jobsToScore.length > 0
-      ? await scraper.fetchJobDescriptions(jobsToScore)
-      : jobsToScore;
+    let jobsEnriched = jobsToScore;
+    if (jobsToScore.length > 0) {
+      const descScraper = new LinkedInJobScraper();
+      await descScraper.init();
+      try {
+        jobsEnriched = await descScraper.fetchJobDescriptions(jobsToScore);
+      } finally {
+        await descScraper.close();
+      }
+    }
 
     const MIN_SCORE = Number(process.env.MIN_SCORE ?? 10);
 
@@ -917,8 +953,6 @@ async function runJobSearch() {
     console.log(`\n✓ Job search completed. ${jobsToProcess.length} jobs ${isFirstRun ? 'found and saved (first run)' : 'new jobs found and saved'}.`);
   } catch (error) {
     console.error('✗ Error during job search:', error);
-  } finally {
-    await scraper.close();
   }
 }
 
