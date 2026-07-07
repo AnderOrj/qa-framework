@@ -1,97 +1,91 @@
-import { chromium } from 'playwright';
 import type { Browser, BrowserContext, Page } from 'playwright';
+import { chromium } from 'playwright';
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
 import * as dotenv from 'dotenv';
-import twilio from 'twilio';
-import nodemailer from 'nodemailer';
 import cron from 'node-cron';
-import { SESSION_FILE, JOBS_FILE, LOG_FILE, CV_PROFILE_FILE, TIMEOUTS, DELAYS, SELECTORS } from './utils/scraper-config.js';
+
+import {
+  SESSION_FILE, JOBS_FILE, LOG_FILE, CV_PROFILE_FILE,
+  TIMEOUTS, DELAYS, SELECTORS, QA_KEYWORDS,
+} from './utils/scraper-config.js';
 import { logError, logInfo } from './utils/logger.js';
 import { randomDelay } from './utils/browser.js';
-import type { Job, CvProfile } from './utils/types.js';
+import type { Job } from './utils/types.js';
+import { scoreJob, scoreStars, loadCvProfile, scoreAgainstCv } from './utils/scoring.js';
+import { detectJobCountry, hasInternationalSignal, isExcludedJob, isHybridOrOnSite, parseSalary, isBelowMinSalary, isColombian } from './utils/filters.js';
+import { notifyNewJobs, notifyError, notifyCritical } from './utils/notifications.js';
+import { loadJobs, saveJobs, getNewJobs, markNotified } from './utils/store.js';
+import { autoLogin } from './utils/auto-login.js';
+import { generateAndSendCoverLetter } from './utils/cover-letter.js';
+import { filterSuspectJobs }         from './utils/job-quality.js';
 
-// Load environment variables
 dotenv.config();
+
+// ─── Browser scraper class ────────────────────────────────────────────────────
 
 class LinkedInJobScraper {
   private browser: Browser | null = null;
   private context: BrowserContext | null = null;
   private page: Page | null = null;
-  private jobsFile = JOBS_FILE;
   private hasDebugged = false;
 
   async init() {
-    this.browser = await chromium.launch({ headless: true });
+    this.browser = await chromium.launch({
+      headless: true,
+      args: [
+        '--disable-blink-features=AutomationControlled',
+        '--disable-dev-shm-usage',
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+      ],
+    });
+    const ctxOptions = {
+      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+      viewport: { width: 1280, height: 800 } as const,
+    };
     const hasSession = fs.existsSync(SESSION_FILE);
     this.context = hasSession
-      ? await this.browser.newContext({ storageState: SESSION_FILE })
-      : await this.browser.newContext();
+      ? await this.browser.newContext({ ...ctxOptions, storageState: SESSION_FILE })
+      : await this.browser.newContext(ctxOptions);
     this.page = await this.context.newPage();
+    await this.page.addInitScript(() => {
+      Object.defineProperty(navigator, 'webdriver', { get: () => false });
+      (window as unknown as Record<string, unknown>)['chrome'] = { runtime: {} };
+    });
     this.page.setDefaultTimeout(TIMEOUTS.page);
     if (hasSession) logInfo('Sesión LinkedIn cargada desde linkedin-session.json');
   }
 
-  async debugPage(label: string) {
-    if (!this.page) return;
-    const url = this.page.url();
-    const title = await this.page.title();
-    const screenshotPath = path.join(path.dirname(fileURLToPath(import.meta.url)), 'debug-screenshot.png');
-    await this.page.screenshot({ path: screenshotPath, fullPage: false });
-    logInfo(`DEBUG [${label}] URL: ${url} | Title: ${title} | Screenshot: ${screenshotPath}`);
-    const counts = await this.page.evaluate(() => ({
-      jobSearchCard: document.querySelectorAll('.job-search-card').length,
-      jobCardContainer: document.querySelectorAll('.job-card-container').length,
-      dataJobId: document.querySelectorAll('[data-job-id]').length,
-      scaffoldListItem: document.querySelectorAll('.scaffold-layout__list-container li').length,
-      jobsResultsItem: document.querySelectorAll('.jobs-search-results__list-item').length,
-    }));
-    logInfo(`DEBUG selectors: ${JSON.stringify(counts)}`);
-  }
-
-  async searchJobs(keyword: string, location: string = '', remoteOnly = false) {
+  async searchJobs(keyword: string, location: string = '', remoteOnly = false): Promise<Job[]> {
     if (!this.page) throw new Error('Browser not initialized');
 
-    // f_WT=2 → remote only; f_WT=1,2,3 → on-site + hybrid + remote
     const workTypes = remoteOnly ? '2' : '1%2C2%2C3';
     const maxPages = Number(process.env.MAX_PAGES_PER_SEARCH ?? 3);
-
-    const QA_KEYWORDS = [
-      // English
-      'qa', 'quality assurance', 'quality engineer', 'test', 'testing',
-      'automation', 'tester', 'sdet',
-      // Spanish
-      'automatización', 'automatizacion', 'pruebas', 'calidad de software',
-      'control de calidad', 'analista qa', 'ingeniero qa'
-    ];
-
-    const allExtracted: Array<{ title: string; company: string; location: string; link: string; description: string; datePosted: string }> = [];
+    const allExtracted: Job[] = [];
 
     for (let pageIdx = 0; pageIdx < maxPages; pageIdx++) {
       const start = pageIdx * 25;
       const searchUrl = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(keyword)}&location=${encodeURIComponent(location)}&f_TPR=r432000&f_WT=${workTypes}&start=${start}`;
+      const t0 = Date.now();
       await this.page.goto(searchUrl, { waitUntil: 'domcontentloaded' });
+      const elapsed = Date.now() - t0;
+      // Adaptive rate limiting: slow response → increase delays to avoid blocks
+      const slowFactor = elapsed > 6000 ? 2.5 : elapsed > 3500 ? 1.6 : 1;
+      if (slowFactor > 1) logInfo(`⚡ Rate limiting adaptativo: respuesta en ${elapsed}ms → delays ×${slowFactor}`);
 
       const currentUrl = this.page.url();
       if (currentUrl.includes('/login') || currentUrl.includes('/authwall')) {
         throw new Error('SESSION_EXPIRED: LinkedIn redirigió al login — sesión expirada');
       }
 
-      // Wait for job cards to render (LinkedIn needs JS execution after DOM is ready)
       await this.page.waitForSelector('.job-search-card, .job-card-container', { timeout: TIMEOUTS.jobCard }).catch(() => {});
-      await randomDelay(DELAYS.page.min / 2, DELAYS.page.max / 2);
-
-      // Dismiss login modal if present before scrolling
+      await randomDelay(DELAYS.page.min / 2 * slowFactor, DELAYS.page.max / 2 * slowFactor);
       await this.dismissModal();
-
-      await this.page.evaluate(() => {
-        window.scrollTo(0, document.body.scrollHeight);
-      });
+      await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
       await randomDelay(DELAYS.scroll.min / 2, DELAYS.scroll.max / 2);
-
-      // Modal re-appears after scroll — dismiss again
       await this.dismissModal();
 
       if (!this.hasDebugged) {
@@ -99,213 +93,53 @@ class LinkedInJobScraper {
         await this.debugPage(`${keyword} / ${location}`);
       }
 
-      // Handle both public (.job-search-card) and authenticated (.job-card-container) LinkedIn views
-      const pageJobs = await this.page.$$eval('.job-search-card, .job-card-container', (cards) => {
-        return cards.map((card) => {
-          // Link
+      const pageJobs = await this.page.$$eval('.job-search-card, .job-card-container', (cards) =>
+        cards.map((card) => {
           const linkEl = (card.querySelector('a.base-card__full-link') as HTMLAnchorElement)
                       || (card.querySelector('a.job-card-list__title') as HTMLAnchorElement)
                       || (card.querySelector('a[href*="/jobs/view/"]') as HTMLAnchorElement);
-          const rawLink = linkEl?.href || '';
-          const link = rawLink.split('?')[0] ?? '';
+          const link = (linkEl?.href || '').split('?')[0] ?? '';
 
-          // Title
-          const titleEl = card.querySelector('.base-search-card__title')
-                       || card.querySelector('.job-card-list__title')
-                       || card.querySelector('a.job-card-list__title');
+          const titleEl = card.querySelector('.artdeco-entity-lockup__title')
+                       || card.querySelector('a.job-card-list__title--link')
+                       || card.querySelector('.base-search-card__title')
+                       || card.querySelector('.job-card-list__title');
           const title = titleEl?.textContent?.trim() || '';
 
-          // Company
           const companyEl = card.querySelector('.base-search-card__subtitle')
                          || card.querySelector('.job-card-container__primary-description')
                          || card.querySelector('.artdeco-entity-lockup__subtitle');
           const company = companyEl?.textContent?.trim() || '';
 
-          // Location
           const locationEl = card.querySelector('.job-search-card__location')
                           || card.querySelector('.job-card-container__metadata-item')
                           || card.querySelector('.artdeco-entity-lockup__caption');
           const location = locationEl?.textContent?.trim() || '';
 
-          // Date
           const timeEl = card.querySelector('time');
           const datePosted = timeEl?.getAttribute('datetime') || timeEl?.textContent?.trim() || '';
 
-          return { title, company, location, link, description: '', datePosted };
-        });
-      });
+          return { title, company, location, link, description: '', datePosted } as {
+            title: string; company: string; location: string; link: string; description: string; datePosted: string;
+          };
+        })
+      );
 
-      // Discard cards where the link could not be extracted — avoids false dedup on empty string
       const validOnPage = pageJobs.filter(j => j.link);
-
-      // No results on this page means we've reached the end — stop paginating
       if (validOnPage.length === 0) break;
 
       allExtracted.push(...validOnPage);
       logInfo(`Página ${pageIdx + 1}/${maxPages}: ${validOnPage.length} cards para "${keyword}" en ${location || 'global'}`);
 
-      // Pause between pages to avoid rate limiting
       if (pageIdx < maxPages - 1) await randomDelay(DELAYS.page.min, DELAYS.page.max);
     }
 
-    const jobsWithSource = allExtracted
+    const relevant = allExtracted
       .map(job => ({ ...job, sourceLocation: location }))
-      .filter(job => {
-        const title = job.title.toLowerCase();
-        return QA_KEYWORDS.some(kw => title.includes(kw));
-      });
+      .filter(job => QA_KEYWORDS.some(kw => job.title.toLowerCase().includes(kw)));
 
-    console.log(`✅ Extracted ${jobsWithSource.length} relevant jobs from "${keyword}" (filtered from ${allExtracted.length} total)`);
-
-    return jobsWithSource;
-  }
-
-  async getNewJobs(jobs: Job[]): Promise<Job[]> {
-    const existingJobs = this.loadExistingJobs();
-    const existingLinks = new Set(existingJobs.map(job => job.link));
-
-    return jobs.filter(job => !existingLinks.has(job.link));
-  }
-
-  loadExistingJobs(): Job[] {
-    if (!fs.existsSync(this.jobsFile)) return [];
-    try {
-      const data = fs.readFileSync(this.jobsFile, 'utf-8');
-      return JSON.parse(data);
-    } catch {
-      return [];
-    }
-  }
-
-  private pruneOldJobs(jobs: Job[]): Job[] {
-    const cutoff = Date.now() - 20 * 24 * 60 * 60 * 1000;
-    const before = jobs.length;
-    const pruned = jobs.filter(job => {
-      if (!job.savedAt) return true; // keep jobs without timestamp (legacy)
-      return new Date(job.savedAt).getTime() >= cutoff;
-    });
-    if (pruned.length < before) {
-      logInfo(`Purga jobs.json: eliminadas ${before - pruned.length} ofertas con más de 20 días (quedan ${pruned.length})`);
-    }
-    return pruned;
-  }
-
-  saveJobs(jobs: Job[]) {
-    const now = new Date().toISOString();
-    const jobsWithTimestamp = jobs.map(job => ({ ...job, savedAt: job.savedAt ?? now }));
-    const existingJobs = this.loadExistingJobs();
-    const merged = [...existingJobs, ...jobsWithTimestamp];
-    // Dedup by link — los existentes tienen prioridad (primer elemento gana)
-    const seen = new Set<string>();
-    const deduped = merged.filter(job => {
-      if (seen.has(job.link)) return false;
-      seen.add(job.link);
-      return true;
-    });
-    const allJobs = this.pruneOldJobs(deduped);
-    fs.writeFileSync(this.jobsFile, JSON.stringify(allJobs, null, 2));
-  }
-
-  private formatWhatsAppMessages(newJobs: Job[], label: string): string[] {
-    if (newJobs.length === 0) return [];
-
-    const timestamp = new Date().toLocaleString('es-CO');
-    const total = newJobs.length;
-    const totalBlocks = Math.ceil(total / 10);
-    const messages: string[] = [];
-
-    for (let i = 0; i < total; i += 10) {
-      const block = newJobs.slice(i, i + 10);
-      const blockNum = Math.floor(i / 10) + 1;
-
-      const summary = block.map((job, idx) => {
-        const desc = job.description ? `\n📝 ${job.description.substring(0, 60)}...` : '';
-        const date = job.datePosted ? `\n📅 ${job.datePosted}` : '';
-        const source = job.sourceLocation ? ` · 🌎 ${job.sourceLocation}` : '';
-        return `${i + idx + 1}. ${scoreStars(job.score ?? 0)} *${job.title}*\n🏢 ${job.company}\n📍 ${job.location}${source}${date}${desc}\n🔗 ${job.link}`;
-      }).join('\n\n');
-
-      const blockLabel = totalBlocks > 1 ? ` [${blockNum}/${totalBlocks}]` : '';
-      const header = `🚀 *${label}* (${total} encontradas - últimos 5 días)${blockLabel}\n_${timestamp}_`;
-
-      let msg = `${header}\n\n${summary}`;
-      if (msg.length > 1500) msg = msg.substring(0, 1497) + '...'
-      messages.push(msg);
-    }
-
-    return messages;
-  }
-
-  async notifyNewJobs(newJobs: Job[], label: string) {
-    const accountSid = process.env.TWILIO_ACCOUNT_SID;
-    const authToken = process.env.TWILIO_AUTH_TOKEN;
-    const fromNumber = process.env.TWILIO_WHATSAPP_FROM;
-    const toNumbers = (process.env.WHATSAPP_TO || '').split(',').map(n => n.trim()).filter(Boolean);
-
-    if (newJobs.length === 0) {
-      console.log(`[${new Date().toLocaleTimeString()}] No new jobs found.`);
-      return;
-    }
-
-    console.log(`[${new Date().toLocaleTimeString()}] Sending ${newJobs.length} jobs — ${label}`);
-
-    newJobs.forEach(job => {
-      console.log(`✓ ${job.title} at ${job.company} (${job.location})`);
-    });
-
-    const whatsappEnabled = process.env.WHATSAPP_ENABLED !== 'false';
-    if (whatsappEnabled && accountSid && authToken && fromNumber && toNumbers.length > 0) {
-      const client = twilio(accountSid, authToken);
-      const messages = this.formatWhatsAppMessages(newJobs, label);
-
-      for (const toNumber of toNumbers) {
-        for (const message of messages) {
-          try {
-            const result = await client.messages.create({ body: message, from: fromNumber, to: toNumber });
-            logInfo(`WhatsApp enviado a ${toNumber}. SID: ${result.sid}`);
-            if (messages.length > 1) await new Promise(r => setTimeout(r, DELAYS.whatsapp));
-          } catch (error) {
-            logError(`WhatsApp nuevas ofertas → ${toNumber}`, error);
-          }
-        }
-      }
-    } else if (!whatsappEnabled) {
-      console.log('📵 WhatsApp desactivado (WHATSAPP_ENABLED=false) — solo correo.');
-    } else {
-      console.log('⚠️ Twilio not configured.');
-    }
-
-    await sendEmail(
-      `🚀 ${label} (${newJobs.length} oferta${newJobs.length !== 1 ? 's' : ''})`,
-      buildJobsEmailHtml(newJobs, label)
-    );
-  }
-
-  markNotified(links: string[]) {
-    const linkSet = new Set(links);
-    const jobs = this.loadExistingJobs().map(job =>
-      linkSet.has(job.link) ? { ...job, notifiedAt: new Date().toISOString() } : job
-    );
-    fs.writeFileSync(this.jobsFile, JSON.stringify(jobs, null, 2));
-  }
-
-  async dismissModal() {
-    if (!this.page) return;
-    try {
-      for (const sel of SELECTORS.dismissModal) {
-        const btn = await this.page.$(sel);
-        if (btn) {
-          await btn.click();
-          await randomDelay(DELAYS.modal.min, DELAYS.modal.max);
-          return;
-        }
-      }
-      // Fallback: press Escape
-      await this.page.keyboard.press('Escape');
-      await randomDelay(DELAYS.modal.min, DELAYS.modal.max);
-    } catch {
-      // Modal not present — silently ignore
-    }
+    console.log(`✅ Extracted ${relevant.length} relevant jobs from "${keyword}" (filtered from ${allExtracted.length} total)`);
+    return relevant;
   }
 
   async fetchJobDescriptions(jobs: Job[], maxJobs = 20): Promise<Job[]> {
@@ -316,31 +150,102 @@ class LinkedInJobScraper {
     for (const job of toFetch) {
       try {
         await this.page.goto(job.link, { waitUntil: 'domcontentloaded', timeout: TIMEOUTS.modal });
+
+        const currentUrl = this.page.url();
+        if (currentUrl.includes('/login') || currentUrl.includes('/authwall') || currentUrl.includes('/checkpoint')) {
+          logInfo(`⚠️  Sesión expirada al obtener descripción: ${currentUrl} — abortando descripciones`);
+          enriched.push(job);
+          break;
+        }
+
+        // Scroll para activar carga lazy de la descripción
+        await this.page.evaluate(() => window.scrollTo(0, 400));
         await this.page.waitForSelector([...SELECTORS.description].join(', '), { timeout: TIMEOUTS.jobCard }).catch(() => {});
         await randomDelay(DELAYS.scroll.min / 2, DELAYS.scroll.max / 2);
 
+        // Expandir descripción colapsada si hay botón "Show more"
+        for (const sel of SELECTORS.showMore) {
+          try {
+            const btn = await this.page.$(sel);
+            if (btn) {
+              await btn.click();
+              await randomDelay(400, 700);
+              break;
+            }
+          } catch { /* botón no presente */ }
+        }
+
         const description = await this.page.$$eval(
           [...SELECTORS.description].join(', '),
-          (els) => els.map(el => el.textContent?.trim() ?? '').join(' ')
+          (els) => els.map(el => el.textContent?.trim() ?? '').filter(t => t.length > 0).join(' ')
         ).catch(() => '');
 
-        enriched.push({ ...job, description: description.substring(0, 2000) });
+        if (description.length === 0) {
+          const pageTitle = await this.page.title().catch(() => '');
+          logInfo(`⚠️  Descripción vacía: "${job.title}" | URL: ${currentUrl.substring(0, 80)} | Title: ${pageTitle}`);
+          // Health check: loguear qué selectores están activos para detectar cambios de DOM
+          for (const sel of SELECTORS.description) {
+            const count = await this.page.$$eval(sel, els => els.length).catch(() => 0);
+            if (count > 0) logInfo(`  ✓ Selector activo (${count} elementos, textContent vacío?): ${sel}`);
+          }
+          logInfo(`  ✗ Ningún selector retornó contenido — puede ser cambio de DOM en LinkedIn`);
+        }
+
+        const salary = parseSalary(description);
+        enriched.push({ ...job, description: description.substring(0, 2000), ...(salary ? { salary } : {}) });
         logInfo(`Descripción obtenida: "${job.title}" (${description.length} chars)`);
-      } catch {
+      } catch (err) {
+        logInfo(`⚠️  Error obteniendo descripción de "${job.title}": ${String(err).substring(0, 100)}`);
         enriched.push(job);
       }
       await randomDelay(DELAYS.description.min, DELAYS.description.max);
     }
 
-    // Jobs beyond maxJobs keep their empty description
     return [...enriched, ...jobs.slice(maxJobs)];
   }
 
+  private async dismissModal() {
+    if (!this.page) return;
+    try {
+      for (const sel of SELECTORS.dismissModal) {
+        const btn = await this.page.$(sel);
+        if (btn) {
+          await btn.click();
+          await randomDelay(DELAYS.modal.min, DELAYS.modal.max);
+          return;
+        }
+      }
+      await this.page.keyboard.press('Escape');
+      await randomDelay(DELAYS.modal.min, DELAYS.modal.max);
+    } catch { /* modal not present */ }
+  }
+
+  private async debugPage(label: string) {
+    if (!this.page) return;
+    const url = this.page.url();
+    const title = await this.page.title();
+    const screenshotPath = path.join(path.dirname(fileURLToPath(import.meta.url)), 'debug-screenshot.png');
+    await this.page.screenshot({ path: screenshotPath, fullPage: false });
+    logInfo(`DEBUG [${label}] URL: ${url} | Title: ${title} | Screenshot: ${screenshotPath}`);
+    const counts = await this.page.evaluate(() => ({
+      jobSearchCard:    document.querySelectorAll('.job-search-card').length,
+      jobCardContainer: document.querySelectorAll('.job-card-container').length,
+      dataJobId:        document.querySelectorAll('[data-job-id]').length,
+    }));
+    logInfo(`DEBUG selectors: ${JSON.stringify(counts)}`);
+    // Alerta temprana si ningún selector de cards está encontrando resultados
+    if (counts.jobSearchCard === 0 && counts.jobCardContainer === 0 && counts.dataJobId === 0) {
+      logInfo(`⚠️  ALERTA: Todos los selectores de job-cards retornan 0 — posible cambio de DOM en LinkedIn`);
+    }
+  }
+
   async close() {
-    if (this.context) await this.context.close();
-    if (this.browser) await this.browser.close();
+    await this.context?.close().catch(() => {});
+    await this.browser?.close().catch(() => {});
   }
 }
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 async function withRetry<T>(
   fn: () => Promise<T>,
@@ -352,10 +257,9 @@ async function withRetry<T>(
     try {
       return await fn();
     } catch (error) {
-      // Session expired: no point retrying, propagate immediately so the caller can alert and stop
       if (error instanceof Error && error.message.startsWith('SESSION_EXPIRED')) throw error;
       const isLast = attempt === retries;
-      const delayMs = baseDelayMs * 2 ** (attempt - 1); // 2s, 4s, 8s
+      const delayMs = baseDelayMs * 2 ** (attempt - 1);
       logError(`${label} — intento ${attempt}/${retries}${isLast ? ' (definitivo)' : `, reintentando en ${delayMs / 1000}s`}`, error);
       if (isLast) return null;
       await new Promise(r => setTimeout(r, delayMs));
@@ -367,425 +271,44 @@ async function withRetry<T>(
 function rotateLogIfNeeded() {
   if (!fs.existsSync(LOG_FILE)) return;
   const { size, birthtimeMs } = fs.statSync(LOG_FILE);
-  const ageMs = Date.now() - birthtimeMs;
-  const tooBig = size > 5 * 1024 * 1024;           // 5 MB
-  const tooOld = ageMs > 7 * 24 * 60 * 60 * 1000;  // 7 days
+  const tooBig = size > 5 * 1024 * 1024;
+  const tooOld = (Date.now() - birthtimeMs) > 7 * 24 * 60 * 60 * 1000;
   if (tooBig || tooOld) {
     const reason = tooBig ? `${(size / 1024 / 1024).toFixed(1)} MB` : 'más de 7 días';
-    const backup = LOG_FILE.replace('.log', '.log.bak');
-    fs.renameSync(LOG_FILE, backup);
+    fs.renameSync(LOG_FILE, LOG_FILE.replace('.log', '.log.bak'));
     logInfo(`Log rotado (${reason}) → scraper.log.bak`);
   }
 }
 
-function scoreJob(job: Job): number {
-  let score = 0;
-  const title = job.title.toLowerCase();
-  const desc = (job.description || '').toLowerCase();
-  const loc = (job.location + ' ' + (job.sourceLocation ?? '')).toLowerCase();
-  const all = title + ' ' + desc;
-  const allLoc = all + ' ' + loc;
-
-  // Seniority
-  if (/\bsenior\b|\bsr\.?\b|\blead\b|\bstaff\b|\bprincipal\b/.test(title)) score += 35;
-  else if (/\bmid\b|\bssr\b|\bsemi\b/.test(title)) score += 15;
-  else if (/\bjunior\b|\bjr\.?\b|\bentry\b|\btrainee\b/.test(title)) score -= 25;
-
-  // Modalidad — remote es prioridad máxima
-  if (/remot[eo]/.test(allLoc)) score += 25;
-  else if (/h[íi]brid/.test(allLoc)) score += 10;
-
-  // Manual QA + STLC (core del perfil buscado)
-  if (/\bmanual\b/.test(all)) score += 12;
-  if (/\bstlc\b|software testing life cycle/.test(all)) score += 10;
-  if (/test\s+(plan|case|suite|strateg)|traceabilit|casos de prueba|plan de pruebas|matriz de trazabilidad/.test(all)) score += 8;
-
-  // API testing
-  if (/\bpostman\b/.test(all)) score += 10;
-  if (/\binsomnia\b|\bcharles\s*proxy\b/.test(all)) score += 8;
-  if (/\brest\s*api\b|\bapi\s+test|api\s+validat/.test(all)) score += 8;
-
-  // Base de datos y SQL
-  if (/\bsql\b/.test(all)) score += 10;
-  if (/database\s+test|data\s+integrit|consultas\s+sql/.test(all)) score += 8;
-
-  // Arquitectura moderna
-  if (/microservice/.test(all)) score += 10;
-  if (/event.driven|\beda\b/.test(all)) score += 8;
-
-  // Bug tracking
-  if (/\bjira\b/.test(all)) score += 6;
-  if (/azure\s+devops/.test(all)) score += 6;
-
-  // Herramientas de automatización
-  if (/playwright/.test(all)) score += 15;
-  if (/\bcypress\b/.test(all)) score += 12;
-  if (/\bselenium\b/.test(all)) score += 10;
-  if (/\bappium\b/.test(all)) score += 8;
-  if (/\bsdet\b/.test(all)) score += 12;
-
-  // CI/CD
-  if (/ci\/cd|github\s+actions|gitlab\s+ci|\bjenkins\b/.test(all)) score += 8;
-  if (/\bdocker\b|\bkubernetes\b/.test(all)) score += 5;
-
-  // Performance / load testing
-  if (/\bk6\b|\bjmeter\b|\bgatling\b/.test(all)) score += 6;
-
-  // Metodología ágil
-  if (/\bagile\b|\bscrum\b/.test(all)) score += 5;
-
-  // Accesibilidad / seguridad
-  if (/\bwcag\b|accessibility\s+test|pruebas\s+de\s+accesibilidad/.test(all)) score += 7;
-  if (/security\s+test|pruebas\s+de\s+seguridad/.test(all)) score += 5;
-
-  // AI tools en el flujo de trabajo (bonus fuerte)
-  if (/cursor\b|windsurf|claude\s+code|copilot\s+cli|gemini\s+cli|\bcodex\b/.test(all)) score += 12;
-  if (/\bai\b|artificial intelligence|\bllm\b|machine learning|inteligencia artificial/.test(all)) score += 6;
-
-  // Señal de cliente US / nearshore (english required = perfil internacional)
-  if (/\benglish\b|\bingl[eé]s\b/.test(all)) score += 8;
-  if (/us\s+client|cliente\s+(us|eeuu)|gorilla\s+logic|toptal|perficient/.test(all)) score += 10;
-
-  // LATAM / Colombia-friendly signals (empresa acepta candidatos remotos fuera de EEUU)
-  if (/\blatam\b|latin\s+america/.test(all)) score += 20;
-  if (/\bcolombia\b/.test(desc)) score += 20;
-  if (/nearshore/.test(all)) score += 15;
-  if (/timezone.{0,30}(est|pst|cst|et\b|pt\b|ct\b)|compatible.{0,20}timezone|work\s+from\s+anywhere|anywhere\s+in\s+the\s+world/.test(all)) score += 10;
-  if (/open\s+to\s+international|global\s+(remote\s+)?team|international\s+team|distributed\s+team/.test(all)) score += 10;
-
-  // Señales que excluyen candidatos fuera de EEUU
-  if (/must\s+be\s+authorized\s+to\s+work|authorized\s+to\s+work\s+in\s+the\s+u\.?s|u\.?s\.?\s+citizen(ship)?|green\s+card|must\s+reside\s+in\s+the\s+u\.?s|only\s+u\.?s\.?\s+residents?/.test(all)) score -= 50;
-  if (/\bc2c\b|\bw-?2\b|\b1099\b/.test(all)) score -= 30;
-
-  // Señales negativas
-  if (/manufactur|industrial|hardware|mec[áa]nic|embedded|firmware/.test(all)) score -= 20;
-  if (/\bsap\b/.test(title)) score -= 10;
-  if (/edtech|game\s+test|videogame/.test(all)) score -= 15;
-
-  // Bonus por recencia
-  if (job.datePosted) {
-    const posted = new Date(job.datePosted);
-    if (!isNaN(posted.getTime())) {
-      const ageHours = (Date.now() - posted.getTime()) / (1000 * 60 * 60);
-      if (ageHours < 24) score += 10;
-      else if (ageHours < 72) score += 5;
-    }
-  }
-
-  return score;
-}
-
-function scoreStars(score: number): string {
-  if (score >= 65) return '⭐⭐⭐';
-  if (score >= 35) return '⭐⭐';
-  return '⭐';
-}
-
-// ─── Detección de país y filtros de exclusión ─────────────────────────────
-
-const COUNTRY_PATTERNS: Record<string, RegExp> = {
-  'Brasil':    /\bbrasil\b|\bbrazil\b|são paulo|sao paulo|rio de janeiro|belo horizonte|curitiba|porto alegre|fortaleza\b|brasília|brasilia|recife\b|manaus\b|goiânia|goiania/i,
-  'España':    /\bespa[nñ]a\b|\bspain\b|\bmadrid\b|\bbarcelona\b|\bvalencia\b|\bsevilla\b|\bbilbao\b|\bzaragoza\b|\bmálaga\b|\bmalaga\b|\balicante\b|\bmurcia\b|\bvalladolid\b/i,
-  'México':    /\bm[eé]xico\b|\bcdmx\b|\bmonterrey\b|\bguadalajara\b|\bpuebla\b/i,
-  'Argentina': /\bargentina\b|\bbuenos aires\b|\bc[oó]rdoba\b|\brosario\b/i,
-  'Chile':     /\bchile\b|\bsantiago de chile\b/i,
-  'Perú':      /\bper[uú]\b|\blima\b/i,
-  'Colombia':  /\bcolombia\b|\bbogot[aá]\b|\bmedell[ií]n\b|\bcali\b|\bbarranquilla\b|\bcartagena\b/i,
-};
-
-function detectJobCountry(job: Job): string {
-  const text = [job.location, job.company, job.description || ''].join(' ');
-  for (const [country, pattern] of Object.entries(COUNTRY_PATTERNS)) {
-    if (pattern.test(text)) return country;
-  }
-  return '';
-}
-
-function hasInternationalSignal(job: Job): boolean {
-  const all = (job.title + ' ' + (job.description || '')).toLowerCase();
-  return /\blatam\b|latin\s+america|nearshore|\bcolombia\b|work\s+from\s+anywhere|anywhere\s+in\s+the\s+world|open\s+to\s+international|global\s+(remote\s+)?team|international\s+team|distributed\s+team|worldwide\s+team|remote[- ]first|hire.{0,20}global|global.{0,20}hire/.test(all);
-}
-
-function isExcludedJob(job: Job): { excluded: boolean; reason: string } {
-  const country = detectJobCountry(job);
-
-  if (country === 'Brasil') {
-    return { excluded: true, reason: 'oferta de Brasil' };
-  }
-
-  if (country === 'España') {
-    return { excluded: true, reason: 'oferta de España (zona horaria incompatible)' };
-  }
-
-  // Detectar restricciones explícitas de país en la descripción
-  const desc = (job.description || '').toLowerCase();
-
-  // Hard exclusion: US jobs that explicitly require US work authorization
-  if (job.sourceLocation === 'United States') {
-    const usAuthRequired = /must\s+be\s+authorized\s+to\s+work|authorized\s+to\s+work\s+in\s+the\s+u\.?s|u\.?s\.?\s+citizen(ship)?\s+required|green\s+card\s+required|must\s+reside\s+in\s+the\s+u\.?s|only\s+u\.?s\.?\s+residents?/.test(desc);
-    if (usAuthRequired) return { excluded: true, reason: 'requiere autorización de trabajo en EEUU' };
-  }
-  const countryRestrictions = [
-    { pattern: /solo\s+(para\s+)?(residentes?\s+(en\s+)?)?m[eé]xico|exclusivo\s+m[eé]xico|only\s+(for\s+)?mexico/i, country: 'México' },
-    { pattern: /solo\s+(para\s+)?(residentes?\s+(en\s+)?)?argentina|exclusivo\s+argentina/i, country: 'Argentina' },
-    { pattern: /solo\s+(para\s+)?(residentes?\s+(en\s+)?)?chile|exclusivo\s+chile/i, country: 'Chile' },
-    { pattern: /solo\s+(para\s+)?(residentes?\s+(en\s+)?)?per[uú]|exclusivo\s+per[uú]/i, country: 'Perú' },
-  ];
-  for (const r of countryRestrictions) {
-    if (r.pattern.test(desc)) {
-      return { excluded: true, reason: `restricción a ${r.country}` };
-    }
-  }
-
-  return { excluded: false, reason: '' };
-}
-
-// ─── Filtro de CV (se activa cuando cv-profile.json existe) ───────────────
-
-function loadCvProfile(): CvProfile | null {
-  if (!fs.existsSync(CV_PROFILE_FILE)) return null;
-  try { return JSON.parse(fs.readFileSync(CV_PROFILE_FILE, 'utf-8')) as CvProfile; } catch { return null; }
-}
-
-function scoreAgainstCv(job: Job, profile: CvProfile): number {
-  const all = (job.title + ' ' + (job.description || '')).toLowerCase();
-  let bonus = 0;
-  for (const skill of profile.skills) {
-    if (all.includes(skill.toLowerCase())) bonus += 5;
-  }
-  for (const kw of (profile.excludeKeywords ?? [])) {
-    if (all.includes(kw.toLowerCase())) bonus -= 15;
-  }
-  return bonus;
-}
-
-async function sendEmail(subject: string, html: string) {
-  const host = process.env.SMTP_HOST;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-  const to   = process.env.EMAIL_TO;
-  if (!host || !user || !pass || !to) {
-    console.warn('⚠️  sendEmail: faltan vars SMTP en el entorno — email no enviado.');
-    return;
-  }
-
-  const transporter = nodemailer.createTransport({
-    host,
-    port: Number(process.env.SMTP_PORT ?? 587),
-    secure: false,
-    auth: { user, pass },
+function dedupJobs(jobs: Job[]): Job[] {
+  const seenLinks = new Set<string>();
+  const seenKeys  = new Set<string>();
+  return jobs.filter(j => {
+    if (j.link && seenLinks.has(j.link)) return false;
+    const key = `${j.company.toLowerCase().trim()}|${j.title.toLowerCase().trim()}`;
+    if (seenKeys.has(key)) return false;
+    if (j.link) seenLinks.add(j.link);
+    seenKeys.add(key);
+    return true;
   });
-
-  try {
-    const info = await transporter.sendMail({
-      from: `"LinkedIn Scraper QA" <${user}>`,
-      to,
-      subject,
-      html,
-    });
-    logInfo(`Email enviado a ${to}. ID: ${info.messageId}`);
-  } catch (error) {
-    logError('sendEmail', error);
-  }
 }
 
-function parseJobDescription(raw: string): string {
-  if (!raw.trim()) {
-    return '<p style="color:#9ca3af;font-style:italic;margin:0">Sin descripción disponible.</p>';
-  }
-
-  // LinkedIn descriptions often arrive as a single wall of text with no newlines.
-  // Step 1: insert line breaks before known section header keywords embedded in the text.
-  let text = raw.trim();
-  text = text.replace(
-    /([^\n])\s*(?=(?:Requisitos|Requirements|Responsabilidades|Funciones y responsabilidades|Responsibilities|Funciones|Deseables?|Nice[\s-]to[\s-]have|Habilidades(?: complementarias)?|Skills|Beneficios|Benefits|Ofrecemos|We offer|About the role|About us|Sobre nosotros|Position Description|Job Description|Descripción del (?:cargo|puesto|rol)|Qualifications|Perfil(?: requerido)?|Lo que buscamos|Lo que ofrecemos|Conocimientos?)[^:\n]{0,40}:)/gi,
-    '$1\n\n'
-  );
-
-  // Step 2: parse line by line
-  const lines = text.replace(/\n{3,}/g, '\n\n').split('\n').map(l => l.trim()).filter(Boolean);
-  const html: string[] = [];
-  const bullets: string[] = [];
-
-  const flushBullets = () => {
-    if (!bullets.length) return;
-    const lis = bullets.map(b => `<li style="margin:5px 0;color:#374151;line-height:1.6;padding-left:2px">${b}</li>`).join('');
-    html.push(`<ul style="margin:6px 0 12px 20px;padding:0">${lis}</ul>`);
-    bullets.length = 0;
-  };
-
-  const sectionHeader = (text: string) =>
-    `<p style="margin:16px 0 6px;font-size:11px;font-weight:700;color:#1e293b;text-transform:uppercase;letter-spacing:0.7px;border-bottom:2px solid #e2e8f0;padding-bottom:5px">${text}</p>`;
-
-  // Split a paragraph into sentences at ". Capital" boundaries
-  const splitSentences = (t: string) =>
-    t.split(/\.\s+(?=[A-ZÁÉÍÓÚÑ])/).map(s => s.trim().replace(/\.$/, '')).filter(Boolean);
-
-  for (const line of lines) {
-    // Explicit bullet chars (•, -, *, ·, numbered)
-    const bulletMatch = line.match(/^[•\-\*·]\s+(.+)/) ?? line.match(/^\d+[.)]\s+(.+)/);
-    if (bulletMatch) { bullets.push(bulletMatch[1] ?? line); continue; }
-
-    // "Header: body..." — header is ≤ 5 words, no period inside, followed by colon + content
-    const sectionMatch = line.match(/^([^:.]{2,50}):\s*(.+)$/);
-    if (sectionMatch && sectionMatch[1]!.split(' ').length <= 5 && !sectionMatch[1]!.includes('.')) {
-      flushBullets();
-      html.push(sectionHeader(sectionMatch[1]!.trim()));
-      const body = sectionMatch[2]!.trim();
-      const sentences = splitSentences(body);
-      if (sentences.length >= 2) sentences.forEach(s => bullets.push(s));
-      else html.push(`<p style="margin:4px 0 8px;color:#374151;line-height:1.65">${body}</p>`);
-      continue;
-    }
-
-    // Standalone header line ending in ":"
-    if (line.endsWith(':') && line.length <= 80 && !line.includes('.')) {
-      flushBullets();
-      html.push(sectionHeader(line.slice(0, -1)));
-      continue;
-    }
-
-    // Long paragraph — split into sentences and render as bullets if multiple items
-    flushBullets();
-    const sentences = splitSentences(line);
-    if (sentences.length >= 2) {
-      sentences.forEach(s => bullets.push(s));
-    } else {
-      html.push(`<p style="margin:4px 0 10px;color:#374151;line-height:1.65">${line}</p>`);
-    }
-  }
-  flushBullets();
-
-  return html.join('') || '<p style="color:#9ca3af;font-style:italic;margin:0">Sin descripción disponible.</p>';
-}
-
-function scoreAccent(score: number): { border: string; badgeBg: string; badgeText: string; stars: string } {
-  if (score >= 65) return { border: '#16a34a', badgeBg: '#dcfce7', badgeText: '#15803d', stars: '⭐⭐⭐' };
-  if (score >= 35) return { border: '#d97706', badgeBg: '#fef3c7', badgeText: '#b45309', stars: '⭐⭐' };
-  return          { border: '#94a3b8', badgeBg: '#f1f5f9', badgeText: '#475569', stars: '⭐' };
-}
-
-function buildJobsEmailHtml(jobs: Job[], label: string): string {
-  const timestamp = new Date().toLocaleString('es-CO');
-
-  const cards = jobs.map((job) => {
-    const score = job.score ?? 0;
-    const accent = scoreAccent(score);
-
-    const meta: string[] = [];
-    if (job.datePosted) meta.push(`📅 ${job.datePosted}`);
-    if (job.detectedCountry) meta.push(`🌍 ${job.detectedCountry}`);
-    if (job.sourceLocation && job.sourceLocation !== job.detectedCountry) meta.push(`🔍 ${job.sourceLocation}`);
-    if (/remot[eo]/i.test(job.location + ' ' + (job.description || ''))) meta.push('🌐 Remote');
-    const metaHtml = meta.length > 0
-      ? `<div style="margin-top:8px">${meta.map(t =>
-          `<span style="display:inline-block;background:#f8fafc;border:1px solid #e2e8f0;color:#64748b;font-size:11px;padding:2px 8px;border-radius:20px;margin:2px 4px 2px 0">${t}</span>`
-        ).join('')}</div>`
-      : '';
-
-    return `
-      <div style="border:1px solid #e2e8f0;border-left:4px solid ${accent.border};border-radius:0 8px 8px 0;margin-bottom:14px;overflow:hidden;background:#fff">
-        <!-- Cabecera -->
-        <div style="padding:14px 16px;border-bottom:1px solid #f1f5f9">
-          <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
-            <tr>
-              <td style="vertical-align:top;padding-right:14px">
-                <div style="font-size:15px;font-weight:700;color:#1e293b;line-height:1.3">${job.title}</div>
-                <div style="font-size:13px;color:#64748b;margin-top:4px">
-                  <strong style="color:#334155">${job.company}</strong>
-                  <span style="color:#cbd5e1"> &nbsp;|&nbsp; </span>
-                  <span>${job.location}</span>
-                </div>
-                ${metaHtml}
-              </td>
-              <td style="vertical-align:top;width:130px;min-width:130px">
-                <a href="${job.link}" style="display:block;background:#0077B5;color:#fff;padding:9px 0;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;text-align:center;white-space:nowrap">Ver oferta →</a>
-                <div style="margin-top:6px;text-align:center">
-                  <span style="display:inline-block;background:${accent.badgeBg};color:${accent.badgeText};border:1px solid ${accent.border};padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap">${accent.stars} ${score} pts</span>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <!-- Descripción -->
-        <div style="padding:14px 16px;font-size:13px;background:#fafafa">
-          ${parseJobDescription(job.description || '')}
-        </div>
-      </div>`;
-  }).join('');
-
-  return `
-    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;max-width:740px;margin:auto;background:#f8fafc;padding:20px">
-      <!-- Encabezado -->
-      <div style="background:linear-gradient(135deg,#0077B5 0%,#005c8e 100%);color:#fff;padding:20px 24px;border-radius:10px;margin-bottom:20px">
-        <div style="font-size:20px;font-weight:700;margin:0">🚀 ${label}</div>
-        <div style="font-size:13px;opacity:0.85;margin-top:6px">
-          ${timestamp} &nbsp;·&nbsp; ${jobs.length} oferta${jobs.length !== 1 ? 's' : ''}
-        </div>
-        <!-- Leyenda de score -->
-        <div style="margin-top:12px;font-size:11px;opacity:0.8">
-          <span style="margin-right:12px">⭐⭐⭐ ≥ 65 pts &nbsp; Muy relevante</span>
-          <span style="margin-right:12px">⭐⭐ ≥ 35 pts &nbsp; Relevante</span>
-          <span>⭐ &lt; 35 pts &nbsp; Revisar</span>
-        </div>
-      </div>
-      ${cards}
-      <!-- Footer -->
-      <div style="text-align:center;font-size:11px;color:#94a3b8;padding-top:8px">
-        LinkedIn Job Scraper · Anderson Orjuela · Bogotá, Colombia
-      </div>
-    </div>`;
-}
-
-async function notifyError(message: string) {
-  const whatsappEnabled = process.env.WHATSAPP_ENABLED !== 'false';
-  if (whatsappEnabled) {
-    const accountSid = process.env.TWILIO_ACCOUNT_SID;
-    const authToken = process.env.TWILIO_AUTH_TOKEN;
-    const fromNumber = process.env.TWILIO_WHATSAPP_FROM;
-    const toNumbers = (process.env.WHATSAPP_TO || '').split(',').map(n => n.trim()).filter(Boolean);
-    if (accountSid && authToken && fromNumber && toNumbers.length > 0) {
-      const client = twilio(accountSid, authToken);
-      for (const toNumber of toNumbers) {
-        try {
-          const result = await client.messages.create({ body: message, from: fromNumber, to: toNumber });
-          logInfo(`Alerta de error enviada a ${toNumber}. SID: ${result.sid}`);
-        } catch (error) {
-          logError('notifyError', error);
-        }
-      }
-    }
-  }
-
-  const errorTs = new Date().toLocaleString('es-CO');
-  await sendEmail(
-    '⚠️ Scraper LinkedIn — Alerta de error',
-    `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;max-width:600px;margin:auto;background:#fff;border:1px solid #fecaca;border-radius:8px;overflow:hidden">
-      <div style="background:#dc2626;color:#fff;padding:14px 20px">
-        <div style="font-size:16px;font-weight:700">⚠️ Alerta del Scraper</div>
-        <div style="font-size:12px;opacity:0.85;margin-top:2px">${errorTs}</div>
-      </div>
-      <div style="padding:20px">
-        <pre style="background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:14px;border-radius:6px;white-space:pre-wrap;font-size:13px;line-height:1.6;margin:0">${message}</pre>
-      </div>
-    </div>`
-  );
-}
+// ─── Per-location search ──────────────────────────────────────────────────────
 
 async function searchOneLocation(
   keywords: string[],
   location: string,
   remoteOnly: boolean,
+  retried = false,
 ): Promise<{ jobs: Job[]; sessionExpired: boolean }> {
   const scraper = new LinkedInJobScraper();
   await scraper.init();
   const tag = remoteOnly ? ' 🌐 (remote only)' : '';
-  console.log(`\n  📍 [START] Location: ${location}${tag}`);
+  console.log(`\n  📍 Location: ${location}${tag}`);
 
   const jobs: Job[] = [];
   let consecutiveFailures = 0;
   let errorAlertSent = false;
-  const FAILURE_THRESHOLD = 3;
 
   try {
     for (const keyword of keywords) {
@@ -798,9 +321,18 @@ async function searchOneLocation(
         );
       } catch (error) {
         if (error instanceof Error && error.message.startsWith('SESSION_EXPIRED')) {
-          const ts = new Date().toLocaleString('es-CO');
-          await notifyError(
-            `🔐 *Sesión LinkedIn expirada*\n_${ts}_\n\nEl scraper se detuvo. Ejecuta:\n\`npx tsx linkedin-login.ts\`\npara renovar la sesión y reinicia el scraper.`
+          if (!retried) {
+            logInfo('Sesión expirada — intentando auto-renovar...');
+            const renewed = await autoLogin();
+            if (renewed) {
+              logInfo('Sesión renovada — reintentando búsqueda en esta ubicación...');
+              await scraper.close();
+              return searchOneLocation(keywords, location, remoteOnly, true);
+            }
+          }
+          await notifyCritical(
+            'Sesión LinkedIn expirada',
+            `Auto-renovación ${retried ? 'ya intentada y falló' : 'falló'}.\n\nAcción requerida:\n  npx tsx linkedin-login.ts\n\nEl scraper se detuvo. Reinícialo después de renovar la sesión.`
           );
           logInfo('Sesión expirada — deteniendo todas las búsquedas');
           return { jobs, sessionExpired: true };
@@ -810,7 +342,7 @@ async function searchOneLocation(
 
       if (result === null) {
         consecutiveFailures++;
-        if (consecutiveFailures >= FAILURE_THRESHOLD && !errorAlertSent) {
+        if (consecutiveFailures >= 3 && !errorAlertSent) {
           errorAlertSent = true;
           const ts = new Date().toLocaleString('es-CO');
           await notifyError(`⚠️ *Scraper LinkedIn — Alerta*\n_${ts}_\n\n${consecutiveFailures} búsquedas fallidas consecutivas.\nÚltima: "${keyword}" en ${location}\n\nRevisa scraper.log para más detalles.`);
@@ -831,70 +363,70 @@ async function searchOneLocation(
   return { jobs, sessionExpired: false };
 }
 
-// Scheduler function
+// ─── Main run ─────────────────────────────────────────────────────────────────
+
 async function runJobSearch() {
   rotateLogIfNeeded();
   console.log(`\n${'='.repeat(60)}`);
   console.log(`[${new Date().toLocaleTimeString()}] Starting LinkedIn job search...`);
   console.log(`${'='.repeat(60)}`);
 
-  // Use a single scraper instance only for file operations (no browser needed)
-  const scraper = new LinkedInJobScraper();
-
   try {
-    const keywords = (process.env.SEARCH_KEYWORDS || '')
-      .split(',').map(k => k.trim()).filter(Boolean);
+    const keywords = (process.env.SEARCH_KEYWORDS || '').split(',').map(k => k.trim()).filter(Boolean);
 
     const locationTargets = [
-      ...(process.env.SEARCH_LOCATIONS || '').split(',').map(l => l.trim()).filter(Boolean)
-        .map(location => ({ location, remoteOnly: false })),
-      ...(process.env.SEARCH_LOCATIONS_REMOTE || '').split(',').map(l => l.trim()).filter(Boolean)
-        .map(location => ({ location, remoteOnly: true })),
+      ...(process.env.SEARCH_LOCATIONS        || '').split(',').map(l => l.trim()).filter(Boolean).map(location => ({ location, remoteOnly: false })),
+      ...(process.env.SEARCH_LOCATIONS_REMOTE || '').split(',').map(l => l.trim()).filter(Boolean).map(location => ({ location, remoteOnly: true  })),
     ];
-    const remoteOnlyLocations = new Set(
-      locationTargets.filter(t => t.remoteOnly).map(t => t.location)
-    );
-
-    const isFirstRun = !fs.existsSync(JOBS_FILE) || scraper.loadExistingJobs().length === 0;
+    const remoteOnlyLocations = new Set(locationTargets.filter(t => t.remoteOnly).map(t => t.location));
+    const isFirstRun = !fs.existsSync(JOBS_FILE) || loadJobs().length === 0;
 
     console.log(`  ⚡ Running ${locationTargets.length} location(s) in parallel...`);
 
-    // Run all locations simultaneously — each gets its own browser instance
     const locationResults = await Promise.all(
-      locationTargets.map(({ location, remoteOnly }) =>
-        searchOneLocation(keywords, location, remoteOnly)
-      )
+      locationTargets.map(({ location, remoteOnly }) => searchOneLocation(keywords, location, remoteOnly))
     );
 
-    const sessionExpired = locationResults.some(r => r.sessionExpired);
-    if (sessionExpired) return;
+    if (locationResults.some(r => r.sessionExpired)) return;
 
     const allJobs = locationResults.flatMap(r => r.jobs);
-    const allNewJobs = await scraper.getNewJobs(allJobs);
+    const jobsToScore = dedupJobs(isFirstRun ? allJobs : getNewJobs(allJobs));
 
-    // Remove duplicates
-    const uniqueJobs = allNewJobs.filter((job, index, self) =>
-      index === self.findIndex(j => j.link === job.link)
-    );
+    // Also pick up existing jobs that never got a description (backfill)
+    const MAX_DESC = Number(process.env.MAX_DESC_PER_RUN ?? 40);
+    const existingNoDesc = isFirstRun ? [] : loadJobs()
+      .filter(j => !j.description || j.description.length < 50)
+      .slice(0, Math.max(0, MAX_DESC - jobsToScore.length));
 
-    const uniqueAllJobs = allJobs.filter((job, index, self) =>
-      index === self.findIndex(j => j.link === job.link)
-    );
+    const toEnrich = [...jobsToScore, ...existingNoDesc];
 
-    const cvProfile = loadCvProfile();
-
-    const jobsToScore = isFirstRun ? uniqueAllJobs : uniqueJobs;
     let jobsEnriched = jobsToScore;
-    if (jobsToScore.length > 0) {
+    if (toEnrich.length > 0) {
       const descScraper = new LinkedInJobScraper();
       await descScraper.init();
       try {
-        jobsEnriched = await descScraper.fetchJobDescriptions(jobsToScore);
+        const enriched = await descScraper.fetchJobDescriptions(toEnrich, MAX_DESC);
+        // Split back: new jobs enriched + backfilled existing jobs (save back to store)
+        jobsEnriched = enriched.slice(0, jobsToScore.length);
+        const backfilled = enriched.slice(jobsToScore.length).filter(j => j.description && j.description.length > 50);
+        if (backfilled.length > 0) {
+          const all = loadJobs().map(j => {
+            const updated = backfilled.find(b => b.link === j.link);
+            if (!updated) return j;
+            const merged: typeof j = { ...j };
+            if (updated.description) merged.description = updated.description;
+            if (updated.salary)      merged.salary      = updated.salary;
+            return merged;
+          });
+          saveJobs(all);
+          console.log(`  📝 Backfill: ${backfilled.length} jobs sin descripción actualizados`);
+        }
       } finally {
         await descScraper.close();
       }
     }
 
+    const cvProfile = loadCvProfile();
     const MIN_SCORE = Number(process.env.MIN_SCORE ?? 10);
 
     const jobsToProcess = jobsEnriched
@@ -904,127 +436,263 @@ async function runJobSearch() {
         return { ...job, detectedCountry, score: scoreJob(job) + cvBonus };
       })
       .filter(job => {
+        // 🇨🇴 COLOMBIA: Incluir todos los jobs QA sin filtros estrictos
+        if (isColombian(job)) {
+          console.log(`  ✅ Job colombiano (sin filtros estrictos): "${job.title}" @ ${job.company}`);
+          return true;
+        }
+
+        // Para trabajos NO colombianos, aplicar filtros normales
+        const MIN_SALARY_USD = Number(process.env.MIN_SALARY_USD ?? 0);
+        if (MIN_SALARY_USD > 0 && isBelowMinSalary(job, MIN_SALARY_USD)) {
+          console.log(`  ⛔ Salario bajo (${job.salary?.raw}): "${job.title}" en ${job.company} — descartado`);
+          return false;
+        }
         if (job.sourceLocation && remoteOnlyLocations.has(job.sourceLocation)) {
-          // Require explicit international/LATAM signal — most US jobs don't hire outside the US
-          if (!hasInternationalSignal(job)) {
-            console.log(`  ⛔ Sin señal internacional: "${job.title}" en ${job.company} — descartado`);
+          if (isHybridOrOnSite(job)) {
+            console.log(`  ⛔ Híbrido/presencial (no apto desde Colombia): "${job.title}" en ${job.company} — descartado`);
             return false;
           }
-          // Hybrid = not viable from Colombia
-          const locDesc = (job.location + ' ' + (job.description || '')).toLowerCase();
-          if (/\bh[íi]brid[ao]?\b|\bhybrid\b/.test(locDesc)) {
-            console.log(`  ⛔ Híbrido (no apto desde Colombia): "${job.title}" en ${job.company} — descartado`);
-            return false;
-          }
-          if ((job.score ?? 0) < 40) {
-            console.log(`  ⛔ Score bajo (${job.score}): "${job.title}" en ${job.company} — descartado`);
+          // Para jobs de EEUU sin señal de contratación internacional, exigir score alto
+          // (evita jobs US-remote que solo contratan dentro de EEUU sin decirlo explícitamente)
+          const hasIntlSignal = hasInternationalSignal(job);
+          const minRemoteScore = hasIntlSignal ? 15 : 40;
+          if ((job.score ?? 0) < minRemoteScore) {
+            const reason = hasIntlSignal ? 'score bajo' : 'sin señal internacional y score insuficiente';
+            console.log(`  ⛔ ${reason} (${job.score} < ${minRemoteScore}): "${job.title}" en ${job.company} — descartado`);
             return false;
           }
         }
-        // Score mínimo global — aplica a todas las ubicaciones incluyendo Colombia
         if ((job.score ?? 0) < MIN_SCORE) {
           console.log(`  ⛔ Score insuficiente (${job.score} < ${MIN_SCORE}): "${job.title}" en ${job.company} — descartado`);
           return false;
         }
-        const { excluded, reason } = isExcludedJob(job);
+        const { excluded, reason } = isExcludedJob(job, cvProfile?.blockedCompanies);
         if (excluded) console.log(`  ⛔ Excluido: "${job.title}" en ${job.company} — ${reason}`);
         return !excluded;
       })
       .sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
 
-    scraper.saveJobs(jobsToProcess);
-
-    // Filtrar jobs ya notificados por otro proceso (race condition entre instancias)
-    const alreadyNotified = new Set(
-      scraper.loadExistingJobs().filter(j => j.notifiedAt).map(j => j.link)
-    );
-    const jobsToNotify = isFirstRun
-      ? jobsToProcess
-      : jobsToProcess.filter(j => !alreadyNotified.has(j.link));
-
-    if (isFirstRun) {
-      await scraper.notifyNewJobs(jobsToNotify, 'PRIMERA EJECUCIÓN - TODAS LAS OFERTAS');
-      scraper.markNotified(jobsToNotify.map(j => j.link));
-    } else if (jobsToNotify.length > 0) {
-      await scraper.notifyNewJobs(jobsToNotify, 'Nuevas ofertas QA');
-      scraper.markNotified(jobsToNotify.map(j => j.link));
+    // Detector de jobs falsos/spam (solo si ANTHROPIC_API_KEY está configurada)
+    let finalJobs: Job[] = jobsToProcess;
+    if (process.env.ANTHROPIC_API_KEY && !isFirstRun) {
+      const { clean, suspect } = await filterSuspectJobs(jobsToProcess as Job[]);
+      if (suspect.length > 0) console.log(`  🚩 ${suspect.length} jobs sospechosos eliminados por detector de spam`);
+      finalJobs = clean;
     }
 
-    console.log(`\n✓ Job search completed. ${jobsToProcess.length} jobs ${isFirstRun ? 'found and saved (first run)' : 'new jobs found and saved'}.`);
+    saveJobs(finalJobs);
+
+    const alreadyNotified = new Set(loadJobs().filter(j => j.notifiedAt).map(j => j.link));
+    const jobsToNotify = isFirstRun
+      ? finalJobs
+      : finalJobs.filter(j => {
+          if (alreadyNotified.has(j.link)) return false;
+          // No notificar sin descripción — el backfill la completará en el próximo ciclo
+          if (!j.description || j.description.length < 80) {
+            console.log(`  ⏳ Sin descripción aún: "${j.title}" @ ${j.company} — se enviará en próximo ciclo`);
+            return false;
+          }
+          return true;
+        });
+
+    if (jobsToNotify.length > 0) {
+      const label = isFirstRun ? 'PRIMERA EJECUCIÓN - TODAS LAS OFERTAS' : 'Nuevas ofertas QA';
+      await notifyNewJobs(jobsToNotify, label);
+      markNotified(jobsToNotify.map(j => j.link));
+
+      // Cover letters solo pa jobs nuevos ⭐⭐⭐ (max 3 por ejecución, no en primera corrida)
+      if (!isFirstRun) {
+        const topJobs = jobsToNotify.filter(j => (j.score ?? 0) >= 65).slice(0, 3);
+        for (const job of topJobs) {
+          await generateAndSendCoverLetter(job);
+        }
+      }
+    }
+
+    console.log(`\n✓ Job search completed. ${jobsToProcess.length} jobs new jobs found and saved.`);
+
+    // Regenerate dashboard after each run
+    try {
+      const { generateDashboard } = await import('./dashboard/generate.js');
+      generateDashboard();
+    } catch { /* dashboard generation is non-critical */ }
+
+    // Resumen diario automático: si son las 18h o más y no se envió hoy todavía
+    try {
+      const hour = new Date().getHours();
+      if (hour >= 18) {
+        const summaryFlagFile = path.join(path.dirname(fileURLToPath(import.meta.url)), '.summary-sent-today');
+        const todayStr = new Date().toLocaleDateString('es-CO');
+        const lastSent = fs.existsSync(summaryFlagFile) ? fs.readFileSync(summaryFlagFile, 'utf-8').trim() : '';
+        if (lastSent !== todayStr) {
+          logInfo('Ejecutando resumen diario automático (≥18h y no enviado hoy)...');
+          await runDailySummary();
+          fs.writeFileSync(summaryFlagFile, todayStr);
+        }
+      }
+    } catch (err) {
+      logError('Resumen diario automático', err);
+    }
   } catch (error) {
     console.error('✗ Error during job search:', error);
   }
 }
 
+// ─── Summary functions ────────────────────────────────────────────────────────
+
+function buildScoreBreakdown(job: Job): string[] {
+  const all   = ((job.title ?? '') + ' ' + (job.description ?? '')).toLowerCase();
+  const title = (job.title ?? '').toLowerCase();
+  const reasons: string[] = [];
+  if (/\bsenior\b|\bsr\.?\b|\blead\b/.test(title))        reasons.push('Senior/Lead (+35)');
+  if (/remot[eo]/.test(all))                               reasons.push('Remote (+25)');
+  if (/\blatam\b|latin\s+america/.test(all))               reasons.push('LATAM (+20)');
+  if (/\bcolombia\b/.test(all))                            reasons.push('Colombia (+20)');
+  if (/playwright/.test(all))                              reasons.push('Playwright (+15)');
+  if (/\bsdet\b/.test(all))                                reasons.push('SDET (+12)');
+  if (/\bcypress\b/.test(all))                             reasons.push('Cypress (+12)');
+  if (/nearshore/.test(all))                               reasons.push('Nearshore (+15)');
+  if (/\bpostman\b/.test(all))                             reasons.push('Postman (+10)');
+  if (/\brest\s*api\b/.test(all))                          reasons.push('REST API (+8)');
+  if (/\bsql\b/.test(all))                                 reasons.push('SQL (+10)');
+  if (/microservice/.test(all))                            reasons.push('Microservices (+10)');
+  if (/\bai\b|\bllm\b/.test(all))                          reasons.push('AI/LLM (+6)');
+  if (/\benglish\b|\bingl[eé]s\b/.test(all))               reasons.push('English req (+8)');
+  if (/ci\/cd|github\s+actions/.test(all))                 reasons.push('CI/CD (+8)');
+  return reasons;
+}
+
 async function runDailySummary() {
   const timestamp = new Date().toLocaleString('es-CO');
+  const todayStr  = new Date().toLocaleDateString('es-CO');
   console.log(`\n${'='.repeat(60)}`);
   console.log(`[${new Date().toLocaleTimeString()}] RESUMEN DIARIO — ${timestamp}`);
   console.log(`${'='.repeat(60)}`);
 
-  const scraper = new LinkedInJobScraper();
-  const todayStr = new Date().toLocaleDateString('es-CO');
-
-  const todaysJobs = scraper.loadExistingJobs()
-    .filter(job => {
-      if (!job.savedAt) return false;
-      return new Date(job.savedAt).toLocaleDateString('es-CO') === todayStr;
-    })
+  const allJobs = loadJobs()
+    .filter(job => job.savedAt && new Date(job.savedAt).toLocaleDateString('es-CO') === todayStr)
     .map(job => ({ ...job, score: job.score ?? scoreJob(job) }))
     .sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
 
-  console.log(`\n📋 Total ofertas encontradas hoy: ${todaysJobs.length}\n`);
+  const top5    = allJobs.slice(0, 5);
+  const rest    = allJobs.slice(5);
 
-  todaysJobs.forEach((job, idx) => {
-    const stars = scoreStars(job.score ?? 0);
-    const date = job.datePosted ? ` | 📅 ${job.datePosted}` : '';
-    const desc = job.description ? `\n   📝 ${job.description.substring(0, 100)}...` : '';
-    console.log(`${idx + 1}. ${stars} ${job.title}`);
-    console.log(`   🏢 ${job.company} | 📍 ${job.location}${date}`);
-    console.log(`   🔗 ${job.link}${desc}`);
-    console.log('');
+  console.log(`\n📋 Total ofertas hoy: ${allJobs.length} | Top 5 destacadas:\n`);
+  top5.forEach((job, idx) => {
+    const stars   = scoreStars(job.score ?? 0);
+    const reasons = buildScoreBreakdown(job).slice(0, 3).join(' · ');
+    console.log(`${idx + 1}. ${stars} [${job.score} pts] ${job.title} @ ${job.company}`);
+    console.log(`   📍 ${job.location}  |  Por qué: ${reasons}`);
+    console.log(`   🔗 ${job.link}\n`);
   });
-
   console.log('='.repeat(60));
 
-  const dailyLabel = `RESUMEN DIARIO — ${new Date().toLocaleDateString('es-CO')} (${todaysJobs.length} ofertas)`;
-  await scraper.notifyNewJobs(todaysJobs, dailyLabel);
+  // Rich HTML email with top-5 breakdown + rest as compact list
+  const dateLabel = new Date().toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' });
+  const topHtml = top5.map((job, idx) => {
+    const stars   = scoreStars(job.score ?? 0);
+    const reasons = buildScoreBreakdown(job);
+    const salary  = job.salary ? `<span style="background:#dcfce7;color:#166534;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">${job.salary.raw}</span>` : '';
+    const reasonsHtml = reasons.length
+      ? `<div style="margin-top:6px;font-size:11px;color:#64748b">${reasons.map(r => `<span style="background:#f1f5f9;padding:2px 7px;border-radius:8px;margin-right:4px">${r}</span>`).join('')}</div>`
+      : '';
+    return `
+      <div style="border:1px solid #cbd5e1;border-left:4px solid ${(job.score ?? 0) >= 65 ? '#16a34a' : (job.score ?? 0) >= 35 ? '#2563eb' : '#94a3b8'};border-radius:0 8px 8px 0;margin-bottom:12px;background:#ffffff;overflow:hidden">
+        <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+          <tr>
+            <td style="padding:14px 16px;vertical-align:top">
+              <div style="font-size:13px;font-weight:700;color:#1e293b">#${idx + 1} ${stars} ${job.title}</div>
+              <div style="font-size:12px;color:#4a90d9;font-weight:600;margin-top:2px">${job.company}</div>
+              <div style="font-size:11px;color:#64748b;margin-top:4px">📍 ${job.location}${job.datePosted ? ' · 📅 ' + job.datePosted : ''}</div>
+              ${reasonsHtml}
+              <a href="${job.link}" style="display:inline-block;margin-top:10px;background:#0077B5;color:#ffffff;padding:6px 14px;border-radius:6px;font-size:12px;text-decoration:none;font-weight:600">Ver oferta →</a>
+            </td>
+            <td style="padding:14px 16px;vertical-align:top;text-align:right;white-space:nowrap;width:120px">
+              ${salary}
+              <div style="margin-top:4px"><span style="background:#1a2744;color:#ffffff;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700">${job.score} pts</span></div>
+            </td>
+          </tr>
+        </table>
+      </div>`;
+  }).join('');
+
+  const restHtml = rest.length > 0
+    ? `<div style="margin-top:20px"><p style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Otras ${rest.length} ofertas del día</p>
+       ${rest.map(j => `<div style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:12px"><span style="color:#1e293b;font-weight:600">${j.title}</span> <span style="color:#4a90d9">@ ${j.company}</span> <span style="color:#94a3b8;float:right">${j.score ?? 0} pts</span><br><a href="${j.link}" style="color:#0077B5;font-size:11px">Ver →</a></div>`).join('')}
+       </div>`
+    : '';
+
+  const html = `
+    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:#e8ecf1;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif">
+      <tr><td align="center" style="padding:20px 10px">
+        <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;max-width:700px">
+          <tr><td style="background:linear-gradient(135deg,#1a2744 0%,#2563eb 100%);color:#ffffff;padding:20px 24px;border-radius:10px;mso-border-radius:10px">
+            <div style="font-size:18px;font-weight:800;color:#ffffff">📋 Resumen Diario QA</div>
+            <div style="font-size:13px;color:#c8d8f8;margin-top:4px;text-transform:capitalize">${dateLabel}</div>
+            <table cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin-top:12px">
+              <tr>
+                <td style="text-align:center;padding-right:24px">
+                  <div style="font-size:24px;font-weight:800;color:#ffffff">${allJobs.length}</div>
+                  <div style="font-size:11px;color:#c8d8f8">Ofertas hoy</div>
+                </td>
+                <td style="text-align:center;padding-right:24px">
+                  <div style="font-size:24px;font-weight:800;color:#ffffff">${allJobs.filter(j => (j.score ?? 0) >= 65).length}</div>
+                  <div style="font-size:11px;color:#c8d8f8">⭐⭐⭐ Top</div>
+                </td>
+                <td style="text-align:center">
+                  <div style="font-size:24px;font-weight:800;color:#ffffff">${allJobs.filter(j => j.salary).length}</div>
+                  <div style="font-size:11px;color:#c8d8f8">Con salario</div>
+                </td>
+              </tr>
+            </table>
+          </td></tr>
+          <tr><td style="padding-top:16px">
+            <p style="font-size:13px;font-weight:700;color:#1e293b;margin:0 0 10px">🏆 Top 5 del día</p>
+            ${topHtml}
+            ${restHtml}
+          </td></tr>
+          <tr><td style="text-align:center;font-size:11px;color:#64748b;padding:12px 0 4px">
+            LinkedIn Job Scraper · Anderson Orjuela · Bogotá, Colombia
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>`;
+
+  const { sendEmail } = await import('./utils/notifications.js');
+  const label = `📋 Resumen Diario QA — ${dateLabel} (${allJobs.length} ofertas, top: ${top5[0]?.title ?? 'N/A'})`;
+  await sendEmail(label, html);
 }
 
 async function runWeeklySummary() {
   const timestamp = new Date().toLocaleString('es-CO');
+  const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
   console.log(`\n${'='.repeat(60)}`);
   console.log(`[${new Date().toLocaleTimeString()}] TOP 10 SEMANAL — ${timestamp}`);
   console.log(`${'='.repeat(60)}`);
 
-  const scraper = new LinkedInJobScraper();
-  const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
-
-  const top10 = scraper.loadExistingJobs()
+  const top10 = loadJobs()
     .filter(job => job.savedAt && new Date(job.savedAt).getTime() >= cutoff)
     .map(job => ({ ...job, score: job.score ?? scoreJob(job) }))
     .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
     .slice(0, 10);
 
   console.log(`\n🏆 Top ofertas de la semana: ${top10.length}\n`);
-  top10.forEach((job, idx) => {
-    console.log(`${idx + 1}. ${scoreStars(job.score ?? 0)} [${job.score} pts] ${job.title} @ ${job.company}`);
-  });
+  top10.forEach((job, idx) => console.log(`${idx + 1}. ${scoreStars(job.score ?? 0)} [${job.score} pts] ${job.title} @ ${job.company}`));
   console.log('='.repeat(60));
 
-  if (top10.length === 0) {
-    console.log('Sin ofertas esta semana.');
-    return;
-  }
+  if (top10.length === 0) { console.log('Sin ofertas esta semana.'); return; }
 
   const weekLabel = `TOP 10 OFERTAS DE LA SEMANA — ${new Date().toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' })}`;
-  await scraper.notifyNewJobs(top10, weekLabel);
+  await notifyNewJobs(top10, weekLabel);
 }
+
+// ─── Scheduler ────────────────────────────────────────────────────────────────
 
 let isSearchRunning = false;
 
 function startScheduler() {
-  const schedule = process.env.CRON_SCHEDULE || '0 7-19 * * *';
+  const schedule   = process.env.CRON_SCHEDULE || '0 7-19 * * *';
   const scriptPath = fileURLToPath(import.meta.url);
 
   console.log('\n📅 Job scraper scheduler started.');
@@ -1038,71 +706,55 @@ function startScheduler() {
       return;
     }
     isSearchRunning = true;
-
-    // Spawn child process so Playwright never blocks the cron event loop
     const child = spawn('npx', ['tsx', scriptPath, '--once'], {
       cwd: path.dirname(scriptPath),
       stdio: 'inherit',
       env: process.env,
     });
-
     child.on('close', () => { isSearchRunning = false; });
     child.on('error', (err) => {
-      console.error(`[${new Date().toLocaleTimeString()}] Error al iniciar proceso hijo:`, err);
+      console.error(`Error al iniciar proceso hijo:`, err);
       isSearchRunning = false;
     });
   });
 
-  cron.schedule('0 8 * * *', () => {
-    runDailySummary().catch(console.error);
-  });
+  cron.schedule('0 8 * * *',   () => runDailySummary().catch(console.error));
+  cron.schedule('0 17 * * 5',  () => runWeeklySummary().catch(console.error));
 
-  cron.schedule('0 17 * * 5', () => {
-    runWeeklySummary().catch(console.error);
-  });
-
-  // Keep the process running
   setInterval(() => {}, 1000);
 }
 
+// ─── Dev helpers ──────────────────────────────────────────────────────────────
+
 async function sendTestEmail(toOverride?: string) {
-  const scraper = new LinkedInJobScraper();
-  const jobs = scraper.loadExistingJobs();
-  if (jobs.length === 0) {
-    console.error('✗ No hay jobs en jobs.json para enviar.');
-    return;
-  }
+  const jobs = loadJobs();
+  if (jobs.length === 0) { console.error('✗ No hay jobs en jobs.json para enviar.'); return; }
 
   const last = jobs[jobs.length - 1]!;
-  const job = { ...last, score: last.score ?? scoreJob(last) } as Job;
-
-  const to = toOverride ?? process.env.EMAIL_TO ?? '';
+  const job  = { ...last, score: last.score ?? scoreJob(last) } as Job;
+  const to   = toOverride ?? process.env.EMAIL_TO ?? '';
   if (!to) { console.error('✗ EMAIL_TO no configurado.'); return; }
 
-  const subject = `🧪 Test email — ${job.title} @ ${job.company}`;
-  const html = buildJobsEmailHtml([job], 'Email de prueba — último job encontrado');
+  const { sendEmail } = await import('./utils/notifications.js');
+  const { buildJobsEmailHtml } = await import('./utils/email.js');
 
-  // Override EMAIL_TO temporarily
   const original = process.env.EMAIL_TO;
   process.env.EMAIL_TO = to;
-  await sendEmail(subject, html);
+  await sendEmail(`🧪 Test email — ${job.title} @ ${job.company}`, buildJobsEmailHtml([job], 'Email de prueba — último job encontrado'));
   process.env.EMAIL_TO = original;
 
   console.log(`✓ Email de prueba enviado a: ${to}`);
   console.log(`  Job: ${job.title} @ ${job.company} (score: ${job.score})`);
 }
 
-// Main entry point
+// ─── Entry point ──────────────────────────────────────────────────────────────
+
 async function main() {
   const args = process.argv.slice(2);
-
-  if (args.includes('--once')) {
-    await runJobSearch();
-  } else if (args.includes('--summary')) {
-    await runDailySummary();
-  } else if (args.includes('--weekly')) {
-    await runWeeklySummary();
-  } else if (args.includes('--test-email')) {
+  if      (args.includes('--once'))      await runJobSearch();
+  else if (args.includes('--summary'))   await runDailySummary();
+  else if (args.includes('--weekly'))    await runWeeklySummary();
+  else if (args.includes('--test-email')) {
     const toArg = args.find(a => a.startsWith('--to='))?.split('=')[1];
     await sendTestEmail(toArg);
   } else {

@@ -69,8 +69,9 @@ WHATSAPP_ENABLED / TWILIO_*
 ```bash
 npx tsx linkedin-job-scraper.ts --once      # Una búsqueda inmediata
 npx tsx linkedin-job-scraper.ts             # Modo scheduler (cron)
-npx tsx linkedin-job-scraper.ts --summary   # Resumen diario
+npx tsx linkedin-job-scraper.ts --summary   # Resumen diario (todos los jobs)
 npx tsx linkedin-job-scraper.ts --weekly    # Top 10 semanal
+npx tsx daily-summary-colombia.ts           # 🇨🇴 Resumen diario SOLO jobs colombianos (ordenados por relevancia)
 npx tsx linkedin-login.ts                   # Renovar sesión manualmente (headed)
 ```
 
@@ -81,7 +82,7 @@ npx tsx linkedin-login.ts                   # Renovar sesión manualmente (heade
 - Logs via `logInfo()` / `logError()` de `utils/logger.ts`
 - Delays aleatorios entre requests para no parecer bot
 
-## Optimizaciones para Colombia (2026-07-06)
+## Optimizaciones para Colombia (2026-07-06 → 2026-07-07)
 
 ### Mejoras de detección
 - **Ciudades ampliadas:** Bogotá, Medellín, Cali, Barranquilla, Cartagena, Cúcuta, Bucaramanga, Santa Marta, Pereira, Manizales, Armenia
@@ -97,6 +98,7 @@ npx tsx linkedin-login.ts                   # Renovar sesión manualmente (heade
 ### Mejoras de filtrado
 - **EST timezone exclusión:** Automáticamente rechaza trabajos que requieren EST a menos que sean colombianos
 - **Mejor detección de restricciones internacionales**
+- **🇨🇴 Colombia sin filtros estrictos:** TODOS los jobs colombianos que mencionen QA se incluyen (sin aplicar MIN_SCORE ni otros filtros restrictivos)
 
 ### Búsquedas optimizadas
 Actualiza tu `.env` con:
