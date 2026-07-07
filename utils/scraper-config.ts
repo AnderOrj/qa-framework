@@ -24,6 +24,27 @@ export const DELAYS = {
   whatsapp:    1500,
 } as const;
 
+export const QA_KEYWORDS = [
+  // English
+  'qa', 'quality assurance', 'quality engineer', 'test', 'testing',
+  'automation', 'tester', 'sdet',
+  // Spanish
+  'automatización', 'automatizacion', 'pruebas', 'calidad de software',
+  'control de calidad', 'analista qa', 'ingeniero qa', 'qa engineer',
+] as const;
+
+export const COLOMBIAN_SEARCH_LOCATIONS = [
+  'Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena',
+  'Cúcuta', 'Bucaramanga', 'Santa Marta', 'Pereira', 'Manizales',
+  'Armenia', 'Colombia'
+] as const;
+
+export const COLOMBIAN_COMPANIES_KEYWORDS = [
+  'Rappi', 'Bancolombia', 'Davivienda', 'Platzi', 'Pragma',
+  'Globant Colombia', 'Gorilla Logic', 'Sofka', 'Encora',
+  'Toptal', 'Despegar', 'Mercado Libre Colombia', 'Stripe',
+] as const;
+
 export const SELECTORS = {
   dismissModal: [
     'button[aria-label="Dismiss"]',
@@ -32,9 +53,23 @@ export const SELECTORS = {
     'button[aria-label="Cerrar"]',
   ] as const,
   description: [
+    '[data-testid="expandable-text-box"]',
     '.jobs-description-content__text',
     '.jobs-description__content',
     '.description__text--rich',
     '.show-more-less-html__markup',
+    '#job-details',
+    '.jobs-description',
+    '.job-details-jobs-unified-top-card__job-description',
+    '.decorated-job-posting__details',
+    '[data-testid="job-details-description"]',
+  ] as const,
+  showMore: [
+    'button.show-more-less-html__button--more',
+    'button[aria-label*="Show more"]',
+    'button[aria-label*="Ver más"]',
+    'button[aria-label*="Ver mas"]',
+    '.jobs-description__footer-button',
+    'button[data-tracking-control-name*="show_more"]',
   ] as const,
 } as const;
