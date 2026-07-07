@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import type { Job } from './utils/types.js';
-import { isColombian } from './utils/filters.js';
+import { isColombian, isHybridOrOnSite } from './utils/filters.js';
 
 dotenv.config();
 
@@ -29,6 +29,16 @@ const stars = (score: number | undefined) => {
   if (score >= 65) return '⭐⭐⭐';
   if (score >= 35) return '⭐⭐';
   return '⭐';
+};
+
+const getModality = (job: Job) => {
+  const all = (job.location + ' ' + (job.description || '')).toLowerCase();
+  if (/remoto|remote/.test(all)) return { emoji: '🌐', text: 'Remoto' };
+  if (isHybridOrOnSite(job)) {
+    if (/híbrido|hybrid/.test(all)) return { emoji: '🏢', text: 'Híbrido' };
+    return { emoji: '📍', text: 'On-Site' };
+  }
+  return { emoji: '❓', text: 'No especificado' };
 };
 
 const groupByCompany = (jobs: Job[]) => {
@@ -79,12 +89,14 @@ const otherJobs = colombianJobsToday.filter(j => (j.score || 0) < 35);
 if (topJobs.length > 0) {
   html += '<div class="company-section"><div class="company-title">⭐⭐⭐ Muy Relevantes (' + topJobs.length + ')</div>';
   topJobs.forEach(job => {
+    const modality = getModality(job);
     html += `
     <div class="job-card">
       <div class="job-title"><a href="${job.link}" target="_blank">${job.title}</a> <span class="top-badge">TOP</span></div>
       <div class="job-meta">
         <span>🏢 ${job.company}</span>
         <span>📌 ${job.location}</span>
+        <span>${modality.emoji} ${modality.text}</span>
         <span class="job-score">${stars(job.score)} ${job.score} pts</span>
       </div>
     </div>`;
@@ -95,12 +107,14 @@ if (topJobs.length > 0) {
 if (mediumJobs.length > 0) {
   html += '<div class="company-section"><div class="company-title">⭐⭐ Relevantes (' + mediumJobs.length + ')</div>';
   mediumJobs.forEach(job => {
+    const modality = getModality(job);
     html += `
     <div class="job-card">
       <div class="job-title"><a href="${job.link}" target="_blank">${job.title}</a></div>
       <div class="job-meta">
         <span>🏢 ${job.company}</span>
         <span>📌 ${job.location}</span>
+        <span>${modality.emoji} ${modality.text}</span>
         <span class="job-score">${stars(job.score)} ${job.score} pts</span>
       </div>
     </div>`;
@@ -111,12 +125,14 @@ if (mediumJobs.length > 0) {
 if (otherJobs.length > 0) {
   html += '<div class="company-section"><div class="company-title">⭐ Para Revisar (' + otherJobs.length + ')</div>';
   otherJobs.forEach(job => {
+    const modality = getModality(job);
     html += `
     <div class="job-card">
       <div class="job-title"><a href="${job.link}" target="_blank">${job.title}</a></div>
       <div class="job-meta">
         <span>🏢 ${job.company}</span>
         <span>📌 ${job.location}</span>
+        <span>${modality.emoji} ${modality.text}</span>
         <span class="job-score">${stars(job.score)} ${job.score} pts</span>
       </div>
     </div>`;
