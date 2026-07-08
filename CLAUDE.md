@@ -110,4 +110,4 @@ SEARCH_KEYWORDS=qa,quality assurance,quality engineer,testing,sdet,automation,an
 
 ## Última actualización
 
-2026-07-06 — Optimizaciones para Colombia: detección mejorada, scoring agresivo, filtrados internacionales.
+2026-07-08 — Cambio a ejecución cada 30 min (6 AM - 8 PM) para detección casi en tiempo real de nuevos jobs.
