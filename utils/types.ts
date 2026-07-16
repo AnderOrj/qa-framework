@@ -1,3 +1,10 @@
+export interface JobSalary {
+  min?: number;
+  max?: number;
+  currency: string;
+  raw: string;
+}
+
 export interface Job {
   title: string;
   company: string;
@@ -10,6 +17,7 @@ export interface Job {
   score?: number;
   detectedCountry?: string;
   notifiedAt?: string;
+  salary?: JobSalary;
 }
 
 export interface AppliedJob {
@@ -22,6 +30,13 @@ export interface AppliedJob {
 }
 
 export interface CvProfile {
+  name?: string;
+  title?: string;
+  location?: string;
+  languages?: string;
+  yearsOfExperience?: number;
+  summary?: string;
   skills: string[];
   excludeKeywords?: string[];
+  blockedCompanies?: string[];
 }

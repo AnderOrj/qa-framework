@@ -17,7 +17,7 @@ import type { Job } from './utils/types.js';
 import { scoreJob, scoreStars, loadCvProfile, scoreAgainstCv } from './utils/scoring.js';
 import { detectJobCountry, hasInternationalSignal, isExcludedJob, isHybridOrOnSite, parseSalary, isBelowMinSalary, isColombian } from './utils/filters.js';
 import { notifyNewJobs, notifyError, notifyCritical } from './utils/notifications.js';
-import { loadJobs, saveJobs, getNewJobs, markNotified } from './utils/store.js';
+import { loadJobs, saveJobs, getNewJobs, markNotified, dedupJobs } from './utils/store.js';
 import { autoLogin } from './utils/auto-login.js';
 import { generateAndSendCoverLetter } from './utils/cover-letter.js';
 import { filterSuspectJobs }         from './utils/job-quality.js';
@@ -280,18 +280,6 @@ function rotateLogIfNeeded() {
   }
 }
 
-function dedupJobs(jobs: Job[]): Job[] {
-  const seenLinks = new Set<string>();
-  const seenKeys  = new Set<string>();
-  return jobs.filter(j => {
-    if (j.link && seenLinks.has(j.link)) return false;
-    const key = `${j.company.toLowerCase().trim()}|${j.title.toLowerCase().trim()}`;
-    if (seenKeys.has(key)) return false;
-    if (j.link) seenLinks.add(j.link);
-    seenKeys.add(key);
-    return true;
-  });
-}
 
 // ─── Per-location search ──────────────────────────────────────────────────────
 

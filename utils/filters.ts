@@ -1,3 +1,4 @@
+import { REGEX_PATTERNS } from './regex-patterns.js';
 import type { Job, JobSalary } from './types.js';
 
 export const COUNTRY_PATTERNS: Record<string, RegExp> = {
@@ -37,7 +38,9 @@ export function detectJobCountry(job: Job): string {
 
 export function hasInternationalSignal(job: Job): boolean {
   const all = (job.title + ' ' + (job.description || '')).toLowerCase();
-  return /\blatam\b|latin\s+america|nearshore|\bcolombia\b|work\s+from\s+anywhere|anywhere\s+in\s+the\s+world|open\s+to\s+international|global\s+(remote\s+)?team|international\s+team|distributed\s+team|worldwide\s+team|remote[- ]first|hire.{0,20}global|global.{0,20}hire/.test(all);
+  return REGEX_PATTERNS.latam.test(all) || REGEX_PATTERNS.nearshore.test(all) ||
+    /\bcolombia\b|work\s+from\s+anywhere|anywhere\s+in\s+the\s+world|worldwide\s+team|remote[- ]first|hire.{0,20}global|global.{0,20}hire/i.test(all) ||
+    REGEX_PATTERNS.internationalTeam.test(all);
 }
 
 // ─── Salary parser ────────────────────────────────────────────────────────────
@@ -50,31 +53,18 @@ function normalizeAmount(raw: string, isK: boolean): number {
 export function parseSalary(text: string): JobSalary | undefined {
   if (!text) return undefined;
 
-  // USD range with k suffix: $80k-$120k / $80K – $120K
-  const usdKRange = /\$\s*(\d+(?:\.\d+)?)\s*[kK]\s*[-–—]\s*\$?\s*(\d+(?:\.\d+)?)\s*[kK]/;
-  // USD range full: $80,000 - $120,000
-  const usdRange  = /\$\s*([\d,]+)\s*[-–—]\s*\$?\s*([\d,]+)/;
-  // USD range word: $80k to $120k
-  const usdKTo    = /\$\s*(\d+(?:\.\d+)?)\s*[kK]\s+to\s+\$?\s*(\d+(?:\.\d+)?)\s*[kK]/i;
-  // USD single k: up to $90k / $90k
-  const usdSingleK = /\$\s*(\d+(?:\.\d+)?)\s*[kK]/;
-  // USD single full: $90,000
-  const usdSingle  = /\$\s*([\d,]+)/;
-  // COP range: COP 5.000.000 - 8.000.000 / $5.000.000 COP
-  const copRange   = /(?:cop|pesos?)\s*([\d.,]+)\s*[-–—]\s*([\d.,]+)/i;
-
   let m: RegExpMatchArray | null;
 
-  if ((m = text.match(usdKTo)))    return { min: normalizeAmount(m[1]!, true),  max: normalizeAmount(m[2]!, true),  currency: 'USD', raw: m[0] };
-  if ((m = text.match(usdKRange))) return { min: normalizeAmount(m[1]!, true),  max: normalizeAmount(m[2]!, true),  currency: 'USD', raw: m[0] };
-  if ((m = text.match(usdRange)))  return { min: normalizeAmount(m[1]!, false), max: normalizeAmount(m[2]!, false), currency: 'USD', raw: m[0] };
-  if ((m = text.match(usdSingleK)))return { min: normalizeAmount(m[1]!, true),  currency: 'USD', raw: m[0] };
-  if ((m = text.match(usdSingle))) {
+  if ((m = text.match(REGEX_PATTERNS.usdKTo)))    return { min: normalizeAmount(m[1]!, true),  max: normalizeAmount(m[2]!, true),  currency: 'USD', raw: m[0] };
+  if ((m = text.match(REGEX_PATTERNS.usdKRange))) return { min: normalizeAmount(m[1]!, true),  max: normalizeAmount(m[2]!, true),  currency: 'USD', raw: m[0] };
+  if ((m = text.match(REGEX_PATTERNS.usdRange)))  return { min: normalizeAmount(m[1]!, false), max: normalizeAmount(m[2]!, false), currency: 'USD', raw: m[0] };
+  if ((m = text.match(REGEX_PATTERNS.usdSingleK)))return { min: normalizeAmount(m[1]!, true),  currency: 'USD', raw: m[0] };
+  if ((m = text.match(REGEX_PATTERNS.usdSingle))) {
     const val = normalizeAmount(m[1]!, false);
-    if (val < 500) return undefined; // skip noise like "$5"
+    if (val < 500) return undefined;
     return { min: val, currency: 'USD', raw: m[0] };
   }
-  if ((m = text.match(copRange)))  return { min: normalizeAmount(m[1]!, false), max: normalizeAmount(m[2]!, false), currency: 'COP', raw: m[0] };
+  if ((m = text.match(REGEX_PATTERNS.copRange)))  return { min: normalizeAmount(m[1]!, false), max: normalizeAmount(m[2]!, false), currency: 'COP', raw: m[0] };
 
   return undefined;
 }
@@ -96,18 +86,11 @@ export function isBelowMinSalary(job: Job, minUsd: number): boolean {
 export function isHybridOrOnSite(job: Job): boolean {
   const text = ((job.location ?? '') + ' ' + (job.description ?? '')).toLowerCase();
 
-  // Explicit on-site / presencial
-  if (/\bon[\s-]?site\s+required|\bmust\s+be\s+on[\s-]?site|\bpresencial\b|\bin[\s-]?office\s+required/.test(text)) return true;
-
-  // Days-in-office patterns: "3 days a week in office", "2-3 days on site", "3x per week on-site"
-  if (/\b[2-5]\s*[-–]?\s*[2-5]?\s*days?\s*(a\s*week|per\s*week|\/week|in[\s-]?(the\s*)?office|on[\s-]?site)\b/.test(text)) return true;
-  if (/\b[2-5]\s*x\s*(a\s*week|per\s*week|\/week)\s*(in[\s-]?(the\s*)?office|on[\s-]?site)/.test(text)) return true;
-
-  // Flexible hybrid (exige días en oficina)
-  if (/flexible\s+hybrid|hybrid\s+(work|model|role|schedule|position|arrangement)/.test(text)) return true;
-
-  // Location field already says hybrid
-  if (/h[íi]brid[ao]?/.test(job.location.toLowerCase())) return true;
+  if (REGEX_PATTERNS.onSiteRequired.test(text)) return true;
+  if (REGEX_PATTERNS.daysInOffice.test(text)) return true;
+  if (REGEX_PATTERNS.daysPerWeek.test(text)) return true;
+  if (REGEX_PATTERNS.flexibleHybrid.test(text)) return true;
+  if (REGEX_PATTERNS.hybrid.test(job.location)) return true;
 
   return false;
 }
@@ -127,22 +110,19 @@ export function isExcludedJob(job: Job, blockedCompanies?: string[]): { excluded
 
   const desc = (job.description || '').toLowerCase();
 
-  if (job.sourceLocation === 'United States') {
-    const usPresenceRequired = /must\s+be\s+authorized\s+to\s+work|authorized\s+to\s+work\s+in\s+the\s+u\.?s|u\.?s\.?\s+citizen(ship)?\s+required|green\s+card\s+required|must\s+reside\s+in\s+the\s+u\.?s|only\s+u\.?s\.?\s+residents?|legally\s+authorized\s+to\s+work\s+in\s+the\s+(u\.?s\.?|united\s+states)|must\s+be\s+(based|located)\s+in\s+the\s+(u\.?s\.?|united\s+states)|u\.?s\.?[\s-]based\s+candidates?\s+only|no\s+(visa\s+)?sponsorship\s+(available|provided|offered)|sponsorship\s+(is\s+)?not\s+(available|provided|offered)/.test(desc);
-    if (usPresenceRequired) return { excluded: true, reason: 'requiere presencia/autorización en EEUU' };
+  if (job.sourceLocation === 'United States' && REGEX_PATTERNS.usPresenceRequired.test(desc)) {
+    return { excluded: true, reason: 'requiere presencia/autorización en EEUU' };
   }
 
-  // Penalizar trabajos que requieren estar en horarios EST/PST sin mencionar Colombia
-  const estTimezoneOnly = /\best\s*(?:time\s*)?zone|eastern\s+time|new\s+york\s+time|hours\s+est|office\s+hours.*est/.test(desc);
-  if (estTimezoneOnly && !isColombian(job)) {
+  if (REGEX_PATTERNS.estOnlyTimezone.test(desc) && !isColombian(job)) {
     return { excluded: true, reason: 'requiere EST timezone (no colombiano)' };
   }
 
-  const countryRestrictions = [
-    { pattern: /solo\s+(para\s+)?(residentes?\s+(en\s+)?)?m[eé]xico|exclusivo\s+m[eé]xico|only\s+(for\s+)?mexico/i, country: 'México' },
-    { pattern: /solo\s+(para\s+)?(residentes?\s+(en\s+)?)?argentina|exclusivo\s+argentina/i, country: 'Argentina' },
-    { pattern: /solo\s+(para\s+)?(residentes?\s+(en\s+)?)?chile|exclusivo\s+chile/i, country: 'Chile' },
-    { pattern: /solo\s+(para\s+)?(residentes?\s+(en\s+)?)?per[uú]|exclusivo\s+per[uú]/i, country: 'Perú' },
+  const countryRestrictions: Array<{ pattern: RegExp; country: string }> = [
+    { pattern: REGEX_PATTERNS.mexicoOnly, country: 'México' },
+    { pattern: REGEX_PATTERNS.argentinaOnly, country: 'Argentina' },
+    { pattern: REGEX_PATTERNS.chileOnly, country: 'Chile' },
+    { pattern: REGEX_PATTERNS.peruOnly, country: 'Perú' },
   ];
   for (const r of countryRestrictions) {
     if (r.pattern.test(desc)) return { excluded: true, reason: `restricción a ${r.country}` };
