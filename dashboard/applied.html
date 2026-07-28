@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Aplicaciones LinkedIn — Anderson</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f1f5f9;color:#1e293b;font-size:13px}
+  header{background:linear-gradient(135deg,#0077B5 0%,#005c8e 100%);color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+  header h1{font-size:18px;font-weight:800}
+  header .meta{font-size:11px;opacity:0.8;margin-top:2px}
+  .stats{display:flex;gap:10px;padding:14px 24px;background:#fff;border-bottom:1px solid #e2e8f0;flex-wrap:wrap}
+  .stat{text-align:center;padding:8px 14px;border-radius:8px;min-width:80px;border:1px solid #e2e8f0}
+  .stat .n{font-size:22px;font-weight:800}
+  .stat .l{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
+  .controls{padding:12px 24px;background:#fff;border-bottom:1px solid #e2e8f0;display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+  .controls input,.controls select{padding:6px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;outline:none;background:#f8fafc}
+  .controls input:focus,.controls select:focus{border-color:#0077B5}
+  .ctrl label{font-size:10px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:3px}
+  #count{font-size:12px;color:#64748b;margin-left:auto;align-self:center}
+  .grid{padding:16px 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+  .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;border-left:4px solid var(--accent)}
+  .card:hover{box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .card-title{font-size:13px;font-weight:700;color:#1e293b;line-height:1.3}
+  .card-company{font-size:12px;color:#0077B5;font-weight:600;margin-top:3px}
+  .status-badge{padding:3px 9px;border-radius:8px;font-size:10px;font-weight:700;white-space:nowrap;border:1px solid var(--accent)}
+  .card-meta{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:11px;color:#64748b}
+  .tag{background:#f1f5f9;padding:2px 7px;border-radius:6px;font-size:10px;color:#475569}
+  .date-tag{background:#eff6ff;color:#1d4ed8;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:600}
+  .card-footer{margin-top:12px}
+  .btn{background:#0077B5;color:#fff;padding:5px 12px;border-radius:6px;font-size:11px;text-decoration:none;font-weight:600;display:inline-block}
+  .btn:hover{background:#005c8e}
+  .empty{padding:40px;text-align:center;color:#94a3b8;grid-column:1/-1}
+  .highlight{border-left-color:#059669 !important;background:#f0fdf4}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>📨 Mis Aplicaciones LinkedIn</h1>
+    <div class="meta">Actualizado: 1/7/2026, 10:32:50 a. m.</div>
+  </div>
+  <div style="text-align:right">
+    <div style="font-size:26px;font-weight:800">28</div>
+    <div style="font-size:11px;opacity:0.8">aplicaciones</div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat" style="border-color:#bfdbfe"><div class="n" style="color:#2563eb">28</div><div class="l">Total</div></div>
+  <div class="stat" style="border-color:#bfdbfe"><div class="n" style="color:#2563eb">28</div><div class="l">Activas</div></div>
+  <div class="stat" style="border-color:#fecaca"><div class="n" style="color:#dc2626">22</div><div class="l">Cerradas</div></div>
+  <div class="stat" style="border-color:#ddd6fe"><div class="n" style="color:#7c3aed">0</div><div class="l">Vistas</div></div>
+  <div class="stat" style="border-color:#a7f3d0"><div class="n" style="color:#059669">0</div><div class="l">Entrevistas</div></div>
+</div>
+
+<div class="controls">
+  <div class="ctrl">
+    <label>Buscar</label>
+    <input type="text" id="q" placeholder="cargo, empresa..." oninput="render()">
+  </div>
+  <div class="ctrl">
+    <label>Empresa</label>
+    <select id="company" onchange="render()">
+      <option value="">Todas</option>
+      <option value="Builders">Builders</option><option value="Capgemini">Capgemini</option><option value="Caseware">Caseware</option><option value="Ci&T Software S/A-JW">Ci&T Software S/A-JW</option><option value="Crossing Hurdles">Crossing Hurdles</option><option value="Dazos">Dazos</option><option value="Devsu">Devsu</option><option value="Ditech Group">Ditech Group</option><option value="EPAM Systems">EPAM Systems</option><option value="Finhabits">Finhabits</option><option value="GlobalLogic">GlobalLogic</option><option value="Hired">Hired</option><option value="Hyqoo">Hyqoo</option><option value="INDI Staffing Services">INDI Staffing Services</option><option value="Jobgether">Jobgether</option><option value="N-iX">N-iX</option><option value="NYXN">NYXN</option><option value="Nuaav">Nuaav</option><option value="PartnerOne">PartnerOne</option><option value="Publicis Global Delivery (PGD)">Publicis Global Delivery (PGD)</option><option value="ScotiaTech">ScotiaTech</option><option value="Serviap Global">Serviap Global</option><option value="Sonatafy Technology | Software Delivery Done Right">Sonatafy Technology | Software Delivery Done Right</option><option value="VASS LATAM">VASS LATAM</option><option value="VIP Universal Medical Insurance Group (VUMI)">VIP Universal Medical Insurance Group (VUMI)</option><option value="Velozient">Velozient</option><option value="Virtual Emily Staffing">Virtual Emily Staffing</option><option value="WalletHub">WalletHub</option>
+    </select>
+  </div>
+  <div class="ctrl">
+    <label>Estado</label>
+    <select id="status" onchange="render()">
+      <option value="">Todos</option>
+      <option value="Activa">Activa</option><option value="Cerrada">Cerrada</option>
+    </select>
+  </div>
+  <div class="ctrl">
+    <label>Modalidad</label>
+    <select id="mode" onchange="render()">
+      <option value="">Todas</option>
+      <option value="remote">Remote</option>
+      <option value="hybrid">Hybrid</option>
+      <option value="onsite">On-site</option>
+    </select>
+  </div>
+  <div id="count"></div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const JOBS = [{"title":"Quality Assurance Functional Associate","company":"ScotiaTech","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4423286211/","appliedDate":"Applied 2d ago","status":"Posted 2d ago"},{"title":"QA Engineer","company":"Builders","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4418778844/","appliedDate":"Applied 2d ago","status":"No longer accepting applications"},{"title":"Data QA Engineer","company":"NYXN","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4420459546/","appliedDate":"Applied 6d ago","status":"No longer accepting applications"},{"title":"QA Engineer (Manual & Automation)","company":"Devsu","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4417646923/","appliedDate":"Applied 6d ago","status":"No longer accepting applications"},{"title":"QA Analyst","company":"VIP Universal Medical Insurance Group (VUMI)","location":"Medellín (Hybrid)","link":"https://www.linkedin.com/jobs/view/4412024795/","appliedDate":"Applied 2w ago","status":"Posted 2w ago"},{"title":"Mid+ to Senior Hybrid Quality Analyst","company":"Dazos","location":"Medellín (Hybrid)","link":"https://www.linkedin.com/jobs/view/4415391417/","appliedDate":"Applied 2w ago","status":"No longer accepting applications"},{"title":"Quality Assurance Engineer - Remote Work","company":"INDI Staffing Services","location":"Latin America (Remote)","link":"https://www.linkedin.com/jobs/view/4413993934/","appliedDate":"Applied 3w ago","status":"No longer accepting applications"},{"title":"Test Engineer","company":"GlobalLogic","location":"Latin America (Remote)","link":"https://www.linkedin.com/jobs/view/4413100085/","appliedDate":"Applied 3w ago","status":"Posted 3w ago"},{"title":"GenAI QA Engineer","company":"Hyqoo","location":"Latin America (Remote)","link":"https://www.linkedin.com/jobs/view/4413812173/","appliedDate":"Applied 3w ago","status":"No longer accepting applications"},{"title":"Senior QA Manual Engineer","company":"Jobgether","location":"Mexico (Remote)","link":"https://www.linkedin.com/jobs/view/4413516429/","appliedDate":"Applied 3w ago","status":"No longer accepting applications"},{"title":"Senior Quality Assurance Analyst (Manual)","company":"Publicis Global Delivery (PGD)","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4413067983/","appliedDate":"Applied 3w ago","status":"Posted 3w ago"},{"title":"Quality Assurance Analyst","company":"Nuaav","location":"Bogotá (On-site)","link":"https://www.linkedin.com/jobs/view/4408923286/","appliedDate":"Applied 3w ago","status":"No longer accepting applications"},{"title":"Software Testing Engineer","company":"EPAM Systems","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4410102770/","appliedDate":"Applied 3w ago","status":"Reposted 6d ago"},{"title":"Manual QA Engineer - Compliance","company":"PartnerOne","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4411247222/","appliedDate":"Applied 3w ago","status":"Posted 4w ago"},{"title":"Quality Specialist (Spanish) | $11/hr Remote","company":"Crossing Hurdles","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4376720940/","appliedDate":"Applied 3w ago","status":"No longer accepting applications"},{"title":"QA Tester","company":"VASS LATAM","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4410233242/","appliedDate":"Applied 4w ago","status":"No longer accepting applications"},{"title":"Software QA Engineer","company":"Hired","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4409591834/","appliedDate":"Applied 1mo ago","status":"No longer accepting applications"},{"title":"Manual QA Software Tester","company":"WalletHub","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4406788744/","appliedDate":"Applied 1mo ago","status":"No longer accepting applications"},{"title":"Software Tester Lead","company":"Caseware","location":"Bogotá (Remote)","link":"https://www.linkedin.com/jobs/view/4401478883/","appliedDate":"Applied 1mo ago","status":"No longer accepting applications"},{"title":"Sr Software Quality Assurance Engineer","company":"Sonatafy Technology | Software Delivery Done Right","location":"Latin America (Remote)","link":"https://www.linkedin.com/jobs/view/4395451462/","appliedDate":"Applied 1mo ago","status":"No longer accepting applications"},{"title":"Functional Tester","company":"Capgemini","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4390903048/","appliedDate":"Applied 1mo ago","status":"No longer accepting applications"},{"title":"Senior Quality Assurance Engineer","company":"Velozient","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4393547203/","appliedDate":"Applied 2mo ago","status":"No longer accepting applications"},{"title":"Quality Assurance Lead","company":"Virtual Emily Staffing","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4377019793/","appliedDate":"Applied 3mo ago","status":"No longer accepting applications"},{"title":"Tester QC Manual Canales Digitales (Inglés Avanzado) - Traslado a España","company":"Ditech Group","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4321995729/","appliedDate":"Applied 6mo ago","status":"No longer accepting applications"},{"title":"Senior Manual QA Engineer","company":"N-iX","location":"Medellín","link":"https://www.linkedin.com/jobs/view/4334757315/","appliedDate":"Applied 6mo ago","status":"No longer accepting applications"},{"title":"Test Analyst","company":"Serviap Global","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4318422054/","appliedDate":"Applied 7mo ago","status":"No longer accepting applications"},{"title":"QA Project Manager Fintech","company":"Finhabits","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4316806758/","appliedDate":"Applied 7mo ago","status":"No longer accepting applications"},{"title":"Senior QA Manual Tester, Colombia","company":"Ci&T Software S/A-JW","location":"Colombia (Remote)","link":"https://www.linkedin.com/jobs/view/4288494079/","appliedDate":"Applied 9mo ago","status":"No longer accepting applications"}];
+
+function statusMeta(status) {
+  const s = (status || '').toLowerCase();
+  if (!status)                                    return { label: 'Sin estado',           color: '#94a3b8', bg: '#f1f5f9' };
+  if (/no longer|closed|expired/i.test(s))        return { label: 'Cerrada',              color: '#dc2626', bg: '#fef2f2' };
+  if (/viewed|recruiter viewed/i.test(s))         return { label: 'Vista por reclutador', color: '#7c3aed', bg: '#f5f3ff' };
+  if (/in review|under review|reviewing/i.test(s))return { label: 'En revisión',          color: '#d97706', bg: '#fffbeb' };
+  if (/interview|entrevista/i.test(s))            return { label: 'Entrevista',            color: '#059669', bg: '#ecfdf5' };
+  if (/offer|oferta/i.test(s))                    return { label: '🎉 Oferta',             color: '#16a34a', bg: '#dcfce7' };
+  if (/rejected|rechazado/i.test(s))              return { label: 'Rechazado',             color: '#6b7280', bg: '#f9fafb' };
+  if (/posted|active|accepting/i.test(s))         return { label: 'Activa',               color: '#2563eb', bg: '#eff6ff' };
+  return { label: status.substring(0, 40), color: '#64748b', bg: '#f8fafc' };
+}
+
+function render() {
+  const q       = document.getElementById('q').value.toLowerCase();
+  const company = document.getElementById('company').value;
+  const status  = document.getElementById('status').value;
+  const mode    = document.getElementById('mode').value;
+
+  const filtered = JOBS.filter(j => {
+    if (q && !(j.title + j.company + (j.location||'')).toLowerCase().includes(q)) return false;
+    if (company && j.company !== company) return false;
+    if (status && statusMeta(j.status).label !== status) return false;
+    if (mode) {
+      const loc = (j.location||'').toLowerCase();
+      if (mode === 'remote' && !/remote/i.test(loc)) return false;
+      if (mode === 'hybrid' && !/hybrid/i.test(loc)) return false;
+      if (mode === 'onsite' && /remote|hybrid/i.test(loc)) return false;
+    }
+    return true;
+  });
+
+  document.getElementById('count').textContent = filtered.length + ' aplicaciones';
+
+  const grid = document.getElementById('grid');
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty">Sin resultados con estos filtros</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(j => {
+    const sm    = statusMeta(j.status);
+    const isInterview = /interview|entrevista/i.test(j.status);
+    const loc   = (j.location||'').toLowerCase();
+    const modTag = /remote/i.test(loc) ? '🌐 Remote' : /hybrid/i.test(loc) ? '🏢 Hybrid' : '📍 ' + (j.location || '');
+
+    return `
+      <div class="card ${isInterview ? 'highlight' : ''}" style="--accent:${sm.color}">
+        <div class="card-top">
+          <div>
+            <div class="card-title">${j.title}</div>
+            <div class="card-company">${j.company}</div>
+          </div>
+          <div class="status-badge" style="color:${sm.color};background:${sm.bg};border-color:${sm.color}30">${sm.label}</div>
+        </div>
+        <div class="card-meta">
+          <span class="tag">${modTag}</span>
+          ${j.appliedDate ? `<span class="date-tag">📅 ${j.appliedDate}</span>` : ''}
+        </div>
+        <div class="card-footer">
+          <a class="btn" href="${j.link}" target="_blank">Ver oferta →</a>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+render();
+</script>
+</body>
+</html>

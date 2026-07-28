@@ -23,6 +23,7 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.104.2",
     "@types/nodemailer": "^8.0.0",
     "node-cron": "^4.2.1",
     "nodemailer": "^8.0.9",

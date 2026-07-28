@@ -9,9 +9,19 @@ async function saveLinkedInSession() {
   console.log('3. Cuando veas tu feed, cierra el navegador');
   console.log('='.repeat(50) + '\n');
 
-  const browser = await chromium.launch({ headless: false });
-  const context = await browser.newContext();
+  const browser = await chromium.launch({
+    headless: false,
+    args: ['--disable-blink-features=AutomationControlled', '--no-sandbox'],
+  });
+  const context = await browser.newContext({
+    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+    viewport: { width: 1280, height: 800 },
+  });
   const page = await context.newPage();
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'webdriver', { get: () => false });
+    (window as unknown as Record<string, unknown>)['chrome'] = { runtime: {} };
+  });
 
   await page.goto('https://www.linkedin.com/login');
 

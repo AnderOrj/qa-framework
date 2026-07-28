@@ -1,0 +1,1554 @@
+[30/5/2026, 12:17:57 p. m.] ✓ Log rotado (más de 7 días) → scraper.log.bak
+[30/5/2026, 12:17:58 p. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[30/5/2026, 12:20:56 p. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 138 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[30/5/2026, 12:20:56 p. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[30/5/2026, 12:20:56 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[30/5/2026, 12:37:57 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[30/5/2026, 12:41:06 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[30/5/2026, 12:47:57 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[30/5/2026, 12:53:32 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[30/5/2026, 12:57:59 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en Colombia
+[30/5/2026, 1:00:02 p. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[30/5/2026, 1:00:07 p. m.] ✓ Página 1/3: 70 cards para "SDET" en Colombia
+[30/5/2026, 1:04:15 p. m.] ✓ Página 2/3: 70 cards para "SDET" en Colombia
+[30/5/2026, 1:04:15 p. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 138 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[30/5/2026, 1:04:15 p. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[30/5/2026, 1:04:15 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[30/5/2026, 1:07:59 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[30/5/2026, 1:07:59 p. m.] ✓ Página 3/3: 70 cards para "SDET" en Colombia
+[30/5/2026, 1:13:31 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[30/5/2026, 1:13:31 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[30/5/2026, 1:29:34 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[30/5/2026, 1:29:34 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[30/5/2026, 1:46:49 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[30/5/2026, 1:46:49 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[30/5/2026, 1:47:07 p. m.] ✗ searchJobs("Analista QA", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0", waiting until "load"
+
+[30/5/2026, 1:47:07 p. m.] ✗ searchJobs("Test Automation Engineer", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50", waiting until "load"
+
+[30/5/2026, 1:49:37 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[30/5/2026, 1:49:37 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[30/5/2026, 2:06:53 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[30/5/2026, 2:06:53 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[30/5/2026, 2:24:21 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en Colombia
+[30/5/2026, 2:24:22 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[30/5/2026, 2:31:37 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[30/5/2026, 2:31:37 p. m.] ✓ Página 1/3: 70 cards para "SDET" en Colombia
+[30/5/2026, 2:47:22 p. m.] ✗ searchJobs("API Testing", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=API%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=API%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[30/5/2026, 2:53:26 p. m.] ✓ Página 2/3: 70 cards para "SDET" en Colombia
+[30/5/2026, 2:53:26 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[30/5/2026, 3:26:14 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en Colombia
+[30/5/2026, 3:26:14 p. m.] ✓ Página 3/3: 70 cards para "SDET" en Colombia
+[30/5/2026, 3:32:38 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[30/5/2026, 3:32:38 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en Colombia
+[30/5/2026, 4:15:45 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[30/5/2026, 4:15:45 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[30/5/2026, 4:16:28 p. m.] ✗ searchJobs("AI Testing", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[30/5/2026, 4:32:36 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[30/5/2026, 4:32:36 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[30/5/2026, 4:32:54 p. m.] ✗ searchJobs("AI Testing", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[30/5/2026, 4:32:55 p. m.] ✗ searchJobs("Analista QA", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0", waiting until "load"
+
+[30/5/2026, 5:05:01 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[30/5/2026, 5:05:01 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[30/5/2026, 5:05:19 p. m.] ✗ searchJobs("Analista QA", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[30/5/2026, 5:05:20 p. m.] ✗ searchJobs("AI Testing", "Colombia") — intento 3/3 (definitivo) | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[30/5/2026, 5:21:55 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[30/5/2026, 5:21:56 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[30/5/2026, 5:49:50 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[30/5/2026, 5:49:50 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[30/5/2026, 5:50:08 p. m.] ✗ searchJobs("Analista QA", "Colombia") — intento 3/3 (definitivo) | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50", waiting until "load"
+
+[30/5/2026, 6:22:16 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[30/5/2026, 6:22:17 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[30/5/2026, 6:22:34 p. m.] ✗ searchJobs("Pruebas funcionales", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0", waiting until "load"
+
+[30/5/2026, 6:22:34 p. m.] ✗ searchJobs("API Testing", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=API%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=API%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[30/5/2026, 6:50:52 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[30/5/2026, 6:50:52 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[30/5/2026, 6:51:10 p. m.] ✗ searchJobs("API Testing", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=API%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=API%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[30/5/2026, 6:51:10 p. m.] ✗ searchJobs("Pruebas funcionales", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[30/5/2026, 7:07:56 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[30/5/2026, 7:07:57 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[30/5/2026, 7:35:39 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en Colombia
+[30/5/2026, 7:35:39 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[30/5/2026, 8:08:05 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[30/5/2026, 8:08:05 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en Colombia
+[30/5/2026, 8:08:09 p. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <d7b379dd-2185-9469-76c4-79fd7f3b743f@gmail.com>
+[30/5/2026, 8:26:59 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[30/5/2026, 8:26:59 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[30/5/2026, 8:52:35 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[30/5/2026, 8:52:36 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[30/5/2026, 8:53:19 p. m.] ✗ searchJobs("QA Engineer", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[30/5/2026, 8:53:19 p. m.] ✗ searchJobs("AI Testing", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50", waiting until "load"
+
+[30/5/2026, 9:25:33 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[30/5/2026, 9:25:33 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[30/5/2026, 9:25:51 p. m.] ✗ searchJobs("QA Engineer", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[30/5/2026, 9:25:51 p. m.] ✗ searchJobs("AI Testing", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[30/5/2026, 9:40:08 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[30/5/2026, 9:40:08 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[30/5/2026, 10:12:34 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[30/5/2026, 10:12:34 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[30/5/2026, 10:12:52 p. m.] ✗ searchJobs("QA Engineer", "United States", remote) — intento 3/3 (definitivo) | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[30/5/2026, 10:12:53 p. m.] ✗ searchJobs("AI Testing", "Colombia") — intento 3/3 (definitivo) | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50", waiting until "load"
+
+[30/5/2026, 10:29:30 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[30/5/2026, 10:29:30 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[30/5/2026, 10:46:43 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[30/5/2026, 10:46:43 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[30/5/2026, 11:03:28 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[30/5/2026, 11:03:28 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[30/5/2026, 11:35:40 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[30/5/2026, 11:35:40 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[30/5/2026, 11:53:12 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[30/5/2026, 11:53:12 p. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[31/5/2026, 12:00:00 a. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[31/5/2026, 12:00:01 a. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[31/5/2026, 12:17:07 a. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[31/5/2026, 12:17:08 a. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en United States
+[31/5/2026, 12:48:33 a. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[31/5/2026, 12:48:33 a. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en United States
+[31/5/2026, 1:21:30 a. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en United States
+[31/5/2026, 1:21:30 a. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en United States
+[31/5/2026, 1:21:49 a. m.] ✗ searchJobs("Test Automation Engineer", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=0
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=0", waiting until "load"
+
+[31/5/2026, 1:21:49 a. m.] ✗ searchJobs("Analista QA", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=United%20States&f_TPR=r432000&f_WT=2&start=0
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=United%20States&f_TPR=r432000&f_WT=2&start=0", waiting until "load"
+
+[31/5/2026, 1:53:38 a. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[31/5/2026, 1:53:38 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[31/5/2026, 2:26:25 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[31/5/2026, 2:26:25 a. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[31/5/2026, 2:43:21 a. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[31/5/2026, 2:43:22 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en United States
+[31/5/2026, 3:15:24 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[31/5/2026, 3:15:24 a. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[31/5/2026, 3:16:07 a. m.] ✗ searchJobs("SDET", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=SDET&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=SDET&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[31/5/2026, 3:32:17 a. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[31/5/2026, 3:48:31 a. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[31/5/2026, 3:48:49 a. m.] ✗ searchJobs("SDET", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=SDET&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=SDET&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[31/5/2026, 4:04:37 a. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[31/5/2026, 4:20:28 a. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[31/5/2026, 4:21:12 a. m.] ✗ searchJobs("SDET", "United States", remote) — intento 3/3 (definitivo) | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=SDET&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=SDET&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[31/5/2026, 4:21:30 a. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[31/5/2026, 4:38:14 a. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en United States
+[31/5/2026, 4:38:14 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[31/5/2026, 5:10:24 a. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en United States
+[31/5/2026, 5:10:24 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[31/5/2026, 5:40:12 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[31/5/2026, 5:40:12 a. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en United States
+[31/5/2026, 5:40:30 a. m.] ✗ searchJobs("QA Manual", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[31/5/2026, 6:09:21 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[31/5/2026, 6:09:21 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[31/5/2026, 6:09:39 a. m.] ✗ searchJobs("QA Manual", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[31/5/2026, 6:41:46 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[31/5/2026, 6:41:46 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[31/5/2026, 6:42:04 a. m.] ✗ searchJobs("QA Manual", "United States", remote) — intento 3/3 (definitivo) | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[31/5/2026, 6:42:04 a. m.] ✗ searchJobs("Analista QA", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=United%20States&f_TPR=r432000&f_WT=2&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[31/5/2026, 7:14:12 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[31/5/2026, 7:14:13 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[31/5/2026, 7:14:31 a. m.] ✗ searchJobs("Analista QA", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[31/5/2026, 7:26:08 a. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[31/5/2026, 7:26:08 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[31/5/2026, 7:29:26 a. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[31/5/2026, 7:29:27 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[31/5/2026, 7:29:32 a. m.] ✓ Descripción obtenida: "Senior Quality Assurance Automation Engineer" (6161 chars)
+[31/5/2026, 7:29:36 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (5275 chars)
+[31/5/2026, 7:29:40 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (4349 chars)
+[31/5/2026, 7:29:44 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (5889 chars)
+[31/5/2026, 7:29:48 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (6383 chars)
+[31/5/2026, 7:29:52 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (6209 chars)
+[31/5/2026, 7:29:56 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (4189 chars)
+[31/5/2026, 7:30:01 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (4561 chars)
+[31/5/2026, 7:30:04 a. m.] ✓ Descripción obtenida: "Automated Testing" (4333 chars)
+[31/5/2026, 7:45:33 a. m.] ✓ Descripción obtenida: "Automation Tester n Java" (3905 chars)
+[31/5/2026, 7:45:56 a. m.] ✓ Descripción obtenida: "Automation Tester In Java" (4787 chars)
+[31/5/2026, 7:45:59 a. m.] ✓ Descripción obtenida: "Test this thing" (459 chars)
+[31/5/2026, 7:46:14 a. m.] ✓ Descripción obtenida: "Software Development Engineer in Test (SDET)" (9871 chars)
+[31/5/2026, 7:46:17 a. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[31/5/2026, 8:01:46 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en United States
+[31/5/2026, 8:01:46 a. m.] ✓ Descripción obtenida: "Quality Assurance Automation Engineer" (1291 chars)
+[31/5/2026, 8:02:09 a. m.] ✓ Descripción obtenida: "QA Automation Engineer" (10609 chars)
+[31/5/2026, 8:02:13 a. m.] ✓ Descripción obtenida: "Test Automation Engineer - Government" (7643 chars)
+[31/5/2026, 8:02:18 a. m.] ✓ Descripción obtenida: "Software Development Engineer in Test (SDET)" (15369 chars)
+[31/5/2026, 8:02:24 a. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <02fcc843-3953-8190-37bf-9b3affd8c11f@gmail.com>
+[31/5/2026, 8:18:31 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[31/5/2026, 8:42:14 a. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[31/5/2026, 8:42:33 a. m.] ✗ searchJobs("API Testing", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=API%20Testing&location=United%20States&f_TPR=r432000&f_WT=2&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=API%20Testing&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[31/5/2026, 8:59:54 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[31/5/2026, 9:08:07 a. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[31/5/2026, 9:14:05 a. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[31/5/2026, 9:18:47 a. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[31/5/2026, 9:33:10 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[31/5/2026, 9:33:44 a. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[31/5/2026, 9:50:26 a. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 135 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[31/5/2026, 9:50:26 a. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[31/5/2026, 9:50:26 a. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[31/5/2026, 9:50:26 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[31/5/2026, 10:22:40 a. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[31/5/2026, 10:22:40 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[31/5/2026, 10:28:02 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[31/5/2026, 10:28:03 a. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[31/5/2026, 10:37:20 a. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[31/5/2026, 10:37:20 a. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[31/5/2026, 10:54:11 a. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[31/5/2026, 10:54:12 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[31/5/2026, 11:13:57 a. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[31/5/2026, 11:13:57 a. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en Colombia
+[31/5/2026, 11:30:05 a. m.] ✓ Página 1/3: 70 cards para "SDET" en Colombia
+[31/5/2026, 11:30:06 a. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[31/5/2026, 11:30:21 a. m.] ✓ Descripción obtenida: "Senior Quality Assurance Automation Engineer" (6161 chars)
+[31/5/2026, 11:30:26 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (5275 chars)
+[31/5/2026, 11:30:29 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (4349 chars)
+[31/5/2026, 11:30:33 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (5889 chars)
+[31/5/2026, 11:30:36 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (6383 chars)
+[31/5/2026, 11:30:41 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (6209 chars)
+[31/5/2026, 11:30:44 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (4189 chars)
+[31/5/2026, 11:32:27 a. m.] ✓ Descripción obtenida: "Automation Tester In Java" (4787 chars)
+[31/5/2026, 11:32:31 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (4561 chars)
+[31/5/2026, 11:32:35 a. m.] ✓ Descripción obtenida: "Automated Testing" (4333 chars)
+[31/5/2026, 11:32:38 a. m.] ✓ Descripción obtenida: "Automation Tester n Java" (3905 chars)
+[31/5/2026, 11:32:42 a. m.] ✓ Descripción obtenida: "Automation Tester in Java" (3575 chars)
+[31/5/2026, 11:32:46 a. m.] ✓ Descripción obtenida: "Test this thing" (459 chars)
+[31/5/2026, 11:32:50 a. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[31/5/2026, 11:32:55 a. m.] ✓ Descripción obtenida: "Quality Engineer" (6804 chars)
+[31/5/2026, 11:32:59 a. m.] ✓ Descripción obtenida: "Quality Engineer, AI-Native" (10595 chars)
+[31/5/2026, 11:33:02 a. m.] ✓ Descripción obtenida: "Software QA Engineer" (9001 chars)
+[31/5/2026, 11:33:06 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (7287 chars)
+[31/5/2026, 11:33:10 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (3867 chars)
+[31/5/2026, 11:34:54 a. m.] ✓ Descripción obtenida: "Quality/Test Engineer" (15925 chars)
+[31/5/2026, 11:34:54 a. m.] ✓ Página 2/3: 70 cards para "SDET" en Colombia
+[31/5/2026, 11:34:58 a. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <c24ca1c0-43a2-fad4-d134-9e7fa8fbfdcc@gmail.com>
+[31/5/2026, 11:51:47 a. m.] ✓ Página 3/3: 70 cards para "SDET" en Colombia
+[31/5/2026, 12:00:03 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[31/5/2026, 12:16:52 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[31/5/2026, 12:31:30 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[31/5/2026, 12:50:20 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[31/5/2026, 12:53:02 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[31/5/2026, 1:03:17 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[31/5/2026, 1:20:33 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[31/5/2026, 1:27:18 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en Colombia
+[31/5/2026, 1:30:22 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en Colombia
+[31/5/2026, 2:02:17 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[31/5/2026, 2:05:21 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[31/5/2026, 2:21:55 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[31/5/2026, 2:47:34 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[31/5/2026, 3:06:40 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[31/5/2026, 3:27:55 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[31/5/2026, 3:28:14 p. m.] ✗ searchJobs("Pruebas funcionales", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0", waiting until "load"
+
+[31/5/2026, 3:48:37 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[31/5/2026, 4:21:04 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[31/5/2026, 4:21:23 p. m.] ✗ searchJobs("Pruebas funcionales", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50", waiting until "load"
+
+[31/5/2026, 4:34:27 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[31/5/2026, 4:51:21 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[31/5/2026, 5:08:15 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[31/5/2026, 5:25:20 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[31/5/2026, 5:50:21 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[31/5/2026, 5:51:07 p. m.] ✗ searchJobs("QA Engineer", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[31/5/2026, 6:23:19 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[31/5/2026, 6:24:03 p. m.] ✗ searchJobs("QA Engineer", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[31/5/2026, 6:51:40 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[31/5/2026, 7:13:24 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[31/5/2026, 7:36:27 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en United States
+[31/5/2026, 7:36:45 p. m.] ✗ searchJobs("Test Automation Engineer", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=0
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=0", waiting until "load"
+
+[31/5/2026, 7:55:55 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[31/5/2026, 8:12:11 p. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <51e1d7f6-736d-6e14-bd1b-038912656bed@gmail.com>
+[31/5/2026, 8:28:21 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[31/5/2026, 8:28:40 p. m.] ✗ searchJobs("Test Automation Engineer", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[31/5/2026, 8:40:52 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[31/5/2026, 9:13:01 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[31/5/2026, 9:38:30 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[31/5/2026, 10:10:45 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[31/5/2026, 10:11:04 p. m.] ✗ searchJobs("SDET", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=SDET&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=SDET&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[31/5/2026, 10:35:18 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[31/5/2026, 10:35:37 p. m.] ✗ searchJobs("SDET", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=SDET&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=SDET&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[31/5/2026, 11:07:44 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[31/5/2026, 11:40:25 p. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[31/5/2026, 11:57:37 p. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[1/6/2026, 12:00:01 a. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 12:16:41 a. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 12:24:30 a. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 12:42:07 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 1:14:09 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 1:46:31 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 2:03:27 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[1/6/2026, 2:20:09 a. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[1/6/2026, 2:37:46 a. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[1/6/2026, 3:09:53 a. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 3:27:11 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 3:44:09 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 3:44:27 a. m.] ✗ searchJobs("QA Manual", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=United%20States&f_TPR=r432000&f_WT=2&start=0
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=United%20States&f_TPR=r432000&f_WT=2&start=0", waiting until "load"
+
+[1/6/2026, 4:16:35 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 4:16:53 a. m.] ✗ searchJobs("QA Manual", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[1/6/2026, 4:33:38 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 5:05:32 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 5:22:46 a. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 5:55:02 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 5:55:20 a. m.] ✗ searchJobs("Pruebas funcionales", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=United%20States&f_TPR=r432000&f_WT=2&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[1/6/2026, 6:12:05 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 6:32:10 a. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 7:04:23 a. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 7:04:29 a. m.] ✓ Descripción obtenida: "Quality Assurance Functional Associate- ScotiaTech" (9671 chars)
+[1/6/2026, 7:04:33 a. m.] ✓ Descripción obtenida: "Test this thing" (459 chars)
+[1/6/2026, 7:04:37 a. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[1/6/2026, 7:04:41 a. m.] ✓ Descripción obtenida: "Quality Engineer" (6804 chars)
+[1/6/2026, 7:04:44 a. m.] ✓ Descripción obtenida: "Backend QA Engineer" (8269 chars)
+[1/6/2026, 7:04:49 a. m.] ✓ Descripción obtenida: "Quality Engineer, AI-Native" (10595 chars)
+[1/6/2026, 7:04:52 a. m.] ✓ Descripción obtenida: "Software QA Engineer" (9001 chars)
+[1/6/2026, 7:04:55 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (3867 chars)
+[1/6/2026, 7:04:59 a. m.] ✓ Descripción obtenida: "QA Engineer" (13159 chars)
+[1/6/2026, 7:05:03 a. m.] ✓ Descripción obtenida: "QA Engineer" (7521 chars)
+[1/6/2026, 7:05:08 a. m.] ✓ Descripción obtenida: "Engineer II, Software - Test" (5249 chars)
+[1/6/2026, 7:20:36 a. m.] ✓ Descripción obtenida: "Scalability Test Engineer" (14485 chars)
+[1/6/2026, 7:20:40 a. m.] ✓ Descripción obtenida: "QA Engineer/ QA Analyst" (10453 chars)
+[1/6/2026, 7:20:43 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (7287 chars)
+[1/6/2026, 7:20:47 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (7339 chars)
+[1/6/2026, 7:20:50 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (8599 chars)
+[1/6/2026, 7:20:55 a. m.] ✓ Descripción obtenida: "Systems Test Engineer" (6005 chars)
+[1/6/2026, 7:20:59 a. m.] ✓ Descripción obtenida: "QA Engineer/ QA Analyst" (10453 chars)
+[1/6/2026, 7:21:04 a. m.] ✓ Descripción obtenida: "QA Engineer, Black Diamond" (8367 chars)
+[1/6/2026, 7:21:07 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (13889 chars)
+[1/6/2026, 7:21:10 a. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <8c4831b6-5e4a-8cbb-ed28-2a57de9aad6a@gmail.com>
+[1/6/2026, 9:45:57 a. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[1/6/2026, 9:48:04 a. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 116 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[1/6/2026, 9:48:04 a. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[1/6/2026, 9:48:04 a. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 9:50:14 a. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 9:52:25 a. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 9:54:34 a. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 9:56:44 a. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 9:58:55 a. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 10:01:03 a. m.] ✓ Página 1/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 10:03:13 a. m.] ✓ Página 2/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 10:05:24 a. m.] ✓ Página 3/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 10:07:33 a. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 10:09:41 a. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 10:11:51 a. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 10:13:59 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 10:16:08 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 10:18:18 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 10:20:28 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 10:22:38 a. m.] ✓ Página 2/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 10:24:46 a. m.] ✓ Página 3/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 10:26:55 a. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 10:29:05 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 10:31:15 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 10:33:23 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 10:35:31 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 10:37:40 a. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 10:39:49 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 10:42:00 a. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 10:44:11 a. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 10:46:22 a. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 10:48:33 a. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 10:50:44 a. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 10:52:53 a. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 10:55:03 a. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 10:57:13 a. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 10:59:21 a. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[1/6/2026, 11:00:02 a. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[1/6/2026, 11:01:30 a. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[1/6/2026, 11:02:10 a. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 114 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[1/6/2026, 11:02:10 a. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[1/6/2026, 11:02:10 a. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 11:03:40 a. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[1/6/2026, 11:04:18 a. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 11:05:49 a. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 11:06:29 a. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 11:07:59 a. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 11:08:36 a. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 11:10:08 a. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 11:10:46 a. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 11:12:18 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 11:12:56 a. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 11:14:29 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 11:15:04 a. m.] ✓ Página 1/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 11:16:39 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 11:17:13 a. m.] ✓ Página 2/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 11:18:49 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[1/6/2026, 11:19:24 a. m.] ✓ Página 3/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 11:20:59 a. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[1/6/2026, 11:21:33 a. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 11:23:10 a. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[1/6/2026, 11:23:44 a. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 11:25:18 a. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 11:25:53 a. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 11:27:27 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 11:28:01 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 11:29:38 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 11:30:11 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 11:31:46 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 11:32:20 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 11:33:54 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 11:34:30 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 11:36:04 a. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 11:36:39 a. m.] ✓ Página 2/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 11:38:13 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 11:38:48 a. m.] ✓ Página 3/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 11:40:23 a. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 11:40:56 a. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 11:42:32 a. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 11:42:37 a. m.] ✓ Descripción obtenida: "Senior AQA Engineer (with Robot Framework)" (6133 chars)
+[1/6/2026, 11:42:41 a. m.] ✓ Descripción obtenida: "Ingeniero de QA Manual MID" (673 chars)
+[1/6/2026, 11:42:44 a. m.] ✓ Descripción obtenida: "Analista QA-automatización" (5269 chars)
+[1/6/2026, 11:42:48 a. m.] ✓ Descripción obtenida: "QA Specialist" (5767 chars)
+[1/6/2026, 11:42:51 a. m.] ✓ Descripción obtenida: "Test this thing" (459 chars)
+[1/6/2026, 11:42:55 a. m.] ✓ Descripción obtenida: "Testing Indeed 2" (781 chars)
+[1/6/2026, 11:42:59 a. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[1/6/2026, 11:43:03 a. m.] ✓ Descripción obtenida: "Quality Engineer" (6804 chars)
+[1/6/2026, 11:43:07 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 11:43:08 a. m.] ✓ Descripción obtenida: "Quality Engineer, AI-Native" (10595 chars)
+[1/6/2026, 11:43:11 a. m.] ✓ Descripción obtenida: "Software QA Engineer" (9001 chars)
+[1/6/2026, 11:43:15 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (3867 chars)
+[1/6/2026, 11:43:19 a. m.] ✓ Descripción obtenida: "QA Engineer" (13159 chars)
+[1/6/2026, 11:43:22 a. m.] ✓ Descripción obtenida: "QA Engineer" (7521 chars)
+[1/6/2026, 11:43:27 a. m.] ✓ Descripción obtenida: "Engineer II, Software - Test" (5249 chars)
+[1/6/2026, 11:43:31 a. m.] ✓ Descripción obtenida: "Scalability Test Engineer" (14485 chars)
+[1/6/2026, 11:43:35 a. m.] ✓ Descripción obtenida: "QA Engineer/ QA Analyst" (10453 chars)
+[1/6/2026, 11:43:39 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (7287 chars)
+[1/6/2026, 11:43:42 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (7339 chars)
+[1/6/2026, 11:43:46 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (8599 chars)
+[1/6/2026, 11:43:51 a. m.] ✓ Descripción obtenida: "QA Engineer/ QA Analyst" (10453 chars)
+[1/6/2026, 11:43:54 a. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <7655153d-87f9-622d-3152-06fb1be60c94@gmail.com>
+[1/6/2026, 11:45:18 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 11:47:27 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 11:56:25 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 12:28:51 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 12:29:10 p. m.] ✗ searchJobs("Pruebas funcionales", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0", waiting until "load"
+
+[1/6/2026, 12:46:17 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 12:46:37 p. m.] ✗ searchJobs("Pruebas funcionales", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[1/6/2026, 12:47:21 p. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[1/6/2026, 1:03:11 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 1:04:13 p. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 113 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[1/6/2026, 1:04:13 p. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[1/6/2026, 1:04:13 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 1:10:56 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 1:11:59 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 1:13:07 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 1:14:08 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 1:30:25 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 1:31:28 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 1:47:53 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 1:48:56 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 2:04:30 p. m.] ✗ searchJobs("Test Automation Engineer", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50", waiting until "load"
+
+[1/6/2026, 2:05:15 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 2:06:40 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 2:09:15 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 2:10:18 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 2:11:25 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 2:12:28 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 2:13:34 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 2:14:38 p. m.] ✓ Página 1/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 2:15:44 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[1/6/2026, 2:16:48 p. m.] ✓ Página 2/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 2:17:54 p. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[1/6/2026, 2:18:57 p. m.] ✓ Página 3/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 2:20:03 p. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[1/6/2026, 2:21:06 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 2:22:12 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 2:23:15 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 2:24:21 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 2:25:25 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 2:26:30 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 2:27:32 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 2:28:41 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 2:29:41 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 2:30:52 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 2:31:50 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 2:33:04 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 2:33:58 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 2:35:13 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[1/6/2026, 2:36:08 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 2:37:22 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[1/6/2026, 2:38:21 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 2:39:30 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[1/6/2026, 2:40:31 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 2:41:37 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 2:42:42 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 2:43:48 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 2:44:52 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 2:45:56 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 2:47:00 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 2:48:04 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 2:49:08 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 2:50:16 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 2:51:20 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 2:52:27 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 2:53:29 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 2:54:37 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 2:55:39 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 2:56:46 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 2:57:50 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 2:58:54 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 2:58:59 p. m.] ✓ Descripción obtenida: "Ingeniero de QA Manual MID" (673 chars)
+[1/6/2026, 2:59:03 p. m.] ✓ Descripción obtenida: "Senior AQA Engineer (with Robot Framework)" (6133 chars)
+[1/6/2026, 2:59:06 p. m.] ✓ Descripción obtenida: "QA-automatización pleno y senior" (5269 chars)
+[1/6/2026, 2:59:09 p. m.] ✓ Descripción obtenida: "Analista de Calidad de Software y Automatización" (3619 chars)
+[1/6/2026, 2:59:13 p. m.] ✓ Descripción obtenida: "Analista QA Funcional con conocimientos contables" (3849 chars)
+[1/6/2026, 2:59:17 p. m.] ✓ Descripción obtenida: "Especialista Power Platform, Copilot Studio y Automatización con Python" (5995 chars)
+[1/6/2026, 2:59:20 p. m.] ✓ Descripción obtenida: "QA Specialist" (5767 chars)
+[1/6/2026, 2:59:25 p. m.] ✓ Descripción obtenida: "Test this thing" (459 chars)
+[1/6/2026, 2:59:28 p. m.] ✓ Descripción obtenida: "QA Analyst (Testing Automation)" (1019 chars)
+[1/6/2026, 2:59:32 p. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[1/6/2026, 2:59:36 p. m.] ✓ Descripción obtenida: "Quality Engineer" (6804 chars)
+[1/6/2026, 2:59:40 p. m.] ✓ Descripción obtenida: "Quality Engineer, AI-Native" (10595 chars)
+[1/6/2026, 2:59:44 p. m.] ✓ Descripción obtenida: "Software QA Engineer" (9001 chars)
+[1/6/2026, 2:59:48 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (3867 chars)
+[1/6/2026, 2:59:52 p. m.] ✓ Descripción obtenida: "QA Engineer" (13159 chars)
+[1/6/2026, 2:59:56 p. m.] ✓ Descripción obtenida: "QA Engineer" (7521 chars)
+[1/6/2026, 2:59:57 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 3:00:00 p. m.] ✓ Descripción obtenida: "Engineer II, Software - Test" (5249 chars)
+[1/6/2026, 3:00:04 p. m.] ✓ Descripción obtenida: "Scalability Test Engineer" (14485 chars)
+[1/6/2026, 3:00:08 p. m.] ✓ Descripción obtenida: "QA Engineer/ QA Analyst" (10453 chars)
+[1/6/2026, 3:00:12 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (7287 chars)
+[1/6/2026, 3:00:15 p. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <0e6aeb5e-20c6-2151-912f-d27afa7146fb@gmail.com>
+[1/6/2026, 3:02:08 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 3:04:17 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 3:06:26 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 3:08:35 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 3:10:45 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 3:12:53 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[1/6/2026, 3:15:02 p. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[1/6/2026, 3:17:12 p. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[1/6/2026, 3:19:21 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 3:21:31 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 3:23:42 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 3:25:50 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 3:28:00 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 3:30:10 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 3:32:19 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[1/6/2026, 3:34:29 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[1/6/2026, 3:36:40 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[1/6/2026, 3:38:48 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 3:40:59 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 3:43:09 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 3:45:18 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 3:47:28 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 3:49:39 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 3:51:47 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 3:53:55 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 3:56:06 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 3:56:11 p. m.] ✓ Descripción obtenida: "QA Analyst (Testing Automation)" (1019 chars)
+[1/6/2026, 3:56:15 p. m.] ✓ Descripción obtenida: "QA-automatización pleno y senior" (5269 chars)
+[1/6/2026, 3:56:19 p. m.] ✓ Descripción obtenida: "Analista de Calidad de Software y Automatización" (3619 chars)
+[1/6/2026, 3:56:23 p. m.] ✓ Descripción obtenida: "Automatización QA" (3889 chars)
+[1/6/2026, 3:56:26 p. m.] ✓ Descripción obtenida: "QA Engineer" (8733 chars)
+[1/6/2026, 3:56:30 p. m.] ✓ Descripción obtenida: "Analista QA Funcional con conocimientos contables" (3849 chars)
+[1/6/2026, 3:56:34 p. m.] ✓ Descripción obtenida: "Especialista Power Platform, Copilot Studio y Automatización con Python" (5995 chars)
+[1/6/2026, 3:56:38 p. m.] ✓ Descripción obtenida: "Test this thing" (459 chars)
+[1/6/2026, 3:56:42 p. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[1/6/2026, 3:56:46 p. m.] ✓ Descripción obtenida: "Quality Engineer" (6804 chars)
+[1/6/2026, 3:56:49 p. m.] ✓ Descripción obtenida: "Quality Engineer, AI-Native" (10595 chars)
+[1/6/2026, 3:56:53 p. m.] ✓ Descripción obtenida: "Software QA Engineer" (9001 chars)
+[1/6/2026, 3:56:57 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (16001 chars)
+[1/6/2026, 3:57:01 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (3867 chars)
+[1/6/2026, 3:57:05 p. m.] ✓ Descripción obtenida: "QA Engineer" (13159 chars)
+[1/6/2026, 3:57:09 p. m.] ✓ Descripción obtenida: "QA Engineer" (7521 chars)
+[1/6/2026, 3:57:13 p. m.] ✓ Descripción obtenida: "Engineer II, Software - Test" (5249 chars)
+[1/6/2026, 3:57:17 p. m.] ✓ Descripción obtenida: "Scalability Test Engineer" (14485 chars)
+[1/6/2026, 3:57:21 p. m.] ✓ Descripción obtenida: "QA Engineer/ QA Analyst" (10453 chars)
+[1/6/2026, 3:57:25 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (7287 chars)
+[1/6/2026, 3:57:28 p. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <f96cd3b0-5d03-1b7f-3dc5-17a6d2255b6a@gmail.com>
+[1/6/2026, 4:07:30 p. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[1/6/2026, 4:09:37 p. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 113 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[1/6/2026, 4:09:37 p. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[1/6/2026, 4:09:37 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 4:11:46 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 4:13:56 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 4:16:05 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 4:18:16 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 4:20:25 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 4:22:34 p. m.] ✓ Página 1/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 4:24:45 p. m.] ✓ Página 2/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 4:26:57 p. m.] ✓ Página 3/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 4:29:08 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 4:31:17 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 4:33:26 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 4:35:35 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 4:37:44 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 4:39:53 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 4:41:59 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 4:44:08 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 4:46:17 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 4:48:25 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 4:50:34 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 4:52:43 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 4:54:52 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 4:57:02 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 4:59:12 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 5:00:02 p. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[1/6/2026, 5:01:20 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 5:02:07 p. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 113 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[1/6/2026, 5:02:07 p. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[1/6/2026, 5:02:07 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 5:03:28 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 5:04:17 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 5:05:40 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 5:06:26 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 5:07:49 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 5:08:35 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 5:10:00 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 5:10:45 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 5:12:10 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 5:12:56 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en Colombia
+[1/6/2026, 5:14:19 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 5:15:05 p. m.] ✓ Página 1/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 5:16:30 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 5:17:14 p. m.] ✓ Página 2/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 5:18:40 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 5:19:24 p. m.] ✓ Página 3/3: 70 cards para "SDET" en Colombia
+[1/6/2026, 5:20:49 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[1/6/2026, 5:21:32 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 5:23:01 p. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[1/6/2026, 5:23:42 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 5:25:11 p. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[1/6/2026, 5:25:52 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[1/6/2026, 5:27:19 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 5:28:00 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 5:29:30 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 5:30:12 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 5:31:41 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 5:32:22 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[1/6/2026, 5:33:51 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 5:34:29 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 5:36:00 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 5:36:39 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 5:38:08 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 5:38:49 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en Colombia
+[1/6/2026, 5:40:16 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[1/6/2026, 5:40:56 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 5:42:26 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[1/6/2026, 5:43:05 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 5:44:37 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[1/6/2026, 5:45:15 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[1/6/2026, 5:46:47 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 5:47:24 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 5:48:57 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 5:49:35 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 6:06:04 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[1/6/2026, 6:06:04 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[1/6/2026, 6:10:43 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 6:10:43 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 6:27:34 p. m.] ✓ Página 2/3: 60 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 6:27:34 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 6:46:19 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[1/6/2026, 6:46:20 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[1/6/2026, 6:49:18 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 6:49:18 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 7:07:37 p. m.] ✓ Página 2/3: 60 cards para "QA Engineer" en United States
+[1/6/2026, 7:07:37 p. m.] ✓ Página 2/3: 60 cards para "Pruebas funcionales" en United States
+[1/6/2026, 7:09:51 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en United States
+[1/6/2026, 7:09:51 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[1/6/2026, 7:09:56 p. m.] ✓ Descripción obtenida: "Production QA Tester (Remote, Colombia)" (5495 chars)
+[1/6/2026, 7:10:00 p. m.] ✓ Descripción obtenida: "Analista de pruebas (Retail)" (3385 chars)
+[1/6/2026, 7:10:03 p. m.] ✓ Descripción obtenida: "Quality Assurance Functional Associate" (8225 chars)
+[1/6/2026, 7:10:08 p. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[1/6/2026, 7:27:57 p. m.] ✓ Descripción obtenida: "Quality Engineer" (6804 chars)
+[1/6/2026, 7:29:04 p. m.] ✓ Página 1/3: 60 cards para "Test Automation Engineer" en United States
+[1/6/2026, 7:29:07 p. m.] ✓ Descripción obtenida: "Software QA Engineer" (9001 chars)
+[1/6/2026, 7:29:11 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (16001 chars)
+[1/6/2026, 7:29:15 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (0 chars)
+[1/6/2026, 7:29:20 p. m.] ✓ Descripción obtenida: "QA Engineer" (13159 chars)
+[1/6/2026, 7:29:24 p. m.] ✓ Descripción obtenida: "QA Engineer" (7521 chars)
+[1/6/2026, 7:29:28 p. m.] ✓ Descripción obtenida: "Engineer II, Software - Test" (5249 chars)
+[1/6/2026, 7:29:31 p. m.] ✓ Descripción obtenida: "Scalability Test Engineer" (14485 chars)
+[1/6/2026, 7:29:35 p. m.] ✓ Descripción obtenida: "QA Engineer/ QA Analyst" (10453 chars)
+[1/6/2026, 7:29:39 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (7287 chars)
+[1/6/2026, 7:29:43 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (7339 chars)
+[1/6/2026, 7:29:47 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (8599 chars)
+[1/6/2026, 7:29:50 p. m.] ✓ Descripción obtenida: "Software Test Engineer II" (11973 chars)
+[1/6/2026, 7:29:55 p. m.] ✓ Descripción obtenida: "Quality Engineer" (1065 chars)
+[1/6/2026, 7:29:59 p. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <22197301-8cfb-06b4-d917-5498d0d43010@gmail.com>
+[1/6/2026, 7:45:44 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 7:46:56 p. m.] ✗ searchJobs("Test Automation Engineer", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[1/6/2026, 8:05:21 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 8:05:24 p. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <25d5c0ec-7e9b-11e1-2436-a0ee5ef2babe@gmail.com>
+[1/6/2026, 8:06:27 p. m.] ✗ searchJobs("Test Automation Engineer", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[1/6/2026, 8:25:48 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 8:28:36 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 8:47:55 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[1/6/2026, 9:04:22 p. m.] ✓ Página 1/3: 60 cards para "SDET" en United States
+[1/6/2026, 9:21:55 p. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[1/6/2026, 9:23:03 p. m.] ✗ searchJobs("SDET", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=SDET&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[1/6/2026, 9:41:16 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[1/6/2026, 9:42:22 p. m.] ✗ searchJobs("SDET", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=SDET&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[1/6/2026, 9:48:57 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[1/6/2026, 10:22:15 p. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[1/6/2026, 10:24:36 p. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[1/6/2026, 10:42:11 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 10:49:57 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 11:21:30 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en United States
+[1/6/2026, 11:21:33 p. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[1/6/2026, 11:36:35 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 11:36:35 p. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 108 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[1/6/2026, 11:36:35 p. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[1/6/2026, 11:36:35 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[1/6/2026, 11:38:58 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[1/6/2026, 11:38:58 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[2/6/2026, 12:00:01 a. m.] ✓ Página 3/3: 60 cards para "QA Engineer" en Colombia
+[2/6/2026, 12:00:01 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en United States
+[2/6/2026, 12:16:41 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[2/6/2026, 12:17:07 a. m.] ✗ searchJobs("API Testing", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.evaluate: Target page, context or browser has been closed
+[2/6/2026, 12:17:08 a. m.] ✗ searchJobs("Test Automation Engineer", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.$$eval: Target page, context or browser has been closed
+[2/6/2026, 12:17:09 a. m.] ✗ searchJobs("API Testing", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:10 a. m.] ✗ searchJobs("Test Automation Engineer", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:13 a. m.] ✗ searchJobs("API Testing", "United States", remote) — intento 3/3 (definitivo) | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:14 a. m.] ✗ searchJobs("Test Automation Engineer", "Colombia") — intento 3/3 (definitivo) | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:15 a. m.] ✗ searchJobs("AI Testing", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:15 a. m.] ✗ searchJobs("SDET", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:17 a. m.] ✗ searchJobs("AI Testing", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:17 a. m.] ✗ searchJobs("SDET", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:21 a. m.] ✗ searchJobs("AI Testing", "United States", remote) — intento 3/3 (definitivo) | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:21 a. m.] ✗ searchJobs("SDET", "Colombia") — intento 3/3 (definitivo) | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:22 a. m.] ✗ searchJobs("Automatización de pruebas", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:23 a. m.] ✗ searchJobs("QA Manual", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:24 a. m.] ✗ searchJobs("Automatización de pruebas", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:25 a. m.] ✗ searchJobs("QA Manual", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:28 a. m.] ✗ searchJobs("Automatización de pruebas", "Colombia") — intento 3/3 (definitivo) | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:29 a. m.] ✗ searchJobs("QA Manual", "United States", remote) — intento 3/3 (definitivo) | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:31 a. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <330f335d-1718-84a2-a61c-c6fb811c3ae0@gmail.com>
+[2/6/2026, 12:17:31 a. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <f5179c24-0614-c3b7-3c83-88dedd2e23ae@gmail.com>
+[2/6/2026, 12:17:33 a. m.] ✗ searchJobs("Analista QA", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:33 a. m.] ✗ searchJobs("Pruebas funcionales", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:35 a. m.] ✗ searchJobs("Analista QA", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:35 a. m.] ✗ searchJobs("Pruebas funcionales", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:39 a. m.] ✗ searchJobs("Analista QA", "Colombia") — intento 3/3 (definitivo) | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:39 a. m.] ✗ searchJobs("Pruebas funcionales", "United States", remote) — intento 3/3 (definitivo) | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:41 a. m.] ✗ searchJobs("API Testing", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:43 a. m.] ✗ searchJobs("API Testing", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:47 a. m.] ✗ searchJobs("API Testing", "Colombia") — intento 3/3 (definitivo) | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:49 a. m.] ✗ searchJobs("AI Testing", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:51 a. m.] ✗ searchJobs("AI Testing", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:55 a. m.] ✗ searchJobs("AI Testing", "Colombia") — intento 3/3 (definitivo) | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:57 a. m.] ✗ searchJobs("QA Manual", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:17:59 a. m.] ✗ searchJobs("QA Manual", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:18:03 a. m.] ✗ searchJobs("QA Manual", "Colombia") — intento 3/3 (definitivo) | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:18:06 a. m.] ✗ searchJobs("Pruebas funcionales", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:18:06 a. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <e8b75796-9d6a-5600-9ef6-c39a7ccf46f9@gmail.com>
+[2/6/2026, 12:18:08 a. m.] ✗ searchJobs("Pruebas funcionales", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:18:12 a. m.] ✗ searchJobs("Pruebas funcionales", "Colombia") — intento 3/3 (definitivo) | code=N/A | page.goto: Target page, context or browser has been closed
+[2/6/2026, 12:23:36 a. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[2/6/2026, 12:25:45 a. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 106 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[2/6/2026, 12:25:45 a. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[2/6/2026, 12:25:45 a. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[2/6/2026, 12:43:22 a. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[2/6/2026, 1:00:23 a. m.] ✓ Página 3/3: 60 cards para "QA Engineer" en Colombia
+[2/6/2026, 1:15:52 a. m.] ✗ searchJobs("Test Automation Engineer", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0", waiting until "load"
+
+[2/6/2026, 1:33:07 a. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[2/6/2026, 1:52:20 a. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[2/6/2026, 1:53:26 a. m.] ✗ searchJobs("Test Automation Engineer", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50", waiting until "load"
+
+[2/6/2026, 2:12:42 a. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[2/6/2026, 2:13:50 a. m.] ✗ searchJobs("Test Automation Engineer", "Colombia") — intento 3/3 (definitivo) | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Test%20Automation%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[2/6/2026, 2:25:45 a. m.] ✓ Página 1/3: 70 cards para "SDET" en Colombia
+[2/6/2026, 2:42:24 a. m.] ✓ Página 2/3: 60 cards para "SDET" en Colombia
+[2/6/2026, 2:59:12 a. m.] ✓ Página 3/3: 70 cards para "SDET" en Colombia
+[2/6/2026, 3:00:24 a. m.] ✗ searchJobs("Automatización de pruebas", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Automatizaci%C3%B3n%20de%20pruebas&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0", waiting until "load"
+
+[2/6/2026, 3:18:33 a. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[2/6/2026, 3:21:24 a. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[2/6/2026, 3:39:37 a. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[2/6/2026, 3:57:24 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[2/6/2026, 4:14:49 a. m.] ✓ Página 2/3: 60 cards para "Analista QA" en Colombia
+[2/6/2026, 4:34:25 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[2/6/2026, 4:35:34 a. m.] ✗ searchJobs("API Testing", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=API%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0", waiting until "load"
+
+[2/6/2026, 4:52:47 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 4:53:55 a. m.] ✗ searchJobs("API Testing", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=API%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[2/6/2026, 5:10:41 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 5:29:33 a. m.] ✓ Página 2/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 5:47:40 a. m.] ✓ Página 3/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 6:04:36 a. m.] ✓ Página 1/3: 60 cards para "AI Testing" en Colombia
+[2/6/2026, 6:15:03 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[2/6/2026, 6:31:38 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[2/6/2026, 6:51:30 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 6:52:38 a. m.] ✗ searchJobs("QA Manual", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[2/6/2026, 7:09:25 a. m.] ✓ Página 1/3: 60 cards para "QA Manual" en Colombia
+[2/6/2026, 7:26:56 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 7:28:03 a. m.] ✗ searchJobs("QA Manual", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50", waiting until "load"
+
+[2/6/2026, 7:44:52 a. m.] ✓ Página 1/3: 60 cards para "QA Manual" en Colombia
+[2/6/2026, 7:48:27 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 8:05:41 a. m.] ✓ Página 3/3: 60 cards para "QA Manual" en Colombia
+[2/6/2026, 8:08:31 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 8:32:28 a. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 8:35:17 a. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 8:54:42 a. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[2/6/2026, 9:13:55 a. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[2/6/2026, 9:15:02 a. m.] ✗ searchJobs("QA Engineer", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[2/6/2026, 9:30:37 a. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[2/6/2026, 9:33:35 a. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[2/6/2026, 9:50:15 a. m.] ✗ searchJobs("QA Engineer", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[2/6/2026, 9:57:00 a. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[2/6/2026, 9:59:12 a. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[2/6/2026, 10:01:22 a. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en United States
+[2/6/2026, 10:03:31 a. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[2/6/2026, 10:05:39 a. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[2/6/2026, 10:07:50 a. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[2/6/2026, 10:09:58 a. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[2/6/2026, 10:12:06 a. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[2/6/2026, 10:14:16 a. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[2/6/2026, 10:16:25 a. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en United States
+[2/6/2026, 10:18:34 a. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en United States
+[2/6/2026, 10:20:44 a. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en United States
+[2/6/2026, 10:22:53 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[2/6/2026, 10:25:02 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[2/6/2026, 10:27:12 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en United States
+[2/6/2026, 10:29:21 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[2/6/2026, 10:31:31 a. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[2/6/2026, 10:33:40 a. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[2/6/2026, 10:35:49 a. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[2/6/2026, 10:37:59 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[2/6/2026, 10:40:08 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[2/6/2026, 10:42:17 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[2/6/2026, 10:44:28 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[2/6/2026, 10:46:38 a. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[2/6/2026, 10:48:49 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[2/6/2026, 10:50:59 a. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[2/6/2026, 10:53:10 a. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[2/6/2026, 10:53:15 a. m.] ✓ Descripción obtenida: "Quality Assurance Functional Associate" (8225 chars)
+[2/6/2026, 10:53:19 a. m.] ✓ Descripción obtenida: "Líder Técnico Soluciones Microsoft, Automatización e IA Aplicada" (6233 chars)
+[2/6/2026, 10:53:23 a. m.] ✓ Descripción obtenida: "Inspector QA/QC" (4629 chars)
+[2/6/2026, 10:53:27 a. m.] ✓ Descripción obtenida: "Ingeniero QA - Trabajo Remoto" (5541 chars)
+[2/6/2026, 10:53:31 a. m.] ✓ Descripción obtenida: "Mid Senior Test Automation Engineer - Typescript + Playwright" (3533 chars)
+[2/6/2026, 10:53:36 a. m.] ✓ Descripción obtenida: "QA Engineer" (8005 chars)
+[2/6/2026, 10:53:40 a. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[2/6/2026, 10:53:44 a. m.] ✓ Descripción obtenida: "QA Engineer" (3455 chars)
+[2/6/2026, 10:53:47 a. m.] ✓ Descripción obtenida: "Quality Engineer" (6804 chars)
+[2/6/2026, 10:53:51 a. m.] ✓ Descripción obtenida: "Quality Engineer, AI-Native" (10595 chars)
+[2/6/2026, 10:53:55 a. m.] ✓ Descripción obtenida: "QA Engineer" (15001 chars)
+[2/6/2026, 10:53:59 a. m.] ✓ Descripción obtenida: "Software QA Engineer" (9001 chars)
+[2/6/2026, 10:54:03 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (16001 chars)
+[2/6/2026, 10:54:07 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (3867 chars)
+[2/6/2026, 10:54:10 a. m.] ✓ Descripción obtenida: "QA Engineer" (7521 chars)
+[2/6/2026, 10:54:14 a. m.] ✓ Descripción obtenida: "Engineer II, Software - Test" (5249 chars)
+[2/6/2026, 10:54:19 a. m.] ✓ Descripción obtenida: "Scalability Test Engineer" (14485 chars)
+[2/6/2026, 10:54:23 a. m.] ✓ Descripción obtenida: "QA Engineer/ QA Analyst" (10453 chars)
+[2/6/2026, 10:54:28 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (7287 chars)
+[2/6/2026, 10:54:32 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (4061 chars)
+[2/6/2026, 10:54:36 a. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <57125368-2437-d590-0f2a-53f5c1cf6b31@gmail.com>
+[2/6/2026, 11:04:37 a. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[2/6/2026, 11:06:46 a. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 106 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[2/6/2026, 11:06:46 a. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[2/6/2026, 11:06:46 a. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[2/6/2026, 11:08:55 a. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[2/6/2026, 11:11:04 a. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[2/6/2026, 11:13:14 a. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[2/6/2026, 11:15:25 a. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[2/6/2026, 11:17:36 a. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en Colombia
+[2/6/2026, 11:19:45 a. m.] ✓ Página 1/3: 70 cards para "SDET" en Colombia
+[2/6/2026, 11:21:57 a. m.] ✓ Página 2/3: 70 cards para "SDET" en Colombia
+[2/6/2026, 11:24:06 a. m.] ✓ Página 3/3: 70 cards para "SDET" en Colombia
+[2/6/2026, 11:26:14 a. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[2/6/2026, 11:28:25 a. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[2/6/2026, 11:30:34 a. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[2/6/2026, 11:32:43 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[2/6/2026, 11:34:51 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[2/6/2026, 11:37:01 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[2/6/2026, 11:39:09 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 11:41:18 a. m.] ✓ Página 2/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 11:43:31 a. m.] ✓ Página 3/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 11:45:40 a. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[2/6/2026, 11:47:49 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[2/6/2026, 11:49:58 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[2/6/2026, 11:52:06 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 11:54:18 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 11:56:27 a. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 11:58:37 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 12:00:48 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 12:02:57 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 12:05:07 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en United States
+[2/6/2026, 12:07:16 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en United States
+[2/6/2026, 12:09:27 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en United States
+[2/6/2026, 12:11:34 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[2/6/2026, 12:13:42 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[2/6/2026, 12:15:51 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[2/6/2026, 12:18:01 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[2/6/2026, 12:20:11 p. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[2/6/2026, 12:22:22 p. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[2/6/2026, 12:24:31 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en United States
+[2/6/2026, 12:26:42 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en United States
+[2/6/2026, 12:28:53 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en United States
+[2/6/2026, 12:31:01 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[2/6/2026, 12:33:11 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[2/6/2026, 12:35:20 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en United States
+[2/6/2026, 12:37:29 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[2/6/2026, 12:39:37 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[2/6/2026, 12:41:46 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[2/6/2026, 12:43:55 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[2/6/2026, 12:46:03 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[2/6/2026, 12:48:13 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[2/6/2026, 12:50:23 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[2/6/2026, 12:52:32 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[2/6/2026, 12:54:41 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[2/6/2026, 12:56:49 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[2/6/2026, 12:58:57 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[2/6/2026, 1:01:07 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[2/6/2026, 1:01:12 p. m.] ✓ Descripción obtenida: "Manual QA / I + D - Trabajo Remoto" (6267 chars)
+[2/6/2026, 1:01:16 p. m.] ✓ Descripción obtenida: "Quality Assurance Functional Associate" (8225 chars)
+[2/6/2026, 1:01:20 p. m.] ✓ Descripción obtenida: "Analistas de pruebas-automatización Medellín" (5817 chars)
+[2/6/2026, 1:01:24 p. m.] ✓ Descripción obtenida: "Analista QA (Intermedio/Senior)" (1641 chars)
+[2/6/2026, 1:01:28 p. m.] ✓ Descripción obtenida: "QA tester" (3022 chars)
+[2/6/2026, 1:01:31 p. m.] ✓ Descripción obtenida: "Analista QA - Intermedio/Senior" (4071 chars)
+[2/6/2026, 1:01:35 p. m.] ✓ Descripción obtenida: "Líder Técnico Soluciones Microsoft, Automatización e IA Aplicada" (6233 chars)
+[2/6/2026, 1:01:38 p. m.] ✓ Descripción obtenida: "Manual QA / I + D - Trabajo Remoto" (6267 chars)
+[2/6/2026, 1:01:43 p. m.] ✓ Descripción obtenida: "QA Automation / SDET" (7007 chars)
+[2/6/2026, 1:01:47 p. m.] ✓ Descripción obtenida: "QA Engineer" (8005 chars)
+[2/6/2026, 1:01:51 p. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[2/6/2026, 1:01:55 p. m.] ✓ Descripción obtenida: "QA Engineer" (3455 chars)
+[2/6/2026, 1:01:59 p. m.] ✓ Descripción obtenida: "Quality Engineer" (6804 chars)
+[2/6/2026, 1:02:03 p. m.] ✓ Descripción obtenida: "Quality Engineer, AI-Native" (10595 chars)
+[2/6/2026, 1:02:07 p. m.] ✓ Descripción obtenida: "QA Engineer" (15001 chars)
+[2/6/2026, 1:02:11 p. m.] ✓ Descripción obtenida: "Software QA Engineer" (9001 chars)
+[2/6/2026, 1:02:15 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (16001 chars)
+[2/6/2026, 1:02:18 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (3867 chars)
+[2/6/2026, 1:02:22 p. m.] ✓ Descripción obtenida: "QA Engineer" (7521 chars)
+[2/6/2026, 1:02:26 p. m.] ✓ Descripción obtenida: "Engineer II, Software - Test" (5249 chars)
+[2/6/2026, 1:02:29 p. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <c4261e04-4a28-6a4b-0530-7f9fb93001a3@gmail.com>
+[2/6/2026, 2:14:04 p. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[2/6/2026, 2:17:16 p. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 106 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[2/6/2026, 2:17:16 p. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[2/6/2026, 2:17:16 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[2/6/2026, 2:19:26 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[2/6/2026, 2:21:35 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[2/6/2026, 2:23:42 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[2/6/2026, 2:25:53 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[2/6/2026, 2:28:03 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en Colombia
+[2/6/2026, 2:30:10 p. m.] ✓ Página 1/3: 70 cards para "SDET" en Colombia
+[2/6/2026, 2:32:21 p. m.] ✓ Página 2/3: 70 cards para "SDET" en Colombia
+[2/6/2026, 2:34:32 p. m.] ✓ Página 3/3: 70 cards para "SDET" en Colombia
+[2/6/2026, 2:36:41 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[2/6/2026, 2:38:49 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[2/6/2026, 2:40:58 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[2/6/2026, 2:43:09 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[2/6/2026, 2:45:21 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[2/6/2026, 2:47:29 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[2/6/2026, 2:49:39 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 2:51:49 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 2:53:59 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 2:56:08 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[2/6/2026, 2:58:19 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[2/6/2026, 3:00:27 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[2/6/2026, 3:02:36 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 3:04:46 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 3:06:57 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 3:09:06 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 3:11:16 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 3:13:26 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 3:15:35 p. m.] ✓ Página 1/3: 68 cards para "QA Engineer" en United States
+[2/6/2026, 3:17:45 p. m.] ✓ Página 2/3: 69 cards para "QA Engineer" en United States
+[2/6/2026, 3:19:55 p. m.] ✓ Página 3/3: 69 cards para "QA Engineer" en United States
+[2/6/2026, 3:22:04 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[2/6/2026, 3:24:15 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[2/6/2026, 3:26:26 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[2/6/2026, 3:28:34 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[2/6/2026, 3:30:45 p. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[2/6/2026, 3:32:53 p. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[2/6/2026, 3:35:02 p. m.] ✓ Página 1/3: 69 cards para "Automatización de pruebas" en United States
+[2/6/2026, 3:37:13 p. m.] ✓ Página 2/3: 68 cards para "Automatización de pruebas" en United States
+[2/6/2026, 3:39:22 p. m.] ✓ Página 3/3: 68 cards para "Automatización de pruebas" en United States
+[2/6/2026, 3:41:31 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[2/6/2026, 3:43:41 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[2/6/2026, 3:45:52 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en United States
+[2/6/2026, 3:47:59 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[2/6/2026, 3:50:09 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[2/6/2026, 3:52:19 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[2/6/2026, 3:54:28 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[2/6/2026, 3:56:38 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[2/6/2026, 3:58:48 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[2/6/2026, 4:00:57 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[2/6/2026, 4:03:07 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[2/6/2026, 4:05:18 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[2/6/2026, 4:07:29 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[2/6/2026, 4:09:38 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[2/6/2026, 4:11:49 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[2/6/2026, 4:11:55 p. m.] ✓ Descripción obtenida: "Quality Assurance Functional Associate" (8225 chars)
+[2/6/2026, 4:11:58 p. m.] ✓ Descripción obtenida: "Líder Técnico Soluciones Microsoft, Automatización e IA Aplicada" (6233 chars)
+[2/6/2026, 4:12:02 p. m.] ✓ Descripción obtenida: "Automatización de atención al cliente con IA especialista – Ecommerce 100% Remoto |  LATAM" (6077 chars)
+[2/6/2026, 4:12:05 p. m.] ✓ Descripción obtenida: "Senior QA Automation Engineer" (4549 chars)
+[2/6/2026, 4:12:10 p. m.] ✓ Descripción obtenida: "Analista de pruebas automatizadas_ Medellín" (5817 chars)
+[2/6/2026, 4:12:14 p. m.] ✓ Descripción obtenida: "QA Engineer" (8005 chars)
+[2/6/2026, 4:12:18 p. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[2/6/2026, 4:12:23 p. m.] ✓ Descripción obtenida: "QA Engineer" (3455 chars)
+[2/6/2026, 4:12:27 p. m.] ✓ Descripción obtenida: "Quality Engineer" (6804 chars)
+[2/6/2026, 4:12:31 p. m.] ✓ Descripción obtenida: "Quality Engineer, AI-Native" (10595 chars)
+[2/6/2026, 4:12:35 p. m.] ✓ Descripción obtenida: "QA Engineer" (15001 chars)
+[2/6/2026, 4:12:39 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (16001 chars)
+[2/6/2026, 4:12:44 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (3867 chars)
+[2/6/2026, 4:12:48 p. m.] ✓ Descripción obtenida: "QA Engineer" (7521 chars)
+[2/6/2026, 4:12:53 p. m.] ✓ Descripción obtenida: "Engineer II, Software - Test" (5249 chars)
+[2/6/2026, 4:12:56 p. m.] ✓ Descripción obtenida: "Scalability Test Engineer" (14485 chars)
+[2/6/2026, 4:13:01 p. m.] ✓ Descripción obtenida: "SQA Engineer" (7609 chars)
+[2/6/2026, 4:13:05 p. m.] ✓ Descripción obtenida: "QA Engineer/ QA Analyst" (10453 chars)
+[2/6/2026, 4:13:09 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (7287 chars)
+[2/6/2026, 4:13:14 p. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (4061 chars)
+[2/6/2026, 4:13:16 p. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <a6eb8464-aaa8-b168-bd20-2983e46edb36@gmail.com>
+[2/6/2026, 4:23:18 p. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[2/6/2026, 4:25:26 p. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 106 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[2/6/2026, 4:25:26 p. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[2/6/2026, 4:25:26 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[2/6/2026, 4:27:37 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[2/6/2026, 4:29:46 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[2/6/2026, 4:31:55 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en Colombia
+[2/6/2026, 4:34:06 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en Colombia
+[2/6/2026, 4:36:18 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en Colombia
+[2/6/2026, 4:38:27 p. m.] ✓ Página 1/3: 70 cards para "SDET" en Colombia
+[2/6/2026, 4:40:36 p. m.] ✓ Página 2/3: 70 cards para "SDET" en Colombia
+[2/6/2026, 4:42:46 p. m.] ✓ Página 3/3: 70 cards para "SDET" en Colombia
+[2/6/2026, 4:44:55 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[2/6/2026, 4:47:04 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[2/6/2026, 5:08:16 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[2/6/2026, 5:08:36 p. m.] ✗ searchJobs("Analista QA", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0", waiting until "load"
+
+[2/6/2026, 5:41:08 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[2/6/2026, 5:41:26 p. m.] ✗ searchJobs("Analista QA", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Analista%20QA&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[2/6/2026, 6:10:44 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[2/6/2026, 6:13:01 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[2/6/2026, 6:32:21 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[2/6/2026, 6:49:35 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 6:51:20 p. m.] ✗ searchJobs("API Testing", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=API%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[2/6/2026, 7:12:57 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 7:15:21 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 7:32:56 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en Colombia
+[2/6/2026, 7:50:10 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[2/6/2026, 8:09:44 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[2/6/2026, 8:09:46 p. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <ec606539-1d14-b16f-adbc-dd8fc98976a1@gmail.com>
+[2/6/2026, 8:10:53 p. m.] ✗ searchJobs("AI Testing", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50", waiting until "load"
+
+[2/6/2026, 8:27:31 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[2/6/2026, 8:32:52 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[2/6/2026, 8:49:09 p. m.] ✓ Página 3/3: 60 cards para "AI Testing" en Colombia
+[2/6/2026, 9:06:19 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 9:07:03 p. m.] ✗ searchJobs("QA Manual", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=25", waiting until "load"
+
+[2/6/2026, 9:24:52 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 9:27:38 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 9:49:49 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[2/6/2026, 10:09:31 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 10:26:41 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 10:28:00 p. m.] ✗ searchJobs("Pruebas funcionales", "Colombia") — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=50", waiting until "load"
+
+[2/6/2026, 10:36:43 p. m.] ✗ searchJobs("Pruebas funcionales", "Colombia") — intento 2/3, reintentando en 4s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0", waiting until "load"
+
+[2/6/2026, 10:57:12 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 11:16:11 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 11:33:18 p. m.] ✓ Página 3/3: 60 cards para "Pruebas funcionales" en Colombia
+[2/6/2026, 11:35:55 p. m.] ✓ Página 1/3: 68 cards para "QA Engineer" en United States
+[2/6/2026, 11:55:04 p. m.] ✓ Página 2/3: 59 cards para "QA Engineer" en United States
+[3/6/2026, 12:15:40 a. m.] ✓ Página 3/3: 59 cards para "QA Engineer" en United States
+[3/6/2026, 12:17:59 a. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[3/6/2026, 12:36:55 a. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[3/6/2026, 12:54:08 a. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[3/6/2026, 1:11:59 a. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[3/6/2026, 1:30:28 a. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[3/6/2026, 1:47:53 a. m.] ✓ Página 3/3: 60 cards para "SDET" en United States
+[3/6/2026, 2:06:00 a. m.] ✓ Página 1/3: 69 cards para "Automatización de pruebas" en United States
+[3/6/2026, 2:24:35 a. m.] ✓ Página 2/3: 68 cards para "Automatización de pruebas" en United States
+[3/6/2026, 2:25:42 a. m.] ✗ searchJobs("Automatización de pruebas", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Automatizaci%C3%B3n%20de%20pruebas&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[3/6/2026, 2:44:57 a. m.] ✓ Página 1/3: 59 cards para "Automatización de pruebas" en United States
+[3/6/2026, 2:47:55 a. m.] ✓ Página 2/3: 68 cards para "Automatización de pruebas" en United States
+[3/6/2026, 3:05:45 a. m.] ✓ Página 3/3: 59 cards para "Automatización de pruebas" en United States
+[3/6/2026, 3:25:27 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[3/6/2026, 3:28:15 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[3/6/2026, 3:44:30 a. m.] ✓ Página 3/3: 60 cards para "Analista QA" en United States
+[3/6/2026, 4:04:09 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[3/6/2026, 4:21:59 a. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[3/6/2026, 4:31:33 a. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[3/6/2026, 4:49:40 a. m.] ✗ searchJobs("AI Testing", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=AI%20Testing&location=United%20States&f_TPR=r432000&f_WT=2&start=0", waiting until "load"
+
+[3/6/2026, 5:07:44 a. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[3/6/2026, 5:11:30 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[3/6/2026, 5:13:38 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[3/6/2026, 5:30:02 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 5:47:19 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 6:03:00 a. m.] ✗ searchJobs("QA Manual", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Manual&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[3/6/2026, 6:22:55 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 6:40:25 a. m.] ✓ Página 2/3: 60 cards para "QA Manual" en United States
+[3/6/2026, 6:59:19 a. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 7:00:26 a. m.] ✗ searchJobs("Pruebas funcionales", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=United%20States&f_TPR=r432000&f_WT=2&start=0", waiting until "load"
+
+[3/6/2026, 7:13:39 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 7:29:16 a. m.] ✗ searchJobs("Pruebas funcionales", "United States", remote) — intento 2/3, reintentando en 4s | code=N/A | page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=Pruebas%20funcionales&location=United%20States&f_TPR=r432000&f_WT=2&start=25", waiting until "load"
+
+[3/6/2026, 7:47:03 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 7:50:28 a. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 7:52:38 a. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 7:52:45 a. m.] ✓ Descripción obtenida: "Quality Assurance Functional Associate" (8225 chars)
+[3/6/2026, 7:52:49 a. m.] ✓ Descripción obtenida: "Senior Quality Engineer (Selenium+ Java + Python + AI)" (10643 chars)
+[3/6/2026, 7:52:54 a. m.] ✓ Descripción obtenida: "Líder Técnico Soluciones Microsoft, Automatización e IA Aplicada" (6233 chars)
+[3/6/2026, 7:52:57 a. m.] ✓ Descripción obtenida: "QA Functional Tester Bilingüe" (5025 chars)
+[3/6/2026, 7:53:01 a. m.] ✓ Descripción obtenida: "Senior QA Automation Engineer" (6591 chars)
+[3/6/2026, 7:53:05 a. m.] ✓ Descripción obtenida: "QA Tester (Junior-Mid)" (5687 chars)
+[3/6/2026, 7:58:23 a. m.] ✓ Descripción obtenida: "Tester Junior" (3723 chars)
+[3/6/2026, 7:58:27 a. m.] ✓ Descripción obtenida: "Quality Assurance Specialist" (5323 chars)
+[3/6/2026, 7:58:31 a. m.] ✓ Descripción obtenida: "QA Engineer" (8005 chars)
+[3/6/2026, 7:58:35 a. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[3/6/2026, 7:58:40 a. m.] ✓ Descripción obtenida: "QA Engineer" (3455 chars)
+[3/6/2026, 7:58:44 a. m.] ✓ Descripción obtenida: "Quality Engineer" (6804 chars)
+[3/6/2026, 7:58:47 a. m.] ✓ Descripción obtenida: "QA Engineer" (15001 chars)
+[3/6/2026, 7:58:51 a. m.] ✓ Descripción obtenida: "Quality Engineer, AI-Native" (10595 chars)
+[3/6/2026, 7:58:55 a. m.] ✓ Descripción obtenida: "Quality Assurance Test Engineer" (2949 chars)
+[3/6/2026, 7:58:58 a. m.] ✓ Descripción obtenida: "QA Test Engineer" (11975 chars)
+[3/6/2026, 7:59:02 a. m.] ✓ Descripción obtenida: "QA Test Engineer" (11975 chars)
+[3/6/2026, 7:59:06 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (16001 chars)
+[3/6/2026, 7:59:10 a. m.] ✓ Descripción obtenida: "Quality Assurance Engineer" (3867 chars)
+[3/6/2026, 7:59:13 a. m.] ✓ Descripción obtenida: "QA Engineer" (7521 chars)
+[3/6/2026, 7:59:17 a. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <4a8e78c4-4313-9201-d802-039781e5cb21@gmail.com>
+[3/6/2026, 8:44:15 a. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[3/6/2026, 8:46:22 a. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 64 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[3/6/2026, 8:46:22 a. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[3/6/2026, 8:46:22 a. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[3/6/2026, 8:48:32 a. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[3/6/2026, 8:50:42 a. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[3/6/2026, 8:52:50 a. m.] ✓ Página 1/3: 55 cards para "Test Automation Engineer" en Colombia
+[3/6/2026, 8:55:01 a. m.] ✓ Página 2/3: 55 cards para "Test Automation Engineer" en Colombia
+[3/6/2026, 8:57:11 a. m.] ✓ Página 3/3: 55 cards para "Test Automation Engineer" en Colombia
+[3/6/2026, 8:59:20 a. m.] ✓ Página 1/3: 50 cards para "SDET" en Colombia
+[3/6/2026, 9:01:30 a. m.] ✓ Página 2/3: 50 cards para "SDET" en Colombia
+[3/6/2026, 9:06:01 a. m.] ✓ Página 3/3: 50 cards para "SDET" en Colombia
+[3/6/2026, 9:08:12 a. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[3/6/2026, 9:10:22 a. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[3/6/2026, 9:12:30 a. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[3/6/2026, 9:14:40 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[3/6/2026, 9:16:49 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[3/6/2026, 9:18:58 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[3/6/2026, 9:21:06 a. m.] ✓ Página 1/3: 39 cards para "API Testing" en Colombia
+[3/6/2026, 9:23:15 a. m.] ✓ Página 2/3: 39 cards para "API Testing" en Colombia
+[3/6/2026, 9:25:23 a. m.] ✓ Página 3/3: 39 cards para "API Testing" en Colombia
+[3/6/2026, 9:27:32 a. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[3/6/2026, 9:29:43 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[3/6/2026, 9:31:53 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[3/6/2026, 9:34:02 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[3/6/2026, 9:36:13 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[3/6/2026, 9:38:23 a. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[3/6/2026, 9:40:32 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[3/6/2026, 9:42:41 a. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[3/6/2026, 9:44:51 a. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[3/6/2026, 9:47:01 a. m.] ✓ Página 1/3: 68 cards para "QA Engineer" en United States
+[3/6/2026, 9:49:11 a. m.] ✓ Página 2/3: 69 cards para "QA Engineer" en United States
+[3/6/2026, 9:51:20 a. m.] ✓ Página 3/3: 69 cards para "QA Engineer" en United States
+[3/6/2026, 9:53:29 a. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[3/6/2026, 9:55:40 a. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[3/6/2026, 9:57:50 a. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[3/6/2026, 9:59:59 a. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[3/6/2026, 10:02:14 a. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[3/6/2026, 10:04:24 a. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[3/6/2026, 10:06:34 a. m.] ✓ Página 1/3: 69 cards para "Automatización de pruebas" en United States
+[3/6/2026, 10:08:44 a. m.] ✓ Página 2/3: 69 cards para "Automatización de pruebas" en United States
+[3/6/2026, 10:10:54 a. m.] ✓ Página 3/3: 69 cards para "Automatización de pruebas" en United States
+[3/6/2026, 10:13:04 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[3/6/2026, 10:15:13 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en United States
+[3/6/2026, 10:17:23 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en United States
+[3/6/2026, 10:19:33 a. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[3/6/2026, 10:21:42 a. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[3/6/2026, 10:23:51 a. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[3/6/2026, 10:26:00 a. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[3/6/2026, 10:28:10 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[3/6/2026, 10:30:21 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[3/6/2026, 10:32:31 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 10:34:41 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 10:36:49 a. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 10:38:58 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 10:41:06 a. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 10:43:15 a. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 10:43:21 a. m.] ✓ Descripción obtenida: "QA Functional Tester Bilingüe" (5025 chars)
+[3/6/2026, 10:43:25 a. m.] ✓ Descripción obtenida: "Quality Assurance Functional Associate" (8225 chars)
+[3/6/2026, 10:43:29 a. m.] ✓ Descripción obtenida: "Profesional QA automatizadas_ Medellín" (5817 chars)
+[3/6/2026, 10:43:33 a. m.] ✓ Descripción obtenida: "Senior Automation Engineer" (8999 chars)
+[3/6/2026, 10:43:36 a. m.] ✓ Descripción obtenida: "Automation Tester" (8507 chars)
+[3/6/2026, 10:43:40 a. m.] ✓ Descripción obtenida: "Junior SDET - Remote Work" (5159 chars)
+[3/6/2026, 10:43:44 a. m.] ✓ Descripción obtenida: "Líder Técnico Soluciones Microsoft, Automatización e IA Aplicada" (6233 chars)
+[3/6/2026, 10:43:48 a. m.] ✓ Descripción obtenida: "Analista de Procesos y Automatización" (5399 chars)
+[3/6/2026, 10:43:52 a. m.] ✓ Descripción obtenida: "Bots Automation Specialist" (4425 chars)
+[3/6/2026, 10:43:55 a. m.] ✓ Descripción obtenida: "QA  SSR" (3029 chars)
+[3/6/2026, 10:43:59 a. m.] ✓ Descripción obtenida: "Quality Assurance Specialist" (5323 chars)
+[3/6/2026, 10:44:03 a. m.] ✓ Descripción obtenida: "Semi Senior Testing - Remote Work" (5269 chars)
+[3/6/2026, 10:44:08 a. m.] ✓ Descripción obtenida: "Automatizador de Pruebas Senior" (3177 chars)
+[3/6/2026, 10:44:11 a. m.] ✓ Descripción obtenida: "QA Automation Engineer" (8999 chars)
+[3/6/2026, 10:44:15 a. m.] ✓ Descripción obtenida: "Analista de Pruebas Ssr" (3953 chars)
+[3/6/2026, 10:44:18 a. m.] ✓ Descripción obtenida: "QA Analyst" (5309 chars)
+[3/6/2026, 10:44:22 a. m.] ✓ Descripción obtenida: "QA Engineer" (8005 chars)
+[3/6/2026, 10:44:27 a. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[3/6/2026, 10:44:31 a. m.] ✓ Descripción obtenida: "QA Engineer" (3455 chars)
+[3/6/2026, 10:44:35 a. m.] ✓ Descripción obtenida: "QA Engineer" (15001 chars)
+[3/6/2026, 10:44:38 a. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <cfed019b-2d26-d5f2-37e0-edf244acccfd@gmail.com>
+[3/6/2026, 10:54:40 a. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[3/6/2026, 10:56:47 a. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 72 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[3/6/2026, 10:56:47 a. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[3/6/2026, 10:56:47 a. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[3/6/2026, 10:58:56 a. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[3/6/2026, 11:01:07 a. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[3/6/2026, 11:03:15 a. m.] ✓ Página 1/3: 58 cards para "Test Automation Engineer" en Colombia
+[3/6/2026, 11:05:25 a. m.] ✓ Página 2/3: 58 cards para "Test Automation Engineer" en Colombia
+[3/6/2026, 11:07:33 a. m.] ✓ Página 3/3: 58 cards para "Test Automation Engineer" en Colombia
+[3/6/2026, 11:09:42 a. m.] ✓ Página 1/3: 51 cards para "SDET" en Colombia
+[3/6/2026, 11:11:53 a. m.] ✓ Página 2/3: 51 cards para "SDET" en Colombia
+[3/6/2026, 11:14:03 a. m.] ✓ Página 3/3: 51 cards para "SDET" en Colombia
+[3/6/2026, 11:16:11 a. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[3/6/2026, 11:18:21 a. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[3/6/2026, 11:20:30 a. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[3/6/2026, 11:22:39 a. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[3/6/2026, 11:24:49 a. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[3/6/2026, 11:26:59 a. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[3/6/2026, 11:29:08 a. m.] ✓ Página 1/3: 39 cards para "API Testing" en Colombia
+[3/6/2026, 11:31:19 a. m.] ✓ Página 2/3: 39 cards para "API Testing" en Colombia
+[3/6/2026, 11:33:29 a. m.] ✓ Página 3/3: 39 cards para "API Testing" en Colombia
+[3/6/2026, 11:35:37 a. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[3/6/2026, 11:37:46 a. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[3/6/2026, 11:39:54 a. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[3/6/2026, 11:42:03 a. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[3/6/2026, 11:44:14 a. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[3/6/2026, 11:46:23 a. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[3/6/2026, 11:48:32 a. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[3/6/2026, 12:05:23 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[3/6/2026, 12:27:36 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[3/6/2026, 12:31:51 p. m.] ✓ Página 1/3: 68 cards para "QA Engineer" en United States
+[3/6/2026, 12:48:57 p. m.] ✓ Página 2/3: 69 cards para "QA Engineer" en United States
+[3/6/2026, 1:04:41 p. m.] ✗ searchJobs("QA Engineer", "United States", remote) — intento 1/3, reintentando en 2s | code=N/A | page.goto: net::ERR_TIMED_OUT at https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50
+Call log:
+  - navigating to "https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=United%20States&f_TPR=r432000&f_WT=2&start=50", waiting until "load"
+
+[3/6/2026, 1:21:52 p. m.] ✓ Página 1/3: 68 cards para "QA Engineer" en United States
+[3/6/2026, 1:28:56 p. m.] ✓ Página 2/3: 69 cards para "QA Engineer" en United States
+[3/6/2026, 1:43:12 p. m.] ✓ Página 3/3: 69 cards para "QA Engineer" en United States
+[3/6/2026, 1:45:24 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[3/6/2026, 1:47:33 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[3/6/2026, 1:49:44 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[3/6/2026, 1:51:51 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[3/6/2026, 1:54:00 p. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[3/6/2026, 1:56:10 p. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[3/6/2026, 1:58:19 p. m.] ✓ Página 1/3: 69 cards para "Automatización de pruebas" en United States
+[3/6/2026, 2:00:29 p. m.] ✓ Página 2/3: 69 cards para "Automatización de pruebas" en United States
+[3/6/2026, 2:02:41 p. m.] ✓ Página 3/3: 69 cards para "Automatización de pruebas" en United States
+[3/6/2026, 2:04:50 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[3/6/2026, 2:06:59 p. m.] ✓ Página 2/3: 68 cards para "Analista QA" en United States
+[3/6/2026, 2:09:10 p. m.] ✓ Página 3/3: 68 cards para "Analista QA" en United States
+[3/6/2026, 2:11:20 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[3/6/2026, 2:13:30 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[3/6/2026, 2:15:39 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[3/6/2026, 2:17:47 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[3/6/2026, 2:19:55 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[3/6/2026, 2:22:05 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[3/6/2026, 2:24:12 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 2:26:22 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 2:28:31 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 2:30:39 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 2:32:50 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 2:35:00 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 2:35:05 p. m.] ✓ Descripción obtenida: "QA Automation Engineer" (8999 chars)
+[3/6/2026, 2:35:09 p. m.] ✓ Descripción obtenida: "QA Functional Tester Bilingüe" (5025 chars)
+[3/6/2026, 2:35:13 p. m.] ✓ Descripción obtenida: "Analista de Pruebas de Software Proficient" (3189 chars)
+[3/6/2026, 2:35:16 p. m.] ✓ Descripción obtenida: "Quality Assurance Functional Associate" (8225 chars)
+[3/6/2026, 2:35:19 p. m.] ✓ Descripción obtenida: "ISTQB - Analista de Control de Calidad (QA) Manual" (5697 chars)
+[3/6/2026, 2:35:23 p. m.] ✓ Descripción obtenida: "QA Analyst - 100% Remoto - LATAM" (2233 chars)
+[3/6/2026, 2:35:26 p. m.] ✓ Descripción obtenida: "Líder Técnico Soluciones Microsoft, Automatización e IA Aplicada" (6233 chars)
+[3/6/2026, 2:35:30 p. m.] ✓ Descripción obtenida: "Test this thing" (459 chars)
+[3/6/2026, 2:35:34 p. m.] ✓ Descripción obtenida: "Analista de Procesos y Automatización" (5399 chars)
+[3/6/2026, 2:35:38 p. m.] ✓ Descripción obtenida: "Analistas de pruebas QA-automatización Medellín" (5817 chars)
+[3/6/2026, 2:35:42 p. m.] ✓ Descripción obtenida: "Senior AQA Test Engineer (Playwright)" (3535 chars)
+[3/6/2026, 2:35:46 p. m.] ✓ Descripción obtenida: "Analista Senior de Pruebas de Software" (3671 chars)
+[3/6/2026, 2:35:50 p. m.] ✓ Descripción obtenida: "QA Engineer" (8005 chars)
+[3/6/2026, 2:35:54 p. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[3/6/2026, 2:35:58 p. m.] ✓ Descripción obtenida: "QA Engineer" (3455 chars)
+[3/6/2026, 2:36:03 p. m.] ✓ Descripción obtenida: "QA Engineer" (15001 chars)
+[3/6/2026, 2:36:07 p. m.] ✓ Descripción obtenida: "Quality Engineer, AI-Native" (10595 chars)
+[3/6/2026, 2:36:11 p. m.] ✓ Descripción obtenida: "Quality Assurance Test Engineer" (2949 chars)
+[3/6/2026, 2:36:15 p. m.] ✓ Descripción obtenida: "SQA Engineer" (9443 chars)
+[3/6/2026, 2:36:19 p. m.] ✓ Descripción obtenida: "Mid-Level Software Quality Assurance Engineer" (8669 chars)
+[3/6/2026, 2:36:22 p. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <3f62f1e6-13fc-77c9-b20f-ea84e988fb62@gmail.com>
+[3/6/2026, 2:46:24 p. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[3/6/2026, 2:48:31 p. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 73 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[3/6/2026, 2:48:31 p. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[3/6/2026, 2:48:31 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[3/6/2026, 2:50:41 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[3/6/2026, 2:52:51 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[3/6/2026, 2:54:59 p. m.] ✓ Página 1/3: 59 cards para "Test Automation Engineer" en Colombia
+[3/6/2026, 2:57:07 p. m.] ✓ Página 2/3: 59 cards para "Test Automation Engineer" en Colombia
+[3/6/2026, 2:59:16 p. m.] ✓ Página 3/3: 59 cards para "Test Automation Engineer" en Colombia
+[3/6/2026, 3:01:25 p. m.] ✓ Página 1/3: 53 cards para "SDET" en Colombia
+[3/6/2026, 3:03:35 p. m.] ✓ Página 2/3: 53 cards para "SDET" en Colombia
+[3/6/2026, 3:05:44 p. m.] ✓ Página 3/3: 53 cards para "SDET" en Colombia
+[3/6/2026, 3:07:53 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[3/6/2026, 3:10:01 p. m.] ✓ Página 2/3: 60 cards para "Automatización de pruebas" en Colombia
+[3/6/2026, 3:12:12 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[3/6/2026, 3:14:20 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en Colombia
+[3/6/2026, 3:16:30 p. m.] ✓ Página 2/3: 70 cards para "Analista QA" en Colombia
+[3/6/2026, 3:18:41 p. m.] ✓ Página 3/3: 70 cards para "Analista QA" en Colombia
+[3/6/2026, 3:20:49 p. m.] ✓ Página 1/3: 41 cards para "API Testing" en Colombia
+[3/6/2026, 3:22:59 p. m.] ✓ Página 2/3: 41 cards para "API Testing" en Colombia
+[3/6/2026, 3:25:09 p. m.] ✓ Página 3/3: 41 cards para "API Testing" en Colombia
+[3/6/2026, 3:27:18 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[3/6/2026, 3:29:28 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[3/6/2026, 3:31:36 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[3/6/2026, 3:33:45 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en Colombia
+[3/6/2026, 3:35:55 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en Colombia
+[3/6/2026, 3:38:04 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en Colombia
+[3/6/2026, 3:40:12 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en Colombia
+[3/6/2026, 3:42:23 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en Colombia
+[3/6/2026, 3:44:33 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en Colombia
+[3/6/2026, 3:46:42 p. m.] ✓ Página 1/3: 68 cards para "QA Engineer" en United States
+[3/6/2026, 3:48:53 p. m.] ✓ Página 2/3: 69 cards para "QA Engineer" en United States
+[3/6/2026, 3:51:01 p. m.] ✓ Página 3/3: 69 cards para "QA Engineer" en United States
+[3/6/2026, 3:53:11 p. m.] ✓ Página 1/3: 70 cards para "Test Automation Engineer" en United States
+[3/6/2026, 3:55:20 p. m.] ✓ Página 2/3: 70 cards para "Test Automation Engineer" en United States
+[3/6/2026, 3:57:30 p. m.] ✓ Página 3/3: 70 cards para "Test Automation Engineer" en United States
+[3/6/2026, 3:59:39 p. m.] ✓ Página 1/3: 70 cards para "SDET" en United States
+[3/6/2026, 4:01:49 p. m.] ✓ Página 2/3: 70 cards para "SDET" en United States
+[3/6/2026, 4:03:59 p. m.] ✓ Página 3/3: 70 cards para "SDET" en United States
+[3/6/2026, 4:06:08 p. m.] ✓ Página 1/3: 69 cards para "Automatización de pruebas" en United States
+[3/6/2026, 4:08:20 p. m.] ✓ Página 2/3: 69 cards para "Automatización de pruebas" en United States
+[3/6/2026, 4:10:28 p. m.] ✓ Página 3/3: 69 cards para "Automatización de pruebas" en United States
+[3/6/2026, 4:12:36 p. m.] ✓ Página 1/3: 70 cards para "Analista QA" en United States
+[3/6/2026, 4:14:46 p. m.] ✓ Página 2/3: 68 cards para "Analista QA" en United States
+[3/6/2026, 4:16:55 p. m.] ✓ Página 3/3: 68 cards para "Analista QA" en United States
+[3/6/2026, 4:19:04 p. m.] ✓ Página 1/3: 70 cards para "API Testing" en United States
+[3/6/2026, 4:21:14 p. m.] ✓ Página 2/3: 70 cards para "API Testing" en United States
+[3/6/2026, 4:23:23 p. m.] ✓ Página 3/3: 70 cards para "API Testing" en United States
+[3/6/2026, 4:25:33 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en United States
+[3/6/2026, 4:27:43 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en United States
+[3/6/2026, 4:29:53 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en United States
+[3/6/2026, 4:32:02 p. m.] ✓ Página 1/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 4:34:12 p. m.] ✓ Página 2/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 4:36:21 p. m.] ✓ Página 3/3: 70 cards para "QA Manual" en United States
+[3/6/2026, 4:38:29 p. m.] ✓ Página 1/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 4:40:39 p. m.] ✓ Página 2/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 4:42:49 p. m.] ✓ Página 3/3: 70 cards para "Pruebas funcionales" en United States
+[3/6/2026, 4:42:55 p. m.] ✓ Descripción obtenida: "QA Automation Engineer" (10195 chars)
+[3/6/2026, 4:42:58 p. m.] ✓ Descripción obtenida: "Ingeniero de QA de Software - Trabajo Remoto" (5243 chars)
+[3/6/2026, 4:43:02 p. m.] ✓ Descripción obtenida: "QA Automation Engineer" (8999 chars)
+[3/6/2026, 4:43:05 p. m.] ✓ Descripción obtenida: "QA Functional Tester Bilingüe" (5025 chars)
+[3/6/2026, 4:43:09 p. m.] ✓ Descripción obtenida: "Quality Assurance Functional Associate" (8225 chars)
+[3/6/2026, 4:43:12 p. m.] ✓ Descripción obtenida: "Ingeniero de Desarrollo de Software en Pruebas - Trabajo Remoto" (5013 chars)
+[3/6/2026, 4:43:16 p. m.] ✓ Descripción obtenida: "Analistas de pruebas semi senior y senior" (5817 chars)
+[3/6/2026, 4:43:20 p. m.] ✓ Descripción obtenida: "Qa automation // remoto todo Colombia" (4389 chars)
+[3/6/2026, 4:43:24 p. m.] ✓ Descripción obtenida: "Analista de Pruebas y Soporte DevOps" (5759 chars)
+[3/6/2026, 4:43:28 p. m.] ✓ Descripción obtenida: "Test Coordinator (Manual)" (8415 chars)
+[3/6/2026, 4:43:32 p. m.] ✓ Descripción obtenida: "Líder Técnico Soluciones Microsoft, Automatización e IA Aplicada" (6233 chars)
+[3/6/2026, 4:43:36 p. m.] ✓ Descripción obtenida: "Test this thing" (459 chars)
+[3/6/2026, 4:43:39 p. m.] ✓ Descripción obtenida: "Analista de Procesos y Automatización" (5399 chars)
+[3/6/2026, 4:43:44 p. m.] ✓ Descripción obtenida: "QA Engineer - Genexus" (2543 chars)
+[3/6/2026, 4:43:48 p. m.] ✓ Descripción obtenida: "QA Engineer" (8005 chars)
+[3/6/2026, 4:43:52 p. m.] ✓ Descripción obtenida: "IT Quality Assurance Engineer" (11897 chars)
+[3/6/2026, 4:43:56 p. m.] ✓ Descripción obtenida: "QA Engineer" (3455 chars)
+[3/6/2026, 4:44:00 p. m.] ✓ Descripción obtenida: "QA Engineer" (15001 chars)
+[3/6/2026, 4:44:04 p. m.] ✓ Descripción obtenida: "Quality Engineer, AI-Native" (10595 chars)
+[3/6/2026, 4:44:07 p. m.] ✓ Descripción obtenida: "Quality Assurance Test Engineer" (2949 chars)
+[3/6/2026, 4:44:11 p. m.] ✓ Email enviado a andersonorjuela@hotmail.es,johannamchaves@gmail.com. ID: <69a86269-6777-93b1-f747-0d89b5be32d9@gmail.com>
+[3/6/2026, 5:17:43 p. m.] ✓ Sesión LinkedIn cargada desde linkedin-session.json
+[3/6/2026, 5:19:50 p. m.] ✓ DEBUG [QA Engineer / Colombia] URL: https://www.linkedin.com/jobs/search/?keywords=QA%20Engineer&location=Colombia&f_TPR=r432000&f_WT=1%2C2%2C3&start=0&position=1&pageNum=0 | Title: 74 QA Engineer jobs in Colombia | Screenshot: /Users/anderson/Desktop/claude/qa-framework/debug-screenshot.png
+[3/6/2026, 5:19:50 p. m.] ✓ DEBUG selectors: {"jobSearchCard":70,"jobCardContainer":0,"dataJobId":0,"scaffoldListItem":0,"jobsResultsItem":0}
+[3/6/2026, 5:19:50 p. m.] ✓ Página 1/3: 70 cards para "QA Engineer" en Colombia
+[3/6/2026, 5:22:00 p. m.] ✓ Página 2/3: 70 cards para "QA Engineer" en Colombia
+[3/6/2026, 5:24:09 p. m.] ✓ Página 3/3: 70 cards para "QA Engineer" en Colombia
+[3/6/2026, 5:26:19 p. m.] ✓ Página 1/3: 57 cards para "Test Automation Engineer" en Colombia
+[3/6/2026, 5:28:28 p. m.] ✓ Página 2/3: 57 cards para "Test Automation Engineer" en Colombia
+[3/6/2026, 5:30:38 p. m.] ✓ Página 3/3: 57 cards para "Test Automation Engineer" en Colombia
+[3/6/2026, 5:32:48 p. m.] ✓ Página 1/3: 50 cards para "SDET" en Colombia
+[3/6/2026, 5:34:57 p. m.] ✓ Página 2/3: 50 cards para "SDET" en Colombia
+[3/6/2026, 5:37:07 p. m.] ✓ Página 3/3: 50 cards para "SDET" en Colombia
+[3/6/2026, 5:39:16 p. m.] ✓ Página 1/3: 70 cards para "Automatización de pruebas" en Colombia
+[3/6/2026, 5:41:25 p. m.] ✓ Página 2/3: 70 cards para "Automatización de pruebas" en Colombia
+[3/6/2026, 5:43:35 p. m.] ✓ Página 3/3: 70 cards para "Automatización de pruebas" en Colombia
+[3/6/2026, 5:45:43 p. m.] ✓ Página 1/3: 69 cards para "Analista QA" en Colombia
+[3/6/2026, 5:47:53 p. m.] ✓ Página 2/3: 69 cards para "Analista QA" en Colombia
+[3/6/2026, 5:50:04 p. m.] ✓ Página 3/3: 69 cards para "Analista QA" en Colombia
+[3/6/2026, 5:52:14 p. m.] ✓ Página 1/3: 39 cards para "API Testing" en Colombia
+[3/6/2026, 5:54:24 p. m.] ✓ Página 2/3: 39 cards para "API Testing" en Colombia
+[3/6/2026, 5:56:32 p. m.] ✓ Página 3/3: 39 cards para "API Testing" en Colombia
+[3/6/2026, 5:58:41 p. m.] ✓ Página 1/3: 70 cards para "AI Testing" en Colombia
+[3/6/2026, 6:00:52 p. m.] ✓ Página 2/3: 70 cards para "AI Testing" en Colombia
+[3/6/2026, 6:03:01 p. m.] ✓ Página 3/3: 70 cards para "AI Testing" en Colombia
+[3/6/2026, 6:05:11 p. m.] ✓ Página 1/3: 69 cards para "QA Manual" en Colombia
+[3/6/2026, 6:07:22 p. m.] ✓ Página 2/3: 69 cards para "QA Manual" en Colombia
+[3/6/2026, 6:09:34 p. m.] ✓ Página 3/3: 69 cards para "QA Manual" en Colombia
+[3/6/2026, 6:11:42 p. m.] ✓ Página 1/3: 69 cards para "Pruebas funcionales" en Colombia
+[3/6/2026, 6:13:52 p. m.] ✓ Página 2/3: 69 cards para "Pruebas funcionales" en Colombia
