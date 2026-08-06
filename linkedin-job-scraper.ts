@@ -699,6 +699,7 @@ function startScheduler() {
       cwd: path.dirname(scriptPath),
       stdio: 'inherit',
       env: process.env,
+      shell: true,
     });
     child.on('close', () => { isSearchRunning = false; });
     child.on('error', (err) => {
