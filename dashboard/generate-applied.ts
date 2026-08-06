@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import type { AppliedJob } from '../utils/types.js';
 
 const ROOT     = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -218,6 +218,6 @@ render();
 }
 
 // Run standalone
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   generateAppliedDashboard();
 }

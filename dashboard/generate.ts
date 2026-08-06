@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import { loadJobs } from '../utils/store.js';
 import { scoreJob, scoreStars } from '../utils/scoring.js';
 
@@ -234,6 +234,6 @@ render();
 }
 
 // Run standalone: npx tsx dashboard/generate.ts
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   generateDashboard();
 }

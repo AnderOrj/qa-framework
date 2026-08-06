@@ -26,10 +26,10 @@ export const DELAYS = {
 
 export const QA_KEYWORDS = [
   // English
-  'qa', 'quality assurance', 'quality engineer', 'test', 'testing',
-  'automation', 'tester', 'sdet',
+  'qa', 'quality assurance', 'quality engineer', 'test engineer', 'testing',
+  'test automation', 'qa automation', 'automation qa', 'tester', 'sdet',
   // Spanish
-  'automatización', 'automatizacion', 'pruebas', 'calidad de software',
+  'automatización de pruebas', 'automatizacion de pruebas', 'pruebas', 'calidad de software',
   'control de calidad', 'analista qa', 'ingeniero qa', 'qa engineer',
 ] as const;
 

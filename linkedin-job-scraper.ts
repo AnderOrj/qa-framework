@@ -2,7 +2,7 @@ import type { Browser, BrowserContext, Page } from 'playwright';
 import { chromium } from 'playwright';
 import * as fs from 'fs';
 import * as path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import { spawn } from 'child_process';
 import * as dotenv from 'dotenv';
 import cron from 'node-cron';
@@ -64,11 +64,12 @@ class LinkedInJobScraper {
 
     const workTypes = remoteOnly ? '2' : '1%2C2%2C3';
     const maxPages = Number(process.env.MAX_PAGES_PER_SEARCH ?? 3);
+    const daysBack = Number(process.env.SEARCH_DAYS_BACK ?? 7);
     const allExtracted: Job[] = [];
 
     for (let pageIdx = 0; pageIdx < maxPages; pageIdx++) {
       const start = pageIdx * 25;
-      const searchUrl = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(keyword)}&location=${encodeURIComponent(location)}&f_TPR=r432000&f_WT=${workTypes}&start=${start}`;
+      const searchUrl = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(keyword)}&location=${encodeURIComponent(location)}&f_TPR=r${daysBack * 86400}&f_WT=${workTypes}&start=${start}`;
       const t0 = Date.now();
       await this.page.goto(searchUrl, { waitUntil: 'domcontentloaded' });
       const elapsed = Date.now() - t0;
@@ -750,7 +751,7 @@ async function main() {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch(console.error);
 }
 
