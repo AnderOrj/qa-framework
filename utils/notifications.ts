@@ -15,6 +15,19 @@ export async function sendEmail(subject: string, html: string): Promise<void> {
   await sendEmailTo(to, subject, html);
 }
 
+function htmlToText(html: string): string {
+  return html
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|div|tr|td|li)>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 export async function sendEmailTo(to: string, subject: string, html: string): Promise<void> {
   const host = process.env.SMTP_HOST;
   const user = process.env.SMTP_USER;
@@ -34,7 +47,7 @@ export async function sendEmailTo(to: string, subject: string, html: string): Pr
   const maxRetries = 3;
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      const info = await transporter.sendMail({ from: `"LinkedIn Scraper QA" <${user}>`, to, subject, html });
+      const info = await transporter.sendMail({ from: `"Anderson Orjuela" <${user}>`, to, subject, html, text: htmlToText(html) });
       logInfo(`Email enviado a ${to}. ID: ${info.messageId}`);
       return;
     } catch (error) {
