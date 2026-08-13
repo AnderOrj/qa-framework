@@ -82,7 +82,7 @@ class LinkedInJobScraper {
         throw new Error('SESSION_EXPIRED: LinkedIn redirigió al login — sesión expirada');
       }
 
-      await this.page.waitForSelector('.job-search-card, .job-card-container', { timeout: TIMEOUTS.jobCard }).catch(() => {});
+      await this.page.waitForSelector('div[data-entity-urn^="urn:li:jobPosting:"]', { timeout: TIMEOUTS.jobCard }).catch(() => {});
       await randomDelay(DELAYS.page.min / 2 * slowFactor, DELAYS.page.max / 2 * slowFactor);
       await this.dismissModal();
       await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
@@ -94,28 +94,23 @@ class LinkedInJobScraper {
         await this.debugPage(`${keyword} / ${location}`);
       }
 
-      const pageJobs = await this.page.$$eval('.job-search-card, .job-card-container', (cards) =>
+      const pageJobs = await this.page.$$eval('div[data-entity-urn^="urn:li:jobPosting:"]', (cards) =>
         cards.map((card) => {
-          const linkEl = (card.querySelector('a.base-card__full-link') as HTMLAnchorElement)
-                      || (card.querySelector('a.job-card-list__title') as HTMLAnchorElement)
+          const linkEl = (card.querySelector('a[data-tracking-control-name="public_jobs_jserp-result_search-card"]') as HTMLAnchorElement)
                       || (card.querySelector('a[href*="/jobs/view/"]') as HTMLAnchorElement);
           const link = (linkEl?.href || '').split('?')[0] ?? '';
+          const title = linkEl?.textContent?.trim() || '';
 
-          const titleEl = card.querySelector('.artdeco-entity-lockup__title')
-                       || card.querySelector('a.job-card-list__title--link')
-                       || card.querySelector('.base-search-card__title')
-                       || card.querySelector('.job-card-list__title');
-          const title = titleEl?.textContent?.trim() || '';
-
-          const companyEl = card.querySelector('.base-search-card__subtitle')
-                         || card.querySelector('.job-card-container__primary-description')
-                         || card.querySelector('.artdeco-entity-lockup__subtitle');
-          const company = companyEl?.textContent?.trim() || '';
-
-          const locationEl = card.querySelector('.job-search-card__location')
-                          || card.querySelector('.job-card-container__metadata-item')
-                          || card.querySelector('.artdeco-entity-lockup__caption');
-          const location = locationEl?.textContent?.trim() || '';
+          // LinkedIn's card markup uses build-hashed CSS classes (unstable across deploys),
+          // so company/location are parsed positionally from innerText instead:
+          // [title (dup)], company, location, [optional "Be an early applicant"/"Viewed"], time
+          const lines = ((card as HTMLElement).innerText || '')
+            .split('\n')
+            .map(s => s.trim())
+            .filter(Boolean)
+            .filter(l => l !== title);
+          const company = lines[0] || '';
+          const location = lines[1] || '';
 
           const timeEl = card.querySelector('time');
           const datePosted = timeEl?.getAttribute('datetime') || timeEl?.textContent?.trim() || '';
@@ -229,13 +224,12 @@ class LinkedInJobScraper {
     await this.page.screenshot({ path: screenshotPath, fullPage: false });
     logInfo(`DEBUG [${label}] URL: ${url} | Title: ${title} | Screenshot: ${screenshotPath}`);
     const counts = await this.page.evaluate(() => ({
-      jobSearchCard:    document.querySelectorAll('.job-search-card').length,
-      jobCardContainer: document.querySelectorAll('.job-card-container').length,
-      dataJobId:        document.querySelectorAll('[data-job-id]').length,
+      entityUrnCards: document.querySelectorAll('div[data-entity-urn^="urn:li:jobPosting:"]').length,
+      jobViewLinks:   document.querySelectorAll('a[href*="/jobs/view/"]').length,
     }));
     logInfo(`DEBUG selectors: ${JSON.stringify(counts)}`);
     // Alerta temprana si ningún selector de cards está encontrando resultados
-    if (counts.jobSearchCard === 0 && counts.jobCardContainer === 0 && counts.dataJobId === 0) {
+    if (counts.entityUrnCards === 0 && counts.jobViewLinks === 0) {
       logInfo(`⚠️  ALERTA: Todos los selectores de job-cards retornan 0 — posible cambio de DOM en LinkedIn`);
     }
   }
