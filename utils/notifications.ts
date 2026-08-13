@@ -115,6 +115,19 @@ async function sendWhatsApp(messages: string[]): Promise<void> {
 export async function notifyNewJobs(jobs: Job[], label: string): Promise<void> {
   if (jobs.length === 0) {
     console.log(`[${new Date().toLocaleTimeString()}] No new jobs found.`);
+    const ts = new Date().toLocaleString('es-CO');
+    await sendEmail(
+      `📭 ${label} — sin novedades`,
+      `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;max-width:600px;margin:auto;background:#fff;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+        <div style="background:#64748b;color:#fff;padding:14px 20px">
+          <div style="font-size:16px;font-weight:700">📭 Sin ofertas nuevas</div>
+          <div style="font-size:12px;opacity:0.85;margin-top:2px">${ts}</div>
+        </div>
+        <div style="padding:20px;font-size:13px;color:#475569;line-height:1.6">
+          El scraper corrió correctamente (búsqueda: <strong>${label}</strong>) pero no encontró ofertas nuevas esta vez.<br>Todo funcionando con normalidad — este correo confirma que la corrida se completó.
+        </div>
+      </div>`
+    );
     return;
   }
 
