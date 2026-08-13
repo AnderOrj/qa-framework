@@ -485,9 +485,10 @@ async function runJobSearch() {
           return true;
         });
 
+    const label = isFirstRun ? 'PRIMERA EJECUCIÓN - TODAS LAS OFERTAS' : 'Nuevas ofertas QA';
+    await notifyNewJobs(jobsToNotify, label);
+
     if (jobsToNotify.length > 0) {
-      const label = isFirstRun ? 'PRIMERA EJECUCIÓN - TODAS LAS OFERTAS' : 'Nuevas ofertas QA';
-      await notifyNewJobs(jobsToNotify, label);
       markNotified(jobsToNotify.map(j => j.link));
 
       // Cover letters solo pa jobs nuevos ⭐⭐⭐ (max 3 por ejecución, no en primera corrida)
